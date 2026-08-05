@@ -16,6 +16,7 @@ Restringido a lects ROMANCE. NO toca Germánico ni Eslavo.
 
 Uso: .venv/bin/python ingest/build_correspondences.py
 """
+import json
 import math
 from collections import defaultdict, Counter
 import psycopg
@@ -81,12 +82,11 @@ def main():
 
     # ---- crypto: autoinformación por forma (con logp GLOBAL) ----
     ncry = 0
-    for fid, (sid, lect, classes) in skel.items():
-        si = sum(logp[c] for c in classes)
-        cur.execute("INSERT INTO crypto(form_id,skeleton_id,feature_vectors,self_info) VALUES(%s,%s,%s,%s)",
-                    (fid, sid, psycopg.types.json.Json({"classes": classes}), round(si, 4)))
-        ncry += 1
-        if ncry % 20000 == 0: conn.commit()
+    with cur.copy("COPY crypto(form_id,skeleton_id,feature_vectors,self_info) FROM STDIN") as cp:
+        for fid, (sid, lect, classes) in skel.items():
+            si = sum(logp[c] for c in classes)
+            cp.write_row((fid, sid, json.dumps({"classes": classes}), round(si, 4)))
+            ncry += 1
     conn.commit()
 
     # ---- correspondencias: alinear pares de reflejos dentro de cada cognate_set DE ESTA FAMILIA ----
@@ -119,11 +119,10 @@ def main():
                 npairs += 1
 
     ncorr = 0
-    for (frm, to, a, b, env, ct), cnt in agg.items():
-        cur.execute("""INSERT INTO correspondence(from_lect,to_lect,a,b,env,count,corr_type,crosses_macrosystem,family)
-                       VALUES(%s,%s,%s,%s,%s,%s,%s,false,%s)""", (frm, to, a, b, env, cnt, ct, FAM_NAME))
-        ncorr += 1
-        if ncorr % 5000 == 0: conn.commit()
+    with cur.copy("COPY correspondence(from_lect,to_lect,a,b,env,count,corr_type,crosses_macrosystem,family) FROM STDIN") as cp:
+        for (frm, to, a, b, env, ct), cnt in agg.items():
+            cp.write_row((frm, to, a, b, env, cnt, ct, False, FAM_NAME))
+            ncorr += 1
     conn.commit()
     print(f"OK · crypto={ncry:,} formas · pares alineados={npairs:,} · correspondencias={ncorr:,} filas")
     cur.close(); conn.close()

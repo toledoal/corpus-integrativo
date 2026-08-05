@@ -99,6 +99,8 @@ def main():
         cur.execute("INSERT INTO ancestry_edge(child_lect,parent_lect,kind,status,crosses_macrosystem,source_id) "
                     "VALUES(%s,%s,%s,%s,%s,'kaikki')", (child, parent, kind, status, msc != msp))
 
+    # staging para forms (necesita ON CONFLICT DO NOTHING); senses/etimología van directo por COPY
+    cur.execute("CREATE TEMP TABLE _f(id TEXT, lect_id TEXT, ipa_raw TEXT, orthography TEXT, etymology_text TEXT) ON COMMIT DROP")
     total_forms = total_sense = total_ety = 0
     for langname in args.languages:
         code = NAME2CODE.get(langname, langname.lower())
@@ -106,6 +108,7 @@ def main():
         path = os.path.join(KDIR, f"{langname}.jsonl")
         if not os.path.isfile(path):
             print(f"!! no existe {path}"); continue
+        form_buf, sense_buf, ety_buf = [], [], []
         n = 0
         for line in open(path, encoding="utf-8"):
             d = json.loads(line)
@@ -115,12 +118,10 @@ def main():
             word = d.get("word"); pos = d.get("pos") or "x"
             fid = f"kaikki:{code}:{word}:{pos}"
             ipa = (d.get("ipa") or [None])[0]
-            cur.execute("INSERT INTO form(id,lect_id,ipa_raw,orthography,etymology_text,source_id) "
-                        "VALUES(%s,%s,%s,%s,%s,'kaikki') ON CONFLICT(id) DO NOTHING", (fid, code, ipa, word, ety))
-            total_forms += 1
+            form_buf.append((fid, code, ipa, word, ety))
             for g in (d.get("gloss") or []):
-                cur.execute("INSERT INTO sense(form_id,gloss) VALUES(%s,%s)", (fid, g)); total_sense += 1
-            # etimología estructurada (si la hay): cadena de plantillas → aristas de lengua + de palabra
+                sense_buf.append((fid, g))
+            # etimología estructurada: cadena de plantillas → aristas de lengua (inline) + de palabra (buffer)
             for t in (ety_t or []):
                 nn = t.get("n"); a = t.get("a") or {}
                 kind = KIND.get(nn)
@@ -133,17 +134,28 @@ def main():
                 # saltar para no crear lects/aristas basura con coma o espacio.
                 if any(bad in parent_code for bad in (",", " ")) or "," in child_code:
                     continue
-                ensure_lect(child_code); ensure_lect(parent_code)
+                ensure_lect(child_code); ensure_lect(parent_code)     # cur.execute inline (sin COPY abierto)
                 edge(child_code, parent_code, kind)
-                cur.execute("INSERT INTO form_etymology(child_form_id,parent_form,parent_lect,kind,gloss,source_id) "
-                            "VALUES(%s,%s,%s,%s,%s,'kaikki')",
-                            (fid, parent_form, parent_code, kind, a.get("5") or a.get("t")))
-                total_ety += 1
+                ety_buf.append((fid, parent_form, parent_code, kind, a.get("5") or a.get("t")))
             n += 1
             if args.limit and n >= args.limit:
                 break
-            if total_forms % 5000 == 0:
-                conn.commit(); print(f"  … {langname}: {n} palabras")
+        # --- flush del archivo vía COPY (forms por staging + ON CONFLICT; senses/etimología directo) ---
+        cur.execute("TRUNCATE _f")
+        with cur.copy("COPY _f(id,lect_id,ipa_raw,orthography,etymology_text) FROM STDIN") as cp:
+            for r in form_buf:
+                cp.write_row(r)
+        cur.execute("INSERT INTO form(id,lect_id,ipa_raw,orthography,etymology_text,source_id) "
+                    "SELECT DISTINCT ON (id) id,lect_id,ipa_raw,orthography,etymology_text,'kaikki' FROM _f "
+                    "ON CONFLICT(id) DO NOTHING")
+        with cur.copy("COPY sense(form_id,gloss) FROM STDIN") as cp:
+            for r in sense_buf:
+                cp.write_row(r)
+        with cur.copy("COPY form_etymology(child_form_id,parent_form,parent_lect,kind,gloss,source_id) FROM STDIN") as cp:
+            for fid, pform, pcode, knd, gl in ety_buf:
+                cp.write_row((fid, pform, pcode, knd, gl, "kaikki"))
+        total_forms += len(form_buf); total_sense += len(sense_buf); total_ety += len(ety_buf)
+        conn.commit()
         print(f"· {langname}: {n} palabras con etimología")
     conn.commit()
     print(f"OK · formas={total_forms} · sentidos={total_sense} · aristas-palabra={total_ety} · "

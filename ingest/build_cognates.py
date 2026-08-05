@@ -71,25 +71,26 @@ def main():
             if v not in GENERIC:                    # solo cuenta variedades ESPECÍFICAS
                 variety[k][v] += 1
 
-    ncog = nmem = 0
+    # se borraron los sets de la familia al inicio → inserción fresca vía COPY (sets primero, luego miembros).
+    set_rows = {}                                   # setid -> fila (dedup por si trunca a 200)
+    mem_rows = []
     for key, forms in members.items():
         if len(forms) < 2:                          # cognate = ≥2 reflejos
             continue
         setid = f"cog:{FAM_NAME}:{key}"[:200]       # familia en la CLAVE → sin colisión entre familias
         lect, form = key.split(":", 1)
         anc = variety[key].most_common(1)[0][0] if variety[key] else lect   # variedad modal, o el genérico
-        cur.execute("INSERT INTO cognate_set(id,label,source,family,ancestor_lect) "
-                    "VALUES(%s,%s,'kaikki-etymology',%s,%s) "
-                    "ON CONFLICT(id) DO UPDATE SET family=EXCLUDED.family, ancestor_lect=EXCLUDED.ancestor_lect",
-                    (setid, f"{lect} *{form}*", FAM_NAME, anc))
-        ncog += 1
+        set_rows[setid] = (setid, f"{lect} *{form}*", "kaikki-etymology", FAM_NAME, anc)
         for fid in forms:
-            cur.execute("INSERT INTO cognate_member(cognate_set_id,form_id) VALUES(%s,%s)", (setid, fid))
-            nmem += 1
-        if ncog % 5000 == 0:
-            conn.commit(); print(f"  … {ncog} sets")
+            mem_rows.append((setid, fid))
+    with cur.copy("COPY cognate_set(id,label,source,family,ancestor_lect) FROM STDIN") as cp:
+        for r in set_rows.values():
+            cp.write_row(r)
+    with cur.copy("COPY cognate_member(cognate_set_id,form_id) FROM STDIN") as cp:
+        for r in mem_rows:
+            cp.write_row(r)
     conn.commit()
-    print(f"OK · cognate_sets={ncog:,} · miembros={nmem:,}")
+    print(f"OK · cognate_sets={len(set_rows):,} · miembros={len(mem_rows):,}")
     cur.close(); conn.close()
 
 

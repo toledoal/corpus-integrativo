@@ -34,16 +34,16 @@ def main():
     conn.commit()
     cur.execute("SELECT count(*) FROM form WHERE is_proper"); nprop = cur.fetchone()[0]
 
-    # core_valid: subsecuencia
+    # core_valid: subsecuencia. Cálculo en Python + UNA sola UPDATE por temp table (antes: 1 UPDATE por fila).
     cur.execute("SELECT id, cons_skeleton, core_skeleton FROM skeleton WHERE core_skeleton IS NOT NULL")
     rows = cur.fetchall(); nvalid = ninval = 0
-    for sid, cons, core in rows:
-        ok = bool(cons) and is_subseq(core, cons)
-        cur.execute("UPDATE skeleton SET core_valid=%s WHERE id=%s", (ok, sid))
-        if ok:
-            nvalid += 1
-        else:
-            ninval += 1
+    cur.execute("CREATE TEMP TABLE _cv(id TEXT PRIMARY KEY, core_valid BOOLEAN) ON COMMIT DROP")
+    with cur.copy("COPY _cv(id, core_valid) FROM STDIN") as cp:
+        for sid, cons, core in rows:
+            ok = bool(cons) and is_subseq(core, cons)
+            cp.write_row((sid, ok))
+            nvalid += ok; ninval += (not ok)
+    cur.execute("UPDATE skeleton s SET core_valid=t.core_valid FROM _cv t WHERE s.id=t.id")
     conn.commit()
     print(f"OK · is_proper marcados={nprop:,}  ·  core_valid=✔{nvalid:,} / �’sospechoso'{ninval:,} "
           f"({100*ninval/max(1,nvalid+ninval):.1f}% marcado sospechoso, CONSERVADO)")

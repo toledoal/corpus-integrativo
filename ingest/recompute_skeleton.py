@@ -91,28 +91,30 @@ def main():
     cur.execute("SELECT id, lect_id, segments_raw FROM form WHERE segments_raw IS NOT NULL")
     rows = cur.fetchall()
     lineage_cache = {}
-    n = 0
+    # 1) computar esqueletos + upsert de linajes (códigos únicos, pocos miles)
+    computed = []
     for fid, lect, segs in rows:
         cons, code, vowels, cv, compound = compute(segs or [])
         if not cons and not vowels:
             continue
-        lin = None
-        if code:
-            if code not in lineage_cache:
-                cur.execute("INSERT INTO skeleton_lineage(code) VALUES(%s) ON CONFLICT(code) DO UPDATE SET code=EXCLUDED.code RETURNING id", (code,))
-                lineage_cache[code] = cur.fetchone()[0]
-            lin = lineage_cache[code]
-        cur.execute(
-            "INSERT INTO skeleton(id,form_id,stage_lect_id,cons_skeleton,core_skeleton,code,skeleton_lineage_id,vowels,cv_template,is_compound) "
-            "VALUES(%s,%s,%s,%s,NULL,%s,%s,%s,%s,%s) ON CONFLICT(id) DO UPDATE SET "
-            "cons_skeleton=EXCLUDED.cons_skeleton,code=EXCLUDED.code,skeleton_lineage_id=EXCLUDED.skeleton_lineage_id,"
-            "vowels=EXCLUDED.vowels,cv_template=EXCLUDED.cv_template,is_compound=EXCLUDED.is_compound",
-            (f"SK:{fid}", fid, lect, cons, code, lin, vowels, cv, compound))
-        n += 1
-        if n % 5000 == 0:
-            conn.commit(); print(f"  … {n} esqueletos")
+        if code and code not in lineage_cache:
+            cur.execute("INSERT INTO skeleton_lineage(code) VALUES(%s) ON CONFLICT(code) DO UPDATE SET code=EXCLUDED.code RETURNING id", (code,))
+            lineage_cache[code] = cur.fetchone()[0]
+        computed.append((f"SK:{fid}", fid, lect, cons, code,
+                         lineage_cache.get(code) if code else None, vowels, cv, compound))
+    # 2) COPY a temp + UPSERT masivo (una sola sentencia; preserva core_skeleton existente)
+    cur.execute("""CREATE TEMP TABLE _sk(id TEXT, form_id TEXT, stage_lect_id TEXT, cons_skeleton TEXT, code TEXT,
+                   skeleton_lineage_id INT, vowels TEXT, cv_template TEXT, is_compound BOOLEAN) ON COMMIT DROP""")
+    with cur.copy("COPY _sk(id,form_id,stage_lect_id,cons_skeleton,code,skeleton_lineage_id,vowels,cv_template,is_compound) FROM STDIN") as cp:
+        for r in computed:
+            cp.write_row(r)
+    cur.execute("""INSERT INTO skeleton(id,form_id,stage_lect_id,cons_skeleton,code,skeleton_lineage_id,vowels,cv_template,is_compound)
+                   SELECT id,form_id,stage_lect_id,cons_skeleton,code,skeleton_lineage_id,vowels,cv_template,is_compound FROM _sk
+                   ON CONFLICT(id) DO UPDATE SET cons_skeleton=EXCLUDED.cons_skeleton,code=EXCLUDED.code,
+                     skeleton_lineage_id=EXCLUDED.skeleton_lineage_id,vowels=EXCLUDED.vowels,
+                     cv_template=EXCLUDED.cv_template,is_compound=EXCLUDED.is_compound""")
     conn.commit()
-    print(f"OK · esqueletos={n} · linajes(códigos únicos)={len(lineage_cache)}")
+    print(f"OK · esqueletos={len(computed):,} · linajes(códigos únicos)={len(lineage_cache):,}")
     cur.close(); conn.close()
 
 

@@ -34,30 +34,31 @@ def main():
                    WHERE fe.kind='prestamo' AND f.lect_id = ANY(%s) AND fe.parent_lect IS NOT NULL
                    ORDER BY fe.child_form_id, fe.id""", (MEMBERS,))
     edges = cur.fetchall()
-    nsub = 0
     cohorts = defaultdict(list)                  # (child_lect, source_lect) -> [form_id]
-    for form_id, source_lect, child_lect in edges:
-        cur.execute("""INSERT INTO substrate_edge(form_id,source_lect,probability,status)
-                       VALUES(%s,%s,1.0,'atestiguado')""", (form_id, source_lect))
-        cohorts[(child_lect, source_lect)].append(form_id)
-        nsub += 1
-        if nsub % 20000 == 0: conn.commit()
+    with cur.copy("COPY substrate_edge(form_id,source_lect,probability,status) FROM STDIN") as cp:
+        for form_id, source_lect, child_lect in edges:
+            cp.write_row((form_id, source_lect, 1.0, "atestiguado"))
+            cohorts[(child_lect, source_lect)].append(form_id)
+    nsub = len(edges)
     conn.commit()
 
-    ncoh = nmem = 0
+    # cohortes (≥3 préstamos del mismo origen) — sets primero, luego miembros, vía COPY
+    coh_rows, mem_rows = [], []
     for (child_lect, source_lect), fids in cohorts.items():
-        if len(fids) < 3:                        # cohorte = ≥3 préstamos del mismo origen (patrón, no anécdota)
+        if len(fids) < 3:
             continue
         cid = f"contact:{child_lect}<{source_lect}"
-        cur.execute("""INSERT INTO contact_cohort(id,pattern,note) VALUES(%s,%s,%s) ON CONFLICT(id) DO NOTHING""",
-                    (cid, f"{child_lect}←{source_lect}", f"{len(fids)} préstamos {source_lect}→{child_lect}"))
-        ncoh += 1
+        coh_rows.append((cid, f"{child_lect}←{source_lect}", f"{len(fids)} préstamos {source_lect}→{child_lect}"))
         for fid in fids:
-            cur.execute("INSERT INTO cohort_member(cohort_id,form_id) VALUES(%s,%s)", (cid, fid))
-            nmem += 1
-        if ncoh % 500 == 0: conn.commit()
+            mem_rows.append((cid, fid))
+    with cur.copy("COPY contact_cohort(id,pattern,note) FROM STDIN") as cp:
+        for r in coh_rows:
+            cp.write_row(r)
+    with cur.copy("COPY cohort_member(cohort_id,form_id) FROM STDIN") as cp:
+        for r in mem_rows:
+            cp.write_row(r)
     conn.commit()
-    print(f"OK · substrate_edge={nsub:,} · cohortes={ncoh:,} · miembros={nmem:,}")
+    print(f"OK · substrate_edge={nsub:,} · cohortes={len(coh_rows):,} · miembros={len(mem_rows):,}")
     cur.close(); conn.close()
 
 

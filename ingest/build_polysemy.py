@@ -32,13 +32,12 @@ def main():
     print(f"formas romance polisémicas: {len(rows):,}")
 
     nlink = 0
-    for form_id, lect, sids in rows:
-        pairs = combinations(sids, 2) if len(sids) <= FULL_PAIRS_MAX else zip(sids, sids[1:])
-        for a, b in pairs:
-            cur.execute("INSERT INTO polyseme_link(sense_a,sense_b,lect_id,relation) VALUES(%s,%s,%s,'same_form')",
-                        (a, b, lect))
-            nlink += 1
-        if nlink % 50000 < 50: conn.commit()
+    with cur.copy("COPY polyseme_link(sense_a,sense_b,lect_id,relation) FROM STDIN") as cp:
+        for form_id, lect, sids in rows:
+            pairs = combinations(sids, 2) if len(sids) <= FULL_PAIRS_MAX else zip(sids, sids[1:])
+            for a, b in pairs:
+                cp.write_row((a, b, lect, "same_form"))
+                nlink += 1
     conn.commit()
     print(f"OK · enlaces de polisemia={nlink:,}")
     cur.close(); conn.close()

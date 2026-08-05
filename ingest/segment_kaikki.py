@@ -74,19 +74,36 @@ def main():
     cur.execute("SELECT id, ipa_raw FROM form WHERE source_id='kaikki' AND ipa_raw IS NOT NULL AND segments_raw IS NULL")
     rows = cur.fetchall()
     print(f"formas Kaikki a segmentar: {len(rows):,}")
+    # bulk vía COPY por LOTES (solo un COPY activo a la vez): segmentos → tabla `segment`;
+    # segments_raw → temp table y una sola UPDATE al final. Memoria acotada por BATCH.
+    cur.execute("CREATE TEMP TABLE _sr(id TEXT PRIMARY KEY, segments_raw TEXT[]) ON COMMIT DROP")
+    BATCH = 20000
+    seg_buf, sr_buf = [], []
     n = nseg = 0
+
+    def flush():
+        if not sr_buf:
+            return
+        with cur.copy("COPY segment(form_id,pos,ipa,syllable,is_stressed) FROM STDIN") as c:
+            for r in seg_buf:
+                c.write_row(r)
+        with cur.copy("COPY _sr(id, segments_raw) FROM STDIN") as c:
+            for r in sr_buf:
+                c.write_row(r)
+        seg_buf.clear(); sr_buf.clear()
+
     for fid, ipa in rows:
         segs = segment(ipa)
         if not segs:
             continue
-        cur.execute("UPDATE form SET segments_raw=%s WHERE id=%s", ([x[0] for x in segs], fid))
+        sr_buf.append((fid, [x[0] for x in segs]))
         for pos, (seg, syl, stressed) in enumerate(segs):
-            cur.execute("INSERT INTO segment(form_id,pos,ipa,syllable,is_stressed) VALUES(%s,%s,%s,%s,%s)",
-                        (fid, pos, seg, syl, stressed))
-            nseg += 1
+            seg_buf.append((fid, pos, seg, syl, stressed)); nseg += 1
         n += 1
-        if n % 5000 == 0:
-            conn.commit(); print(f"  … {n:,} formas")
+        if len(sr_buf) >= BATCH:
+            flush()
+    flush()
+    cur.execute("UPDATE form f SET segments_raw=t.segments_raw FROM _sr t WHERE f.id=t.id")
     conn.commit()
     print(f"OK · formas segmentadas={n:,} · segmentos={nseg:,}")
     cur.close(); conn.close()
