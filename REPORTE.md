@@ -81,3 +81,22 @@
 
 **Siguiente:** correr las pruebas del usuario sobre estas capas, y —solo cuando Romance esté validado— **replicar a Germánico**
 (cargar Kaikki germánico + `CI_FAMILY=germanic ./ingest/build_analytics.sh`).
+
+## 6. Hardening / revisión de código profunda (para escalar a miles de lenguas)
+
+Dos revisores adversariales (performance + correctitud) + verificación propia → arreglos por prioridad de escala,
+todos con QA 26 OK/0 y en GitHub (`github.com/toledoal/corpus-integrativo`, commits por lotes):
+
+1. **Esquema reproducible** — `form_etymology` y 8 columnas que se creaban por `ALTER` en runtime ahora en `schema.sql`
+   (validado en DB limpia) + `db/migrate_0.4.sql`.
+2. **Aislamiento por familia** — tablas analíticas etiquetadas por `family` (id `cog:<familia>:…`, borrado por familia
+   vía CASCADE); `crypto.self_info` con unigrama global (idempotente). Probado: correr `italic` deja `romance` intacto.
+3. **11+ índices** en las columnas de borrado/join (form(source_id), correspondence, form_etymology(kind)…).
+4. **COPY masivo** en todos los loops calientes → pipeline analítico completo en ~30 s.
+5. **Config central** `ingest/config.py` (DSN + rutas por `CI_DSN`/`CI_KAIKKI_DIR`); cero hardcode en 19 archivos.
+6. **Coexistencia**: comma-codes saltados (22 lects-basura limpiados), `affix`/`core_skeleton` acotados por lengua,
+   rename de PK seguro en `reconcile_lects`, QA family-aware.
+7. **Alta ordenada de familia**: `ingest/add_family.sh` + `families.load_plan()` (protos con `--all`) +
+   `RUNBOOK-agregar-familia.md`. Germánico/Eslavo con su proto declarado (no cargados).
+8. **Afinado**: NW memoizado + short-circuit, selección de representante determinista (`ORDER BY`),
+   `recompute_skeleton --only-new` incremental.
