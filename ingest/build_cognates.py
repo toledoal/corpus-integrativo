@@ -1,0 +1,98 @@
+#!/usr/bin/env python3
+"""Construye COGNATE_SETS (red de cognación) agrupando formas por su ETYMON compartido (del grafo de etimología).
+
+Cada forma tiene aristas form_etymology (palabra ← forma-padre en lengua-padre). Agrupamos por el etymon:
+  - preferir el ancestro LATINO (la, la-vul/lat/med/ecc, + Vulgar/Late) → key = normalize(parent_form);
+  - si no, el PROTO (itc-pro, ine-pro);
+  - si no, el primer padre.
+Las formas con la misma key son cognadas → un cognate_set. La familia *pedestre* (todas ← lat. pedester/pedestrem)
+se vuelve UN conjunto. Límite v1: variantes flexivas del etymon (pedester vs pedestrem) pueden partir el set →
+mejora futura. NO destructivo respecto a las formas; solo puebla cognate_set/cognate_member.
+
+Uso: .venv/bin/python ingest/build_cognates.py
+"""
+import unicodedata
+import psycopg
+from collections import defaultdict, Counter
+from families import active
+
+DSN = "host=/tmp/ci_pg port=5433 user=postgres dbname=corpus_integrativo"
+FAM_NAME, FAM = active()
+MEMBERS = FAM["members"]
+# niveles de ancestro por prioridad: [(etiqueta, {lects-padre}, clave_canónica), …]
+# la clave canónica (primer lect del nivel) unifica variantes: la/la-vul/VL.→'la', proto→'gem-pro', etc.
+TIERS = [(lbl, set(lects), lects[0]) for lbl, lects, _status in FAM["ancestors"]]
+
+
+def norm(s):
+    s = unicodedata.normalize("NFD", (s or "").strip().lower())
+    s = "".join(c for c in s if unicodedata.category(c) != "Mn")   # quita macrones/diacríticos
+    return s.strip("*-·. ")
+
+
+def main():
+    conn = psycopg.connect(DSN); cur = conn.cursor()
+    print(f"familia activa: {FAM_NAME} ({len(MEMBERS)} lects)")
+    # borrado ACOTADO a la familia: quita sus miembros y limpia sets/protoformas que queden vacíos
+    cur.execute("DELETE FROM cognate_member WHERE form_id IN (SELECT id FROM form WHERE lect_id = ANY(%s))", (MEMBERS,))
+    cur.execute("DELETE FROM protoform_hypothesis ph WHERE NOT EXISTS (SELECT 1 FROM cognate_member m WHERE m.cognate_set_id=ph.cognate_set_id)")
+    cur.execute("DELETE FROM cognate_set cs WHERE NOT EXISTS (SELECT 1 FROM cognate_member m WHERE m.cognate_set_id=cs.id)")
+    conn.commit()
+
+    # solo aristas cuyas HIJAS son de esta familia
+    cur.execute("""SELECT fe.child_form_id, fe.parent_lect, fe.parent_form
+                   FROM form_etymology fe JOIN form f ON f.id=fe.child_form_id
+                   WHERE fe.parent_form IS NOT NULL AND f.lect_id = ANY(%s)""", (MEMBERS,))
+    edges = defaultdict(list)                       # child -> [(parent_lect, parent_form)]
+    for child, plect, pform in cur.fetchall():
+        edges[child].append((plect, pform))
+
+    # abreviaturas Wiktionary → código de variedad
+    ABBR = {"VL.": "la-vul", "LL.": "la-lat"}
+    GENERIC = {"la", "VL.", "LL."}                  # 'genérico' = no especifica estadio concreto
+
+    def etymon_key(cands):
+        """→ (clave_de_set, lect_padre_crudo_que_casó) para poder registrar la VARIEDAD concreta."""
+        for _lbl, lects, keypref in TIERS:          # por prioridad de ancestro (familia)
+            for pl, pf in cands:
+                if pl in lects and norm(pf):
+                    return f"{keypref}:{norm(pf)}", pl
+        for pl, pf in cands:                        # último recurso: primer padre con forma
+            if norm(pf):
+                return f"{pl}:{norm(pf)}", pl
+        return None, None
+
+    members = defaultdict(list)
+    variety = defaultdict(Counter)                  # key -> Counter de variedades concretas (la-vul, la-cla…)
+    for child, cands in edges.items():
+        k, raw = etymon_key(cands)
+        if k:
+            members[k].append(child)
+            v = ABBR.get(raw, raw)
+            if v not in GENERIC:                    # solo cuenta variedades ESPECÍFICAS
+                variety[k][v] += 1
+
+    cur.execute("ALTER TABLE cognate_set ADD COLUMN IF NOT EXISTS ancestor_lect TEXT")  # variedad concreta del etymon
+    ncog = nmem = 0
+    for key, forms in members.items():
+        if len(forms) < 2:                          # cognate = ≥2 reflejos
+            continue
+        setid = f"cog:{key}"[:200]
+        lect, form = key.split(":", 1)
+        anc = variety[key].most_common(1)[0][0] if variety[key] else lect   # variedad modal, o el genérico
+        cur.execute("INSERT INTO cognate_set(id,label,source,ancestor_lect) VALUES(%s,%s,'kaikki-etymology',%s) "
+                    "ON CONFLICT(id) DO UPDATE SET ancestor_lect=EXCLUDED.ancestor_lect",
+                    (setid, f"{lect} *{form}*", anc))
+        ncog += 1
+        for fid in forms:
+            cur.execute("INSERT INTO cognate_member(cognate_set_id,form_id) VALUES(%s,%s)", (setid, fid))
+            nmem += 1
+        if ncog % 5000 == 0:
+            conn.commit(); print(f"  … {ncog} sets")
+    conn.commit()
+    print(f"OK · cognate_sets={ncog:,} · miembros={nmem:,}")
+    cur.close(); conn.close()
+
+
+if __name__ == "__main__":
+    main()

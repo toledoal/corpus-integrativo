@@ -1,0 +1,13 @@
+# cluster de Postgres local (2 GB, datos regenerables)
+db/pgdata/
+# entorno virtual de Python (regenerable con requirements)
+.venv/
+# caches / basura
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+*.log
+# datos crudos de fuentes (grandes, se descargan aparte; ver fuentes.md)
+data/lexicon/
+*.jsonl
