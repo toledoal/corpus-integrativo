@@ -50,5 +50,8 @@ ALTER TABLE form_etymology ADD  CONSTRAINT form_etymology_child_form_id_fkey
 ALTER TABLE protoform_hypothesis DROP CONSTRAINT IF EXISTS protoform_hypothesis_cognate_set_id_fkey;
 ALTER TABLE protoform_hypothesis ADD  CONSTRAINT protoform_hypothesis_cognate_set_id_fkey
       FOREIGN KEY (cognate_set_id) REFERENCES cognate_set(id) ON DELETE CASCADE;
+ALTER TABLE cognate_member DROP CONSTRAINT IF EXISTS cognate_member_cognate_set_id_fkey;
+ALTER TABLE cognate_member ADD  CONSTRAINT cognate_member_cognate_set_id_fkey
+      FOREIGN KEY (cognate_set_id) REFERENCES cognate_set(id) ON DELETE CASCADE;
 
 COMMIT;

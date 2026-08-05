@@ -20,18 +20,17 @@ STATUS_BY_KEY = {lects[0]: (st, 1.0 if st == "atestiguado" else 0.5) for _lbl, l
 def main():
     conn = psycopg.connect(DSN); cur = conn.cursor()
     print(f"familia activa: {FAM_NAME} · claves de ancestro: {STATUS_BY_KEY}")
-    # sets de ESTA familia (con al menos un miembro de la familia) + la VARIEDAD concreta del etymon
-    cur.execute("""SELECT DISTINCT cs.id, cs.ancestor_lect FROM cognate_set cs
-                   JOIN cognate_member cm ON cm.cognate_set_id=cs.id JOIN form f ON f.id=cm.form_id
-                   WHERE f.lect_id = ANY(%s)""", (MEMBERS,))
+    # sets de ESTA familia (por etiqueta family) + la VARIEDAD concreta del etymon
+    cur.execute("SELECT id, ancestor_lect FROM cognate_set WHERE family=%s", (FAM_NAME,))
     sets = cur.fetchall()
-    setids = [r[0] for r in sets]
-    cur.execute("DELETE FROM protoform_hypothesis WHERE cognate_set_id = ANY(%s)", (setids,)); conn.commit()
+    # borrar protoformas de esos sets (CASCADE ya las quita al reconstruir cognados, pero somos idempotentes)
+    cur.execute("DELETE FROM protoform_hypothesis WHERE cognate_set_id IN "
+                "(SELECT id FROM cognate_set WHERE family=%s)", (FAM_NAME,)); conn.commit()
 
     nph = 0
-    for setid, anc in sets:                            # id = 'cog:<clave>:<forma>'; anc = variedad concreta
+    for setid, anc in sets:                            # id = 'cog:<familia>:<clave>:<forma>'; anc = variedad concreta
         try:
-            _, key, form = setid.split(":", 2)
+            _, _fam, key, form = setid.split(":", 3)
         except ValueError:
             continue
         status, prob = STATUS_BY_KEY.get(key, ("atestiguado", 1.0))   # ancestro atestiguado por defecto

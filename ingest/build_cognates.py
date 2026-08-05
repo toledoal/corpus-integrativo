@@ -33,10 +33,9 @@ def norm(s):
 def main():
     conn = psycopg.connect(DSN); cur = conn.cursor()
     print(f"familia activa: {FAM_NAME} ({len(MEMBERS)} lects)")
-    # borrado ACOTADO a la familia: quita sus miembros y limpia sets/protoformas que queden vacíos
-    cur.execute("DELETE FROM cognate_member WHERE form_id IN (SELECT id FROM form WHERE lect_id = ANY(%s))", (MEMBERS,))
-    cur.execute("DELETE FROM protoform_hypothesis ph WHERE NOT EXISTS (SELECT 1 FROM cognate_member m WHERE m.cognate_set_id=ph.cognate_set_id)")
-    cur.execute("DELETE FROM cognate_set cs WHERE NOT EXISTS (SELECT 1 FROM cognate_member m WHERE m.cognate_set_id=cs.id)")
+    # borrado ACOTADO por FAMILIA (no por lect): un lect compartido (p.ej. 'la' en romance e italic) NO se pisa.
+    # CASCADE en cognate_member y protoform_hypothesis limpia lo dependiente.
+    cur.execute("DELETE FROM cognate_set WHERE family = %s", (FAM_NAME,))
     conn.commit()
 
     # solo aristas cuyas HIJAS son de esta familia
@@ -72,17 +71,17 @@ def main():
             if v not in GENERIC:                    # solo cuenta variedades ESPECÍFICAS
                 variety[k][v] += 1
 
-    cur.execute("ALTER TABLE cognate_set ADD COLUMN IF NOT EXISTS ancestor_lect TEXT")  # variedad concreta del etymon
     ncog = nmem = 0
     for key, forms in members.items():
         if len(forms) < 2:                          # cognate = ≥2 reflejos
             continue
-        setid = f"cog:{key}"[:200]
+        setid = f"cog:{FAM_NAME}:{key}"[:200]       # familia en la CLAVE → sin colisión entre familias
         lect, form = key.split(":", 1)
         anc = variety[key].most_common(1)[0][0] if variety[key] else lect   # variedad modal, o el genérico
-        cur.execute("INSERT INTO cognate_set(id,label,source,ancestor_lect) VALUES(%s,%s,'kaikki-etymology',%s) "
-                    "ON CONFLICT(id) DO UPDATE SET ancestor_lect=EXCLUDED.ancestor_lect",
-                    (setid, f"{lect} *{form}*", anc))
+        cur.execute("INSERT INTO cognate_set(id,label,source,family,ancestor_lect) "
+                    "VALUES(%s,%s,'kaikki-etymology',%s,%s) "
+                    "ON CONFLICT(id) DO UPDATE SET family=EXCLUDED.family, ancestor_lect=EXCLUDED.ancestor_lect",
+                    (setid, f"{lect} *{form}*", FAM_NAME, anc))
         ncog += 1
         for fid in forms:
             cur.execute("INSERT INTO cognate_member(cognate_set_id,form_id) VALUES(%s,%s)", (setid, fid))

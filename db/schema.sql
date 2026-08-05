@@ -195,7 +195,7 @@ CREATE INDEX ix_morph_affix ON morph(affix_id);
 -- ----------------------------------------------------------------------------
 CREATE TABLE cognate_member (
     id            SERIAL PRIMARY KEY,
-    cognate_set_id TEXT NOT NULL REFERENCES cognate_set(id),
+    cognate_set_id TEXT NOT NULL REFERENCES cognate_set(id) ON DELETE CASCADE,
     form_id       TEXT NOT NULL REFERENCES form(id),
     condition_hyp INTEGER REFERENCES ancestry_edge(id)   -- cognado SÓLO si esta hipótesis del grafo de duda vale (lanza)
 );

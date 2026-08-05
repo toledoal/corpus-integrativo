@@ -12,6 +12,13 @@ import psycopg
 import sys as _sys, os as _os
 _sys.path.insert(0, _os.path.join(_os.path.dirname(__file__), "..", "ingest"))
 from config import DSN
+import families as _fam
+
+# integridad por FAMILIA (en vez de hardcodear romance): cada fila analítica debe usar lects DECLARADOS de su familia
+FAM_MEMBERS = {name: set(cfg["members"]) for name, cfg in _fam.FAMILIES.items()}
+ALL_MEMBERS = set().union(*FAM_MEMBERS.values()) if FAM_MEMBERS else set()
+_FM_VALUES = ",".join(f"('{fm}','{m}')" for fm, ms in FAM_MEMBERS.items() for m in ms)   # (familia,lect)
+_ALL_MEMBERS_SQL = "ARRAY[" + ",".join(f"'{m}'" for m in sorted(ALL_MEMBERS)) + "]"
 
 # (nombre, sql→devuelve un entero de VIOLACIONES, severidad, nota)
 #   severidad: 'fail' (>0 = ✗), 'warn' (>0 = ⚠️), 'info' (solo reporta)
@@ -45,16 +52,16 @@ CHECKS = [
     # --- RED DE COGNACIÓN / CRIPTOLOGÍA (capas relacionales) ---
     ("COG · cognate_member huérfano", "SELECT count(*) FROM cognate_member cm LEFT JOIN form f ON f.id=cm.form_id WHERE f.id IS NULL", "fail", "miembro apunta a forma inexistente"),
     ("COG · set con <2 miembros", "SELECT count(*) FROM (SELECT cognate_set_id FROM cognate_member GROUP BY 1 HAVING count(*)<2) t", "fail", "un cognado necesita ≥2 reflejos"),
-    ("COG · miembro NO romance (FUGA)", "SELECT count(*) FROM cognate_member cm JOIN form f ON f.id=cm.form_id WHERE f.lect_id <> ALL(ARRAY['la','es','it','fr','pt','ca','ro','gl','oc','sc','scn','nap','rup','fur','lld','wa','fro','osp'])", "fail", "SOLO Romance por ahora (no germánico/eslavo)"),
-    ("CORR · lect NO romance (FUGA)", "SELECT count(*) FROM correspondence WHERE from_lect <> ALL(ARRAY['la','es','it','fr','pt','ca','ro','gl','oc','sc','scn','nap','rup','fur','lld','wa','fro','osp']) OR to_lect <> ALL(ARRAY['la','es','it','fr','pt','ca','ro','gl','oc','sc','scn','nap','rup','fur','lld','wa','fro','osp'])", "fail", "SOLO Romance por ahora"),
+    ("COG · miembro fuera de su familia", f"SELECT count(*) FROM cognate_member cm JOIN cognate_set cs ON cs.id=cm.cognate_set_id JOIN form f ON f.id=cm.form_id WHERE cs.family IS NOT NULL AND NOT EXISTS (SELECT 1 FROM (VALUES {_FM_VALUES}) v(fam,member) WHERE v.fam=cs.family AND v.member=f.lect_id)", "fail", "el miembro debe ser un lect DECLARADO de la familia del set (sin fuga entre familias)"),
+    ("CORR · lect fuera de su familia", f"SELECT count(*) FROM correspondence c WHERE c.family IS NOT NULL AND (NOT EXISTS (SELECT 1 FROM (VALUES {_FM_VALUES}) v(fam,member) WHERE v.fam=c.family AND v.member=c.from_lect) OR NOT EXISTS (SELECT 1 FROM (VALUES {_FM_VALUES}) v(fam,member) WHERE v.fam=c.family AND v.member=c.to_lect))", "fail", "from/to deben ser lects declarados de la familia"),
     ("CRY · crypto huérfano", "SELECT count(*) FROM crypto c LEFT JOIN form f ON f.id=c.form_id WHERE f.id IS NULL", "fail", "firma apunta a forma inexistente"),
     ("FEAT · fonema sin rasgos", "SELECT count(DISTINCT phoneme) FROM feature", "info", "fonemas romance con matriz panphon"),
     ("FEAT · valor fuera de {-1,0,1}", "SELECT count(*) FROM feature WHERE value NOT IN (-1,0,1)", "fail", "rasgo debe ser ternario"),
     ("POLY · enlace a sentido inexistente", "SELECT count(*) FROM polyseme_link pl LEFT JOIN sense s ON s.id=pl.sense_a WHERE s.id IS NULL", "fail", ""),
-    ("POLY · lect NO romance (FUGA)", "SELECT count(*) FROM polyseme_link WHERE lect_id IS NOT NULL AND lect_id <> ALL(ARRAY['la','es','it','fr','pt','ca','ro','gl','oc','sc','scn','nap','rup','fur','lld','wa','fro','osp'])", "fail", "SOLO Romance por ahora"),
-    ("COLX · lect NO romance (FUGA)", "SELECT count(*) FROM colex WHERE lect_id IS NOT NULL AND lect_id <> ALL(ARRAY['la','es','it','fr','pt','ca','ro','gl','oc','sc','scn','nap','rup','fur','lld','wa','fro','osp'])", "fail", "SOLO Romance por ahora"),
+    ("POLY · lect no declarado", f"SELECT count(*) FROM polyseme_link WHERE lect_id IS NOT NULL AND lect_id <> ALL({_ALL_MEMBERS_SQL})", "fail", "lect fuera de toda familia declarada en families.py"),
+    ("COLX · lect no declarado", f"SELECT count(*) FROM colex WHERE lect_id IS NOT NULL AND lect_id <> ALL({_ALL_MEMBERS_SQL})", "fail", "lect fuera de toda familia declarada"),
     ("PROTO · set inexistente", "SELECT count(*) FROM protoform_hypothesis ph LEFT JOIN cognate_set cs ON cs.id=ph.cognate_set_id WHERE cs.id IS NULL", "fail", "hipótesis sobre cognate_set fantasma"),
-    ("SUBS · forma-hija NO romance (FUGA)", "SELECT count(*) FROM substrate_edge se JOIN form f ON f.id=se.form_id WHERE f.lect_id <> ALL(ARRAY['la','es','it','fr','pt','ca','ro','gl','oc','sc','scn','nap','rup','fur','lld','wa','fro','osp'])", "fail", "préstamo debe ENTRAR a un lect romance (la fuente sí puede ser externa)"),
+    ("SUBS · forma-hija de lect no declarado", f"SELECT count(*) FROM substrate_edge se JOIN form f ON f.id=se.form_id WHERE f.lect_id <> ALL({_ALL_MEMBERS_SQL})", "fail", "el préstamo debe ENTRAR a un lect declarado (la fuente sí puede ser externa)"),
     ("SUBS · substrate huérfano", "SELECT count(*) FROM substrate_edge se LEFT JOIN form f ON f.id=se.form_id WHERE f.id IS NULL", "fail", ""),
     # --- PROCEDENCIA / LICENCIA ---
     ("LIC · forma de fuente NO redistribuible", "SELECT count(*) FROM form f JOIN source s ON s.id=f.source_id WHERE s.redistributable=false", "fail", "cuarentena NC/ND no debe entrar a la BD redistribuible"),

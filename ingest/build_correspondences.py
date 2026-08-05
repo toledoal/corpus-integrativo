@@ -58,25 +58,28 @@ def corr_type(x, y):
 def main():
     conn = psycopg.connect(DSN); cur = conn.cursor()
     print(f"familia activa: {FAM_NAME} ({len(MEMBERS)} lects)")
-    # borrado ACOTADO a la familia (para que otras familias coexistan)
-    cur.execute("DELETE FROM correspondence WHERE from_lect = ANY(%s) OR to_lect = ANY(%s)", (MEMBERS, MEMBERS))
+    # borrado ACOTADO por FAMILIA (etiqueta), no por lect → un lect compartido no se pisa.
+    cur.execute("DELETE FROM correspondence WHERE family = %s", (FAM_NAME,))
     cur.execute("DELETE FROM crypto WHERE form_id IN (SELECT id FROM form WHERE lect_id = ANY(%s))", (MEMBERS,))
     conn.commit()
 
-    # esqueletos por forma (solo lects de la familia, con código)
+    # unigrama de clases GLOBAL (todas las lenguas) → self_info idempotente sin importar la familia activa.
+    # Se agrega en SQL (no carga toda la tabla a memoria): ~7 filas de clase.
+    cur.execute("SELECT unnest(string_to_array(code,'·')) AS cls, count(*) "
+                "FROM skeleton WHERE code IS NOT NULL AND code<>'' GROUP BY 1")
+    unigram = {cls: n for cls, n in cur.fetchall()}
+    total = sum(unigram.values())
+    logp = {c: -math.log2(n / total) for c, n in unigram.items()}
+
+    # esqueletos por forma DE LA FAMILIA (para construir su crypto y las correspondencias)
     cur.execute("""SELECT sk.form_id, sk.id, f.lect_id, sk.code
                    FROM skeleton sk JOIN form f ON f.id=sk.form_id
                    WHERE f.lect_id = ANY(%s) AND sk.code IS NOT NULL AND sk.code<>''""", (MEMBERS,))
     skel = {}                                   # form_id -> (skeleton_id, lect, [clases])
-    unigram = Counter()
     for fid, sid, lect, code in cur.fetchall():
-        classes = code.split("·")
-        skel[fid] = (sid, lect, classes)
-        unigram.update(classes)
+        skel[fid] = (sid, lect, code.split("·"))
 
-    # ---- crypto: autoinformación por forma ----
-    total = sum(unigram.values())
-    logp = {c: -math.log2(n/total) for c, n in unigram.items()}
+    # ---- crypto: autoinformación por forma (con logp GLOBAL) ----
     ncry = 0
     for fid, (sid, lect, classes) in skel.items():
         si = sum(logp[c] for c in classes)
@@ -86,8 +89,9 @@ def main():
         if ncry % 20000 == 0: conn.commit()
     conn.commit()
 
-    # ---- correspondencias: alinear pares de reflejos dentro de cada cognate_set ----
-    cur.execute("SELECT cognate_set_id, form_id FROM cognate_member")
+    # ---- correspondencias: alinear pares de reflejos dentro de cada cognate_set DE ESTA FAMILIA ----
+    cur.execute("SELECT cm.cognate_set_id, cm.form_id FROM cognate_member cm "
+                "JOIN cognate_set cs ON cs.id=cm.cognate_set_id WHERE cs.family=%s", (FAM_NAME,))
     sets = defaultdict(list)
     for cs, fid in cur.fetchall():
         if fid in skel: sets[cs].append(fid)
@@ -116,8 +120,8 @@ def main():
 
     ncorr = 0
     for (frm, to, a, b, env, ct), cnt in agg.items():
-        cur.execute("""INSERT INTO correspondence(from_lect,to_lect,a,b,env,count,corr_type,crosses_macrosystem)
-                       VALUES(%s,%s,%s,%s,%s,%s,%s,false)""", (frm, to, a, b, env, cnt, ct))
+        cur.execute("""INSERT INTO correspondence(from_lect,to_lect,a,b,env,count,corr_type,crosses_macrosystem,family)
+                       VALUES(%s,%s,%s,%s,%s,%s,%s,false,%s)""", (frm, to, a, b, env, cnt, ct, FAM_NAME))
         ncorr += 1
         if ncorr % 5000 == 0: conn.commit()
     conn.commit()
