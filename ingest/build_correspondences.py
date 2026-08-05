@@ -21,7 +21,7 @@ from collections import defaultdict, Counter
 import psycopg
 from families import active
 
-DSN = "host=/tmp/ci_pg port=5433 user=postgres dbname=corpus_integrativo"
+from config import DSN
 FAM_NAME, FAM = active()
 MEMBERS = FAM["members"]
 GAP = "∅"

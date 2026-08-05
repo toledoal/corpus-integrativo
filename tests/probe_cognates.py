@@ -10,7 +10,9 @@ Uso: .venv/bin/python tests/probe_cognates.py
 import random
 import psycopg
 
-DSN = "host=/tmp/ci_pg port=5433 user=postgres dbname=corpus_integrativo"
+import sys as _sys, os as _os
+_sys.path.insert(0, _os.path.join(_os.path.dirname(__file__), "..", "ingest"))
+from config import DSN
 
 
 def nw_align(a, b, match=1, mism=0, gap=0):

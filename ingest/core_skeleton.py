@@ -11,7 +11,7 @@ Uso: .venv/bin/python ingest/core_skeleton.py
 import re
 import psycopg
 
-DSN = "host=/tmp/ci_pg port=5433 user=postgres dbname=corpus_integrativo"
+from config import DSN
 # 'base + -sufijo'  |  'prefijo- + base'
 RE_SUF = re.compile(r"([A-Za-zÀ-ÿ]{2,})\s*\+\s*‎?\s*(-[A-Za-zÀ-ÿ]{1,})")
 RE_PRE = re.compile(r"([A-Za-zÀ-ÿ]{1,}-)\s*\+\s*‎?\s*([A-Za-zÀ-ÿ]{2,})")

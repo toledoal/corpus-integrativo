@@ -12,7 +12,7 @@ Uso: .venv/bin/python ingest/segment_kaikki.py
 import unicodedata
 import psycopg
 
-DSN = "host=/tmp/ci_pg port=5433 user=postgres dbname=corpus_integrativo"
+from config import DSN
 STRIP = set("/[]()ˈˌ‿|ˑ '\"")          # ˈˌ se manejan aparte (marcan acento) — aquí solo por si quedan sueltos
 TIE = {"͡", "͜"}               # ͡ ͜  (africadas: unen el siguiente base)
 

@@ -10,7 +10,7 @@ Uso: .venv/bin/python ingest/build_protoforms.py
 import psycopg
 from families import active
 
-DSN = "host=/tmp/ci_pg port=5433 user=postgres dbname=corpus_integrativo"
+from config import DSN
 FAM_NAME, FAM = active()
 MEMBERS = FAM["members"]
 # clave-canónica de cada nivel de ancestro → (status, prob). Latín=atestiguado(1.0); proto=reconstruido(0.5).

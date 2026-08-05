@@ -11,8 +11,8 @@ Uso: .venv/bin/python ingest/affix_extract.py Latin Spanish
 import argparse, json, os, unicodedata
 import psycopg
 
-DSN = "host=/tmp/ci_pg port=5433 user=postgres dbname=corpus_integrativo"
-KDIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "data", "lexicon", "kaikki", "dict"))
+from config import DSN
+from config import KDIR
 from families import all_kaikki_files
 NAME2CODE = all_kaikki_files()   # unión de TODAS las familias definidas
 AFFIX_POS = {"suffix": "suffix", "prefix": "prefix", "affix": "suffix", "interfix": "infix",

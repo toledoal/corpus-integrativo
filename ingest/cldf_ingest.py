@@ -12,7 +12,7 @@ import argparse, os, sys
 import psycopg
 from pycldf import Dataset
 
-DSN = "host=/tmp/ci_pg port=5433 user=postgres dbname=corpus_integrativo"
+from config import DSN
 
 
 def col(row, *names):

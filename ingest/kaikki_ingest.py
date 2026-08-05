@@ -14,8 +14,8 @@ Uso: .venv/bin/python ingest/kaikki_ingest.py Latin Spanish --limit 0   (0 = sin
 import argparse, json, os, sys
 import psycopg
 
-DSN = "host=/tmp/ci_pg port=5433 user=postgres dbname=corpus_integrativo"
-KDIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "data", "lexicon", "kaikki", "dict"))
+from config import DSN
+from config import KDIR
 
 # código Wiktionary → (nombre, nivel, atestiguado, macrosistema)
 LANGMAP = {

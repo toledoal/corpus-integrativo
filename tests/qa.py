@@ -9,7 +9,9 @@ Uso: .venv/bin/python tests/qa.py
 """
 import psycopg
 
-DSN = "host=/tmp/ci_pg port=5433 user=postgres dbname=corpus_integrativo"
+import sys as _sys, os as _os
+_sys.path.insert(0, _os.path.join(_os.path.dirname(__file__), "..", "ingest"))
+from config import DSN
 
 # (nombre, sql→devuelve un entero de VIOLACIONES, severidad, nota)
 #   severidad: 'fail' (>0 = ✗), 'warn' (>0 = ⚠️), 'info' (solo reporta)

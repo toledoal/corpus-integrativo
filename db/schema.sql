@@ -83,16 +83,19 @@ CREATE INDEX ix_ancestry_parent ON ancestry_edge(parent_lect);
 -- Cognate set (= etymon/raíz; red de la FORMA) + protoformas plurales
 -- ----------------------------------------------------------------------------
 CREATE TABLE cognate_set (
-    id            TEXT PRIMARY KEY,             -- 'ie-h2enygh','sem-khadd'
+    id            TEXT PRIMARY KEY,             -- 'cog:<familia>:<clave-etymon>' (familia en la clave → sin colisión entre familias)
     label         TEXT,                         -- '*h₂enǵʰ- narrow','ḫ-d-d cheek'
     source        TEXT,                         -- 'iecor-gold','wiktionary','de-vaan'
+    family        TEXT,                         -- SCOPE de análisis (romance, italic…): borrado acotado por familia
+    ancestor_lect TEXT,                         -- variedad concreta del etymon (la-vul/la-cla…) para la protoforma
     confidence    NUMERIC(4,3),
     deep_colex    TEXT                          -- colexificación profunda de raíz: 'estrechez↔angustia'
 );
+CREATE INDEX ix_cogset_family ON cognate_set(family);
 
 CREATE TABLE protoform_hypothesis (             -- PIE plural: varias reconstrucciones en competencia
     id            SERIAL PRIMARY KEY,
-    cognate_set_id TEXT NOT NULL REFERENCES cognate_set(id),
+    cognate_set_id TEXT NOT NULL REFERENCES cognate_set(id) ON DELETE CASCADE,
     lect_id       TEXT REFERENCES lect(id),     -- el estadio proto (PIE, proto-itálico…)
     form          TEXT NOT NULL,                -- '*h₂enǵʰ-','*h₂emǵʰ-'
     model         TEXT,                         -- 'LIV²','Pokorny','de Vaan'
@@ -114,10 +117,30 @@ CREATE TABLE form (
     orthography   TEXT,
     stress        TEXT,                         -- patrón de acento (hueco por ahora; ver PLAN §4)
     is_loan       BOOLEAN NOT NULL DEFAULT FALSE,
+    etymology_text TEXT,                         -- prosa etimológica cruda de Kaikki (para pelar core/afijos)
+    pos           TEXT,                          -- categoría (noun/verb/adj…) reconciliada
+    superseded_by TEXT,                          -- reconciliación no destructiva: forma canónica que la sustituye
+    is_proper     BOOLEAN,                       -- MARCA (no filtro): nombre propio heurístico
     source_id     TEXT REFERENCES source(id)
 );
-CREATE INDEX ix_form_lect    ON form(lect_id);
-CREATE INDEX ix_form_concept ON form(concept_id);
+CREATE INDEX ix_form_lect       ON form(lect_id);
+CREATE INDEX ix_form_concept    ON form(concept_id);
+CREATE INDEX ix_form_source     ON form(source_id);                     -- ingest/reconcile filtran por fuente
+CREATE INDEX ix_form_lect_ortho ON form(lect_id, lower(orthography));   -- reconcile/colex/core keyean por (lengua,grafía)
+
+-- Etimología a nivel de PALABRA (grafo "toda la historia de la palabra"): child_form ← parent_form@parent_lect
+CREATE TABLE form_etymology (
+    id            SERIAL PRIMARY KEY,
+    child_form_id TEXT REFERENCES form(id) ON DELETE CASCADE,
+    parent_form   TEXT,
+    parent_lect   TEXT REFERENCES lect(id),
+    kind          edge_kind,
+    gloss         TEXT,
+    source_id     TEXT REFERENCES source(id)
+);
+CREATE INDEX ix_formety_child  ON form_etymology(child_form_id);
+CREATE INDEX ix_formety_parent ON form_etymology(parent_lect);
+CREATE INDEX ix_formety_kind   ON form_etymology(kind);                 -- build_contact filtra kind='prestamo'
 
 CREATE TABLE segment (
     id            SERIAL PRIMARY KEY,
@@ -236,7 +259,8 @@ CREATE TABLE substrate_edge (                   -- multi-hipótesis con probabil
 -- ----------------------------------------------------------------------------
 CREATE TABLE skeleton_lineage (                 -- agrupa un mismo código a través de estadios y RAMAS (resonancia)
     id            SERIAL PRIMARY KEY,
-    code          TEXT NOT NULL                 -- 'Ξ·Χ·Σ·Θ'
+    code          TEXT NOT NULL,                -- 'Ξ·Χ·Σ·Θ'
+    CONSTRAINT uq_sklin_code UNIQUE (code)      -- requerido por ON CONFLICT(code) en recompute/ortho
 );
 
 CREATE TABLE skeleton (
@@ -248,10 +272,13 @@ CREATE TABLE skeleton (
     code          TEXT,                          -- palabra, SÍMBOLOS: 'Ξ·Χ·Σ·Θ·Λ'  (convención: código en símbolos)
     vowels        TEXT,                          -- VOCALES conservadas (secuencia cruda; preserva tono/longitud)
     cv_template   TEXT,                          -- patrón C/V/G (forma completa)
+    is_compound   BOOLEAN DEFAULT FALSE,         -- frontera de compuesto (+/_/-) detectada
+    core_valid    BOOLEAN,                       -- MARCA: el core es subsecuencia del cons_skeleton (calidad)
     skeleton_lineage_id INTEGER REFERENCES skeleton_lineage(id)
 );
 CREATE INDEX ix_skeleton_form    ON skeleton(form_id);
 CREATE INDEX ix_skeleton_lineage ON skeleton(skeleton_lineage_id);
+CREATE INDEX ix_skeleton_stage   ON skeleton(stage_lect_id);            -- usado como FK de lect y por reconcile
 
 CREATE TABLE correspondence (                   -- operador entre estadios/lenguas (derivado); conservar/mutar/truncar
     id            SERIAL PRIMARY KEY,
@@ -263,8 +290,12 @@ CREATE TABLE correspondence (                   -- operador entre estadios/lengu
     count         INTEGER,
     corr_type     corr_type,                     -- conservar/mutar/truncar
     law_class     TEXT,                          -- Grimm/satem/palatalización/lenición/adaptación
-    crosses_macrosystem BOOLEAN NOT NULL DEFAULT FALSE
+    crosses_macrosystem BOOLEAN NOT NULL DEFAULT FALSE,
+    family        TEXT                           -- SCOPE de análisis: borrado acotado por familia
 );
+CREATE INDEX ix_corr_from   ON correspondence(from_lect);
+CREATE INDEX ix_corr_to     ON correspondence(to_lect);
+CREATE INDEX ix_corr_family ON correspondence(family);
 
 CREATE TABLE crypto (                           -- firma matemática monádica, montada sobre el esqueleto
     form_id       TEXT PRIMARY KEY REFERENCES form(id) ON DELETE CASCADE,
@@ -272,6 +303,16 @@ CREATE TABLE crypto (                           -- firma matemática monádica, 
     feature_vectors JSONB,                       -- F₂ⁿ por segmento del esqueleto
     self_info     NUMERIC                        -- sorpresa del esqueleto dado el inventario (opcional Fase 0)
 );
+
+-- ----------------------------------------------------------------------------
+-- Índices de las capas analíticas (borrados-por-familia y joins; críticos al escalar)
+-- ----------------------------------------------------------------------------
+CREATE INDEX ix_proto_set    ON protoform_hypothesis(cognate_set_id);
+CREATE INDEX ix_poly_lect    ON polyseme_link(lect_id);
+CREATE INDEX ix_colex_lect   ON colex(lect_id);
+CREATE INDEX ix_cohmem_form  ON cohort_member(form_id);
+CREATE INDEX ix_cohmem_coh   ON cohort_member(cohort_id);
+CREATE INDEX ix_subst_form   ON substrate_edge(form_id);
 
 -- ----------------------------------------------------------------------------
 -- Vistas: "toda la historia de la palabra" (linaje) + "resonancia" (mismo esqueleto)

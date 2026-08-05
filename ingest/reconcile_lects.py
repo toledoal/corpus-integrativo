@@ -11,7 +11,7 @@ Uso: .venv/bin/python ingest/reconcile_lects.py
 import psycopg
 from families import all_reconcile_pairs
 
-DSN = "host=/tmp/ci_pg port=5433 user=postgres dbname=corpus_integrativo"
+from config import DSN
 # glottocode (Lexibank, a fusionar/borrar) → id canónico ISO (a conservar) — unión de todas las familias
 PAIRS = all_reconcile_pairs()
 # columnas que referencian lect(id): (tabla, columna)

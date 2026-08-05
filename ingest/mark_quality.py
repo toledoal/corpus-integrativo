@@ -10,7 +10,7 @@ Uso: .venv/bin/python ingest/mark_quality.py
 """
 import psycopg
 
-DSN = "host=/tmp/ci_pg port=5433 user=postgres dbname=corpus_integrativo"
+from config import DSN
 
 
 def is_subseq(core, word):

@@ -14,7 +14,7 @@ import unicodedata
 import psycopg
 from recompute_skeleton import compute   # mismo objeto de esqueleto (clases, vocales, CV)
 
-DSN = "host=/tmp/ci_pg port=5433 user=postgres dbname=corpus_integrativo"
+from config import DSN
 DEFAULT_LECTS = ["itc-pro", "xum", "osc", "xfa", "spx"]
 
 

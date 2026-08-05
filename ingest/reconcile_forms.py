@@ -11,7 +11,7 @@ Uso: .venv/bin/python ingest/reconcile_forms.py
 import psycopg
 from collections import defaultdict
 
-DSN = "host=/tmp/ci_pg port=5433 user=postgres dbname=corpus_integrativo"
+from config import DSN
 ONT2POS = {"Person/Thing": "noun", "Property": "adj", "Action/Process": "verb",
            "Number": "num", "Other": None}
 POS_ALIAS = {"adj": {"adj", "adjective"}, "noun": {"noun"}, "verb": {"verb"}, "num": {"num", "numeral"}}

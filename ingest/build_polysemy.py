@@ -13,7 +13,7 @@ import psycopg
 from itertools import combinations
 from families import active
 
-DSN = "host=/tmp/ci_pg port=5433 user=postgres dbname=corpus_integrativo"
+from config import DSN
 FAM_NAME, FAM = active()
 MEMBERS = FAM["members"]
 FULL_PAIRS_MAX = 6            # ≤6 sentidos → todos los pares; más → cadena

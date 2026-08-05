@@ -13,7 +13,7 @@ Uso: .venv/bin/python ingest/recompute_skeleton.py
 import unicodedata
 import psycopg
 
-DSN = "host=/tmp/ci_pg port=5433 user=postgres dbname=corpus_integrativo"
+from config import DSN
 
 SYM = dict(zip("PTKSLMN", "ΦΘΧΣΛϺΞ"))
 IPA = {}
