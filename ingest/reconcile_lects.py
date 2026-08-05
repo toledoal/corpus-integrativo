@@ -33,8 +33,16 @@ def main():
         if not exists(cur, glot):
             continue
         if not exists(cur, iso):
-            # no hay nodo ISO: el glottocode ES el canónico → solo renombrar id a ISO
-            cur.execute("UPDATE lect SET id=%s WHERE id=%s", (iso, glot)); conn.commit(); continue
+            # no hay nodo ISO: crear el canónico copiando el glottocode, repuntar refs, borrar el duplicado.
+            # (renombrar el PK directo rompería los FK sin ON UPDATE CASCADE si ya hay dependientes)
+            cur.execute("""INSERT INTO lect
+                (id,name,level,glottocode,iso639,macrosystem,family,subgroup,macroarea,latitude,longitude,date_lo,date_hi,attested,source_id)
+                SELECT %s,name,level,glottocode,iso639,macrosystem,family,subgroup,macroarea,latitude,longitude,date_lo,date_hi,attested,source_id
+                FROM lect WHERE id=%s ON CONFLICT (id) DO NOTHING""", (iso, glot))
+            for tbl, colm in REFS:
+                cur.execute(f"UPDATE {tbl} SET {colm}=%s WHERE {colm}=%s", (iso, glot))
+            cur.execute("DELETE FROM lect WHERE id=%s", (glot,))
+            conn.commit(); merged += 1; print(f"· creado+repuntado {glot} → {iso}"); continue
         # copiar glottocode + geo del nodo Lexibank al canónico ISO (donde falte)
         cur.execute("""UPDATE lect c SET glottocode=COALESCE(c.glottocode,g.glottocode),
                         iso639=COALESCE(c.iso639,g.iso639), family=COALESCE(c.family,g.family),

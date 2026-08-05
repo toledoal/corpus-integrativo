@@ -129,6 +129,10 @@ def main():
                 child_code = a.get("1"); parent_code = a.get("2"); parent_form = a.get("3")
                 if not (child_code and parent_code):
                     continue
+                # plantillas 'der'/'cog' con LISTA de lenguas ('es,pt','nap,scn') → no es un padre único:
+                # saltar para no crear lects/aristas basura con coma o espacio.
+                if any(bad in parent_code for bad in (",", " ")) or "," in child_code:
+                    continue
                 ensure_lect(child_code); ensure_lect(parent_code)
                 edge(child_code, parent_code, kind)
                 cur.execute("INSERT INTO form_etymology(child_form_id,parent_form,parent_lect,kind,gloss,source_id) "

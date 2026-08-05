@@ -44,7 +44,9 @@ def affix_skeleton(form):
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("languages", nargs="+"); args = ap.parse_args()
     conn = psycopg.connect(DSN, autocommit=False); cur = conn.cursor()
-    cur.execute("DELETE FROM affix WHERE source_id='kaikki'")
+    # borrado ACOTADO a las lenguas que se (re)cargan (no wipea afijos de otras familias)
+    codes = sorted({NAME2CODE.get(l, l.lower()) for l in args.languages})
+    cur.execute("DELETE FROM affix WHERE source_id='kaikki' AND origin_lect = ANY(%s)", (codes,))
     conn.commit()
     n = 0
     for langname in args.languages:
