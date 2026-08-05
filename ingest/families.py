@@ -49,6 +49,7 @@ FAMILIES = {
             ("proto-ie", ["ine-pro"], "reconstruido"),
         ],
         "kaikki_files": {"Proto-Italic": "itc-pro", "Umbrian": "xum"},
+        "all_load": ["Proto-Italic", "Umbrian"],   # antiguas/reconstruidas sin etimología → cargar toda entrada
         "reconcile_pairs": {"proto-italic": "itc-pro"},
     },
     # ───────────────────────── GERMÁNICO (definido, NO cargado) ─────────────────────────
@@ -65,7 +66,9 @@ FAMILIES = {
             "Luxembourgish": "lb", "Yiddish": "yi", "Gothic": "got", "Old_English": "ang",
             "Old_High_German": "goh", "Old_Norse": "non", "Middle_Low_German": "gml",
             "Middle_High_German": "gmh", "Middle_Dutch": "dum", "Old_Saxon": "osx",
+            "Proto-Germanic": "gem-pro",
         },
+        "all_load": ["Proto-Germanic"],   # proto reconstruido, sin etimología
         "reconcile_pairs": {
             "stan1293": "en", "stan1295": "de", "dutc1256": "nl", "swed1254": "sv",
             "dani1285": "da", "norw1258": "no", "icel1247": "is", "goth1244": "got",
@@ -83,7 +86,9 @@ FAMILIES = {
             "Russian": "ru", "Polish": "pl", "Czech": "cs", "Slovak": "sk", "Ukrainian": "uk",
             "Belarusian": "be", "Bulgarian": "bg", "Macedonian": "mk", "Slovene": "sl",
             "Croatian": "hr", "Serbian": "sr", "Bosnian": "bs", "Old_Church_Slavonic": "cu",
+            "Proto-Slavic": "sla-pro",
         },
+        "all_load": ["Proto-Slavic", "Old_Church_Slavonic"],   # proto + antigua sin etimología rica
         "reconcile_pairs": {
             "russ1263": "ru", "poli1260": "pl", "czec1258": "cs", "slov1269": "sk",
             "ukra1253": "uk", "bela1254": "be", "bulg1262": "bg", "sloveni1": "sl",
@@ -98,6 +103,30 @@ def active():
     if name not in FAMILIES:
         raise SystemExit(f"CI_FAMILY desconocida: '{name}'. Opciones: {', '.join(FAMILIES)}")
     return name, FAMILIES[name]
+
+
+def _is_ancestor_code(code):
+    """¿el código es una proto-lengua / ancestro reconstruido? (carga con --all: su valor es la FORMA, no su ety)"""
+    return code.endswith("-pro") or code in {"cu"}  # protos + estadios antiguos sin etimología rica
+
+
+def load_plan(name):
+    """Plan de carga ORDENADO para una familia: (archivos_normales, archivos_ancestro[--all]).
+    Ancestro/--all = declarado en `all_load` O código proto: no traen etimología (su valor es la forma)."""
+    cfg = FAMILIES[name]
+    all_load = set(cfg.get("all_load", []))
+    normal, ancestor = [], []
+    for fname, code in cfg["kaikki_files"].items():
+        (ancestor if (fname in all_load or _is_ancestor_code(code)) else normal).append(fname)
+    return normal, ancestor
+
+
+if __name__ == "__main__":   # CLI para add_family.sh: imprime archivos a cargar
+    import sys
+    fam = sys.argv[1] if len(sys.argv) > 1 else "romance"
+    mode = sys.argv[2] if len(sys.argv) > 2 else "normal"
+    normal, ancestor = load_plan(fam)
+    print(" ".join(ancestor if mode == "ancestor" else normal))
 
 
 def members():

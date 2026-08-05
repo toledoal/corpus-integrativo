@@ -90,11 +90,24 @@ def main():
     conn.commit()
 
     # ---- correspondencias: alinear pares de reflejos dentro de cada cognate_set DE ESTA FAMILIA ----
+    # ORDER BY form_id → el representante "más corto" se elige de forma DETERMINISTA en empates.
     cur.execute("SELECT cm.cognate_set_id, cm.form_id FROM cognate_member cm "
-                "JOIN cognate_set cs ON cs.id=cm.cognate_set_id WHERE cs.family=%s", (FAM_NAME,))
+                "JOIN cognate_set cs ON cs.id=cm.cognate_set_id WHERE cs.family=%s ORDER BY cm.form_id", (FAM_NAME,))
     sets = defaultdict(list)
     for cs, fid in cur.fetchall():
         if fid in skel: sets[cs].append(fid)
+
+    # alineamiento NW memoizado por par de códigos (los esqueletos se repiten mucho) + short-circuit a==b
+    nw_cache = {}
+
+    def align(ca, cb):
+        if ca == cb:
+            return [(x, x) for x in ca]                 # idénticos → todo conservar (sin DP)
+        key = (tuple(ca), tuple(cb))
+        cols = nw_cache.get(key)
+        if cols is None:
+            cols = nw_cache[key] = nw_align(ca, cb)
+        return cols
 
     # (from,to,a,b,env,type) -> count
     agg = defaultdict(int)
@@ -110,7 +123,7 @@ def main():
         for ii in range(len(lects)):
             for jj in range(ii+1, len(lects)):
                 la_, ca = by_lect[lects[ii]]; lb_, cb = by_lect[lects[jj]]
-                cols = nw_align(ca, cb)
+                cols = align(ca, cb)
                 for k, (x, y) in enumerate(cols):
                     envx = cols[k+1][0] if k+1 < len(cols) else "#"
                     envy = cols[k+1][1] if k+1 < len(cols) else "#"

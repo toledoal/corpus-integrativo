@@ -8,8 +8,10 @@
 - core_skeleton: NULL por ahora (requiere morfología → tras el loader Kaikki).
 - skeleton_lineage: agrupa un mismo `code` a través de estadios/ramas (resonancia estructural).
 
-Uso: .venv/bin/python ingest/recompute_skeleton.py
+Uso: .venv/bin/python ingest/recompute_skeleton.py [--only-new]
+     --only-new: solo formas SIN esqueleto (incremental, para al agregar una familia sin reprocesar todo).
 """
+import argparse
 import unicodedata
 import psycopg
 
@@ -88,7 +90,11 @@ def main():
     cur.execute("ALTER TABLE skeleton ADD COLUMN IF NOT EXISTS vowels TEXT, ADD COLUMN IF NOT EXISTS cv_template TEXT, "
                 "ADD COLUMN IF NOT EXISTS is_compound BOOLEAN DEFAULT FALSE;")
     conn.commit()
-    cur.execute("SELECT id, lect_id, segments_raw FROM form WHERE segments_raw IS NOT NULL")
+    ap = argparse.ArgumentParser(); ap.add_argument("--only-new", action="store_true"); a = ap.parse_args()
+    where = "segments_raw IS NOT NULL"
+    if a.only_new:   # incremental: solo formas que aún NO tienen esqueleto
+        where += " AND NOT EXISTS (SELECT 1 FROM skeleton sk WHERE sk.form_id=form.id)"
+    cur.execute(f"SELECT id, lect_id, segments_raw FROM form WHERE {where}")
     rows = cur.fetchall()
     lineage_cache = {}
     # 1) computar esqueletos + upsert de linajes (códigos únicos, pocos miles)
