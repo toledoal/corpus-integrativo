@@ -52,6 +52,21 @@ FAMILIES = {
         "all_load": ["Proto-Italic", "Umbrian"],   # antiguas/reconstruidas sin etimología → cargar toda entrada
         "reconcile_pairs": {"proto-italic": "itc-pro"},
     },
+    # ───────────────────────── INDO-IRANIO (prueba multi-script: devanagari + perso-árabe) ─────────────────────────
+    # Genealogía (cuidado, Alejandro): Védico/Sánscrito = indoario ATESTIGUADO (no proto); Avéstico = iranio,
+    # hermana del indoario; el proto común reconstruido es Proto-Indo-Iranio (iir-pro ≈ "proto-ario").
+    "indo-iranian": {
+        "members": ["hi", "ur", "sa", "fa", "pa", "bn", "mr", "gu", "ne", "or", "iir-pro"],
+        "ancestors": [
+            ("sanskrit", ["sa"], "atestiguado"),                # sánscrito atestiguado, ancestro de las indoarias
+            ("proto-indo-aryan", ["inc-pro"], "reconstruido"),
+            ("proto-indo-iranian", ["iir-pro"], "reconstruido"),   # "proto-ario"
+            ("proto-ie", ["ine-pro"], "reconstruido"),
+        ],
+        "kaikki_files": {"Hindi": "hi", "Urdu": "ur"},          # descargados; Sanskrit/Persian a futuro
+        "all_load": [],
+        "reconcile_pairs": {"hind1269": "hi", "urdu1245": "ur"},
+    },
     # ───────────────────────── GERMÁNICO (definido, NO cargado) ─────────────────────────
     "germanic": {
         # alineado a los .jsonl descargados (2026-08): sin Middle-*/Old_Saxon/Bokmål (no hay dump);
