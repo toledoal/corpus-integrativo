@@ -86,6 +86,19 @@ FAMILIES = {
         "all_load": [],
         "reconcile_pairs": {"iris1253": "ga", "wels1247": "cy", "bret1244": "br", "corn1251": "kw", "manx1243": "gv"},
     },
+    # ───────────────────────── BÁLTICO (script latino; Lituano/Latgaliano con IPA; Letón escaso) ─────────────────────────
+    "baltic": {
+        "members": ["lt", "lv", "ltg", "prg", "bat-pro"],       # +Latgaliano (dialecto letón), Antiguo Prusiano (ancestro)
+        "ancestors": [
+            ("old-prussian", ["prg"], "atestiguado"),           # báltico antiguo atestiguado (sin dump)
+            ("proto-baltic", ["bat-pro"], "reconstruido"),
+            ("proto-balto-slavic", ["bsw-pro"], "reconstruido"),
+            ("proto-ie", ["ine-pro"], "reconstruido"),
+        ],
+        "kaikki_files": {"Lithuanian": "lt", "Latvian": "lv", "Latgalian": "ltg"},
+        "all_load": [],
+        "reconcile_pairs": {"lith1251": "lt", "latv1249": "lv", "latg1234": "ltg"},
+    },
     # ───────────────────────── GERMÁNICO (definido, NO cargado) ─────────────────────────
     "germanic": {
         # alineado a los .jsonl descargados (2026-08): sin Middle-*/Old_Saxon/Bokmål (no hay dump);
