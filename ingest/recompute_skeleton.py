@@ -19,14 +19,14 @@ from config import DSN
 
 SYM = dict(zip("PTKSLMN", "ΦΘΧΣΛϺΞ"))
 IPA = {}
-for chars, cl in [("pbɓʙɸβfvʋwⱱʍ", "P"), ("tdʈɖθðɗ", "T"), ("szʃʒʂʐɕʑʦʣʧʤʨʥ", "S"),
+for chars, cl in [("pbɓʙɸβfvʋwⱱʍ", "P"), ("tdʈɖθðɗþ", "T"), ("szʃʒʂʐɕʑʦʣʧʤʨʥ", "S"),
                   ("lɫɭʎʟrɾɹɻʀʁłɽɬɮǁɺ", "L"), ("kgɡcɟxɣχqɢʔhɦħʕçʝɠʄɧ", "K"), ("mɱ", "M"), ("nɳɲŋɴ", "N")]:
     for ch in chars:
         IPA[ch] = cl
-# vocales (+ redondeadas anteriores/centrales germánicas ʏ ɶ ɞ ᵻ ᵿ, faltaban → producían '?')
-VOW = set("aeiouyæœøɑɒɐɘɵɛɔəɜɤʌɨʉʊɪɚɝʏɶɞᵻᵿ"); GLI = set("jɥ")
+# vocales: IPA + redondeadas germánicas (ʏ ɶ ɞ ᵻ ᵿ) + yers/nasales eslavas de reconstrucción (ъ ь ǫ ę ě ą)
+VOW = set("aeiouyæœøɑɒɐɘɵɛɔəɜɤʌɨʉʊɪɚɝʏɶɞᵻᵿъьǫęěąųẽ"); GLI = set("jɥ")
 # marcas de tono/prosodia que NO son segmento (tono superíndice ±, flechas de entonación, dobles barras) → se ignoran
-IGNORE = set("¹²³⁴⁵⁶⁷⁸⁹⁰⁻⁺↗↘↑↓⫽ǀǃ:")
+IGNORE = set("¹²³⁴⁵⁶⁷⁸⁹⁰⁻⁺⁽⁾↗↘↑↓⫽ǀǃ:")   # tono/entonación + paréntesis superíndice (palatalización opcional eslava)
 SKEL_NORM = {}
 for _chars, _canon in [("lɫɭʟłɬɮǁ", "l"), ("ʎ", "ʎ"), ("rɾɹɻʀʁɺ", "r"),
                        ("k", "k"), ("gɡ", "g"), ("cɟ", "c"), ("q", "q"),

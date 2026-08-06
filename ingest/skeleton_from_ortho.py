@@ -13,26 +13,35 @@ import sys
 import unicodedata
 import psycopg
 from recompute_skeleton import compute   # mismo objeto de esqueleto (clases, vocales, CV)
+from normalize import detect_script, romanize
 
 from config import DSN
-DEFAULT_LECTS = ["itc-pro", "xum", "osc", "xfa", "spx"]
 
 
 def ortho_segments(word):
-    """grafía → lista de 'segmentos'-letra para compute() (NFD, minúsculas, sin marcas ni 'h')."""
-    w = unicodedata.normalize("NFD", (word or "").strip().strip("*-–—·"))
+    """grafía → lista de 'segmentos'-letra para compute(). SCRIPT-AWARE: romaniza no-latín antes (cirílico/
+    griego/devanagari…); si el script no tiene mapa aún, devuelve [] (declara el hueco, no inventa)."""
+    w = romanize(word, detect_script(word or ""))
+    if not w:
+        return []
+    w = unicodedata.normalize("NFD", w.strip().strip("*-–—·"))
     w = "".join(c for c in w if unicodedata.category(c) != "Mn").lower()
     return [ch for ch in w if ch.isalpha() and ch != "h"]
 
 
 def main():
-    lects = sys.argv[1:] or DEFAULT_LECTS
+    # SOLO para lects dados (protos/antiguas romanizadas): la ortografía es proxy fonémico fiable ahí, NO en
+    # lenguas de ortografía profunda (inglés). Script-aware: romaniza cirílico/griego/devanagari antes.
+    lects = sys.argv[1:]
+    if not lects:
+        print("uso: skeleton_from_ortho.py <lect-proto> …  (p.ej. itc-pro xum gem-pro sla-pro)"); return
     conn = psycopg.connect(DSN, autocommit=False); cur = conn.cursor()
-    cur.execute("""SELECT id, lect_id, orthography FROM form
-                   WHERE source_id='kaikki' AND segments_raw IS NULL AND orthography IS NOT NULL
-                     AND lect_id = ANY(%s)""", (lects,))
+    cur.execute("""SELECT f.id, f.lect_id, f.orthography FROM form f
+                   WHERE f.source_id='kaikki' AND f.segments_raw IS NULL AND f.orthography IS NOT NULL
+                     AND f.lect_id = ANY(%s)
+                     AND NOT EXISTS (SELECT 1 FROM skeleton sk WHERE sk.form_id=f.id)""", (lects,))
     rows = cur.fetchall()
-    print(f"formas ancestrales sin IPA a esqueletizar (ortográfico): {len(rows):,}  lects={lects}")
+    print(f"formas sin IPA a esqueletizar (ortográfico, script-aware): {len(rows):,}  lects={lects}")
     lineage_cache = {}; n = 0
     for fid, lect, ortho in rows:
         segs = ortho_segments(ortho)

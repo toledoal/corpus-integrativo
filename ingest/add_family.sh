@@ -39,7 +39,8 @@ if [ -n "$ANCESTOR" ]; then $PY ingest/kaikki_ingest.py $ANCESTOR --all; else ec
 echo "── C. objeto endolingüístico (segmentar → esqueleto → ortográfico → afijos → core) ──"
 $PY ingest/segment_kaikki.py
 $PY ingest/recompute_skeleton.py --only-new    # incremental: no reprocesa esqueletos de otras familias
-[ -n "$ANCESTOR" ] && $PY ingest/skeleton_from_ortho.py || true   # protos/antiguas sin IPA → esqueleto ortográfico
+PROTOS=$($PY ingest/families.py "$FAM" protos) # códigos de proto (sin IPA) → esqueleto ortográfico script-aware
+[ -n "$PROTOS" ] && $PY ingest/skeleton_from_ortho.py $PROTOS || echo "  (sin protos que esqueletizar)"
 $PY ingest/affix_extract.py $NORMAL $ANCESTOR
 $PY ingest/core_skeleton.py $NORMAL $ANCESTOR
 

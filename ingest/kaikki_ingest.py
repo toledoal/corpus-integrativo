@@ -13,6 +13,7 @@ Uso: .venv/bin/python ingest/kaikki_ingest.py Latin Spanish --limit 0   (0 = sin
 """
 import argparse, json, os, sys
 import psycopg
+import normalize
 
 from config import DSN
 from config import KDIR
@@ -121,15 +122,16 @@ def main():
         form_buf, sense_buf, ety_buf = [], [], []
         n = 0
         for line in open(path, encoding="utf-8"):
-            d = json.loads(line)
-            ety = d.get("ety"); ety_t = d.get("ety_t")
+            # normaliza AMBOS esquemas Kaikki (compacto y CRUDO de wiktextract; los dumps eslavos son crudos)
+            e = normalize.kaikki_entry(json.loads(line))
+            ety, ety_t = e["ety"], e["ety_t"]
             if not (ety or ety_t) and not args.all:   # normal: solo con etimología; --all: toda entrada (ancestros)
                 continue
-            word = d.get("word"); pos = d.get("pos") or "x"
+            word, pos = e["word"], e["pos"]
             fid = f"kaikki:{code}:{word}:{pos}"
-            ipa = (d.get("ipa") or [None])[0]
+            ipa = (e["ipa"] or [None])[0]
             form_buf.append((fid, code, ipa, word, ety))
-            for g in (d.get("gloss") or []):
+            for g in e["glosses"]:
                 sense_buf.append((fid, g))
             # etimología estructurada: cadena de plantillas → aristas de lengua (inline) + de palabra (buffer)
             for t in (ety_t or []):

@@ -77,7 +77,8 @@ FAMILIES = {
     },
     # ───────────────────────── ESLAVO (definido, NO cargado) ─────────────────────────
     "slavic": {
-        "members": ["ru", "pl", "cs", "sk", "uk", "be", "bg", "mk", "sl", "hr", "sr", "bs", "cu"],
+        # alineado a los .jsonl descargados (2026-08): sin be/mk/hr/sr/bs/cu (no hay dump).
+        "members": ["ru", "pl", "cs", "sk", "uk", "bg", "sl", "sla-pro"],
         "ancestors": [
             ("proto-slavic", ["sla-pro"], "reconstruido"),
             ("proto-balto-slavic", ["bat-pro"], "reconstruido"),
@@ -85,14 +86,12 @@ FAMILIES = {
         ],
         "kaikki_files": {
             "Russian": "ru", "Polish": "pl", "Czech": "cs", "Slovak": "sk", "Ukrainian": "uk",
-            "Belarusian": "be", "Bulgarian": "bg", "Macedonian": "mk", "Slovene": "sl",
-            "Croatian": "hr", "Serbian": "sr", "Bosnian": "bs", "Old_Church_Slavonic": "cu",
-            "Proto-Slavic": "sla-pro",
+            "Bulgarian": "bg", "Slovene": "sl", "Proto-Slavic": "sla-pro",
         },
-        "all_load": ["Proto-Slavic", "Old_Church_Slavonic"],   # proto + antigua sin etimología rica
+        "all_load": ["Proto-Slavic"],   # proto reconstruido, sin etimología
         "reconcile_pairs": {
             "russ1263": "ru", "poli1260": "pl", "czec1258": "cs", "slov1269": "sk",
-            "ukra1253": "uk", "bela1254": "be", "bulg1262": "bg", "sloveni1": "sl",
+            "ukra1253": "uk", "bulg1262": "bg", "slov1268": "sl",
         },
     },
 }
@@ -122,12 +121,16 @@ def load_plan(name):
     return normal, ancestor
 
 
-if __name__ == "__main__":   # CLI para add_family.sh: imprime archivos a cargar
+if __name__ == "__main__":   # CLI para add_family.sh: imprime archivos/códigos a cargar
     import sys
     fam = sys.argv[1] if len(sys.argv) > 1 else "romance"
     mode = sys.argv[2] if len(sys.argv) > 2 else "normal"
+    cfg = FAMILIES[fam]
     normal, ancestor = load_plan(fam)
-    print(" ".join(ancestor if mode == "ancestor" else normal))
+    if mode == "protos":     # códigos de lect de los ancestros sin IPA (para esqueleto ortográfico)
+        print(" ".join(cfg["kaikki_files"][f] for f in ancestor))
+    else:
+        print(" ".join(ancestor if mode == "ancestor" else normal))
 
 
 def members():
