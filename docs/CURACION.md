@@ -22,6 +22,7 @@ Ampliaciones al ir cargando familias (cada una motivada por símbolos IPA reales
 | v2 | Eslavo | þ→Θ (thorn); yers ъ ь + nasales ǫ ę ě ą → VOW; ⁽⁾ (palatalización opcional) → IGNORE | reconstrucción/ortografía eslava |
 | v3 | Indo-iranio | ◌ (ancla devanagari) → IGNORE | notación devanagari |
 | v4 | Céltico | ɰ (aprox. velar) → GLI; ɯ (vocal posterior) → VOW | fonología celta |
+| v5 | Índico | `normalize._DEV` devanagari ampliado: vocales independientes अआइउए…, retroflejas ठढणञङ, nukta क़ज़ड़… | esqueleto ortográfico de Sánscrito/Pali/Prácrito en devanagari |
 
 **Africadas (v2).** tʃ dʒ ts dz → **Σ** (por destino, transición Θ→Σ). Corrige un bug previo: la africada con
 tie-bar (t͡ʃ) se clasificaba como Θ por su primer carácter.

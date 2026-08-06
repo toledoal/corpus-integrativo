@@ -63,10 +63,18 @@ _CYR = {"б":"b","п":"p","в":"v","ф":"f","м":"m","н":"n","т":"t","д":"d",
 _GRK = {"β":"b","π":"p","φ":"f","μ":"m","ν":"n","τ":"t","δ":"d","θ":"th","σ":"s","ς":"s","ζ":"z",
         "κ":"k","γ":"g","χ":"kh","λ":"l","ρ":"r","ξ":"ks","ψ":"ps","α":"a","ε":"e","η":"e","ι":"i",
         "ο":"o","υ":"u","ω":"o"}
-# Devanagari: abugida (vocal inherente 'a'); mapa aproximado de las consonantes principales.
-_DEV = {"क":"k","ख":"kh","ग":"g","घ":"gh","च":"ch","ज":"j","ट":"t","ड":"d","त":"t","थ":"th","द":"d",
-        "ध":"dh","न":"n","प":"p","फ":"f","ब":"b","भ":"bh","म":"m","य":"j","र":"r","ल":"l","व":"v",
-        "श":"sh","ष":"sh","स":"s","ह":"h","ा":"a","ि":"i","ी":"i","ु":"u","ू":"u","े":"e","ो":"o"}
+# Devanagari: abugida (vocal inherente 'a'). Consonantes + vocales independientes + signos.
+_DEV = {# consonantes
+        "क":"k","ख":"kh","ग":"g","घ":"gh","ङ":"n","च":"ch","छ":"ch","ज":"j","झ":"jh","ञ":"n",
+        "ट":"t","ठ":"th","ड":"d","ढ":"dh","ण":"n","त":"t","थ":"th","द":"d","ध":"dh","न":"n",
+        "प":"p","फ":"f","ब":"b","भ":"bh","म":"m","य":"j","र":"r","ल":"l","ळ":"l","व":"v",
+        "श":"sh","ष":"sh","स":"s","ह":"h",
+        "क़":"k","ख़":"kh","ग़":"g","ज़":"z","ड़":"r","ढ़":"r","फ़":"f","य़":"j",           # con nukta
+        # vocales INDEPENDIENTES (aparecen a inicio de palabra)
+        "अ":"a","आ":"a","इ":"i","ई":"i","उ":"u","ऊ":"u","ऋ":"r","ॠ":"r","ऌ":"l","ए":"e","ऐ":"e",
+        "ओ":"o","औ":"o","ऑ":"o",
+        # signos dependientes de vocal (matras)
+        "ा":"a","ि":"i","ी":"i","ु":"u","ू":"u","ृ":"r","े":"e","ै":"e","ो":"o","ौ":"o","ऽ":""}
 _MAPS = {"Cyrillic": _CYR, "Greek": _GRK, "Devanagari": _DEV}
 _ALL = {**_CYR, **_GRK, **_DEV}                     # mapa combinado (para formas de script MEZCLADO)
 
