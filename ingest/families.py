@@ -57,7 +57,8 @@ FAMILIES = {
     # hermana del indoario; el proto común reconstruido es Proto-Indo-Iranio (iir-pro ≈ "proto-ario").
     "indo-iranian": {
         # INDO-ARIO (hi ur sa bn pa mr gu ne or…) + IRANIO (fa ps tg os zza tly…); proto común iir-pro.
-        "members": ["hi", "ur", "sa", "bn", "pa", "mr", "gu", "ne", "or",
+        "members": ["hi", "ur", "sa", "bn", "pa", "mr", "gu", "ne", "or", "sd", "as", "si", "ks", "kok",
+                    "pi", "pra", "syl",
                     "fa", "ps", "tg", "os", "zza", "tly",
                     "sga", "inc-pro", "ira-pro", "iir-pro"],
         "ancestors": [
@@ -67,7 +68,10 @@ FAMILIES = {
             ("proto-indo-iranian", ["iir-pro"], "reconstruido"),   # "proto-ario"
             ("proto-ie", ["ine-pro"], "reconstruido"),
         ],
-        "kaikki_files": {"Hindi": "hi", "Urdu": "ur",
+        "kaikki_files": {"Hindi": "hi", "Urdu": "ur", "Sanskrit": "sa", "Bengali": "bn", "Punjabi": "pa",
+                         "Marathi": "mr", "Gujarati": "gu", "Nepali": "ne", "Odia": "or", "Sindhi": "sd",
+                         "Assamese": "as", "Sinhalese": "si", "Kashmiri": "ks", "Konkani": "kok",
+                         "Pali": "pi", "Prakrit": "pra", "Sylheti": "syl",
                          "Persian": "fa", "Pashto": "ps", "Tajik": "tg",
                          "Ossetian": "os", "Zazaki": "zza", "Talysh": "tly"},
         "all_load": [],
