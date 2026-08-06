@@ -99,8 +99,9 @@ def main():
         cur.execute("INSERT INTO ancestry_edge(child_lect,parent_lect,kind,status,crosses_macrosystem,source_id) "
                     "VALUES(%s,%s,%s,%s,%s,'kaikki')", (child, parent, kind, status, msc != msp))
 
-    # staging para forms (necesita ON CONFLICT DO NOTHING); senses/etimología van directo por COPY
-    cur.execute("CREATE TEMP TABLE _f(id TEXT, lect_id TEXT, ipa_raw TEXT, orthography TEXT, etymology_text TEXT) ON COMMIT DROP")
+    # staging para forms (necesita ON CONFLICT DO NOTHING); senses/etimología van directo por COPY.
+    # SIN 'ON COMMIT DROP': commiteamos por archivo y la tabla debe sobrevivir entre commits.
+    cur.execute("CREATE TEMP TABLE IF NOT EXISTS _f(id TEXT, lect_id TEXT, ipa_raw TEXT, orthography TEXT, etymology_text TEXT)")
     total_forms = total_sense = total_ety = 0
     for langname in args.languages:
         code = NAME2CODE.get(langname, langname.lower())

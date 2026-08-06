@@ -54,24 +54,25 @@ FAMILIES = {
     },
     # ───────────────────────── GERMÁNICO (definido, NO cargado) ─────────────────────────
     "germanic": {
-        "members": ["en", "de", "nl", "sv", "da", "no", "is", "af", "fy", "lb", "yi",
-                    "got", "ang", "goh", "non", "gml", "gmh", "dum", "osx"],
+        # alineado a los .jsonl descargados (2026-08): sin Middle-*/Old_Saxon/Bokmål (no hay dump);
+        # + Low German (nds), Feroés (fo), Scots (sco), Nynorsk (nn).
+        "members": ["en", "de", "nl", "sv", "da", "nn", "is", "af", "fy", "lb", "yi",
+                    "got", "ang", "goh", "non", "nds", "fo", "sco", "gem-pro"],
         "ancestors": [
             ("proto-germanic", ["gem-pro"], "reconstruido"),
             ("proto-ie", ["ine-pro"], "reconstruido"),   # niveles separados (proto-lenguas distintas)
         ],
         "kaikki_files": {
             "English": "en", "German": "de", "Dutch": "nl", "Swedish": "sv", "Danish": "da",
-            "Norwegian_Bokmål": "no", "Icelandic": "is", "Afrikaans": "af", "West_Frisian": "fy",
+            "Norwegian_Nynorsk": "nn", "Icelandic": "is", "Afrikaans": "af", "West_Frisian": "fy",
             "Luxembourgish": "lb", "Yiddish": "yi", "Gothic": "got", "Old_English": "ang",
-            "Old_High_German": "goh", "Old_Norse": "non", "Middle_Low_German": "gml",
-            "Middle_High_German": "gmh", "Middle_Dutch": "dum", "Old_Saxon": "osx",
-            "Proto-Germanic": "gem-pro",
+            "Old_High_German": "goh", "Old_Norse": "non", "Low_German": "nds", "Faroese": "fo",
+            "Scots": "sco", "Proto-Germanic": "gem-pro",
         },
         "all_load": ["Proto-Germanic"],   # proto reconstruido, sin etimología
         "reconcile_pairs": {
             "stan1293": "en", "stan1295": "de", "dutc1256": "nl", "swed1254": "sv",
-            "dani1285": "da", "norw1258": "no", "icel1247": "is", "goth1244": "got",
+            "dani1285": "da", "icel1247": "is", "goth1244": "got",
         },
     },
     # ───────────────────────── ESLAVO (definido, NO cargado) ─────────────────────────

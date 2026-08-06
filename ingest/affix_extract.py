@@ -54,6 +54,9 @@ def main():
         path = os.path.join(KDIR, f"{langname}.jsonl")
         if not os.path.isfile(path):
             continue
+        # garantiza el lect (FK de affix.origin_lect); si kaikki_ingest ya lo creó, no lo pisa
+        cur.execute("INSERT INTO lect(id,name,level,attested,source_id) VALUES(%s,%s,'lengua',true,'kaikki') "
+                    "ON CONFLICT(id) DO NOTHING", (code, langname.replace("_", " ")))
         for line in open(path, encoding="utf-8"):
             d = json.loads(line)
             pos = d.get("pos")

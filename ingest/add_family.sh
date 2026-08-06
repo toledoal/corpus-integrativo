@@ -31,10 +31,10 @@ echo "  normales : $NORMAL"
 echo "  ancestros: $ANCESTOR   (se cargan con --all)"
 
 echo "── A. carga lenguas normales ──"
-[ -n "$NORMAL" ] && $PY ingest/kaikki_ingest.py $NORMAL || echo "  (sin lenguas normales)"
+if [ -n "$NORMAL" ]; then $PY ingest/kaikki_ingest.py $NORMAL; else echo "  (sin lenguas normales)"; fi
 
 echo "── B. carga ancestros/protos (--all) ──"
-[ -n "$ANCESTOR" ] && $PY ingest/kaikki_ingest.py $ANCESTOR --all || echo "  (sin ancestros)"
+if [ -n "$ANCESTOR" ]; then $PY ingest/kaikki_ingest.py $ANCESTOR --all; else echo "  (sin ancestros)"; fi
 
 echo "── C. objeto endolingüístico (segmentar → esqueleto → ortográfico → afijos → core) ──"
 $PY ingest/segment_kaikki.py
