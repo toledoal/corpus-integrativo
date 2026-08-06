@@ -35,7 +35,7 @@ CHECKS = [
     ("SKEL · residual '?' en código", "SELECT count(*) FROM skeleton WHERE code ~ '\\?' OR cv_template ~ '\\?'", "fail", "segmento sin clasificar (¿marcador no manejado?)"),
     ("SKEL · nasal sin normalizar", "SELECT count(*) FROM skeleton WHERE cons_skeleton ~ '[ŋɲɳɴɱ]'", "fail", "superficie no canonizada a n/m"),
     ("SKEL · #símbolos ≠ #consonantes", "SELECT count(*) FROM skeleton WHERE code IS NOT NULL AND array_length(string_to_array(code,'·'),1) <> array_length(string_to_array(cons_skeleton,'·'),1)", "fail", "código de clase y letras descuadrados"),
-    ("SKEL · #C(cv) ≠ #consonantes", "SELECT count(*) FROM skeleton WHERE cons_skeleton IS NOT NULL AND (length(cv_template)-length(replace(cv_template,'C',''))) <> array_length(string_to_array(cons_skeleton,'·'),1)", "fail", "cv_template inconsistente con cons_skeleton"),
+    ("SKEL · #C(cv) > #clases (imposible)", "SELECT count(*) FROM skeleton WHERE cons_skeleton IS NOT NULL AND (length(cv_template)-length(replace(cv_template,'C',''))) > array_length(string_to_array(cons_skeleton,'·'),1)", "fail", "cada C aporta ≥1 clase; con BICLASE #clases ≥ #C (nunca al revés)"),
     # --- VOCALES ---
     ("VOW · #V(cv) ≠ #vocales", "SELECT count(*) FROM skeleton WHERE vowels IS NOT NULL AND (length(cv_template)-length(replace(cv_template,'V',''))) <> array_length(string_to_array(vowels,'·'),1)", "fail", "vocales perdidas/descuadradas"),
     ("VOW · segmentos perdidos (cv≠#segmentos)", "SELECT count(*) FROM skeleton s JOIN form f ON f.id=s.form_id WHERE f.segments_raw IS NOT NULL AND length(s.cv_template) <> coalesce(array_length(f.segments_raw,1),0)", "fail", "cada segmento debe aparecer en cv_template (nada se pierde)"),

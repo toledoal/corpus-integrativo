@@ -26,7 +26,7 @@ for chars, cl in [("pbɓʙɸβfvʋwⱱʍ", "P"), ("tdʈɖθðɗþ", "T"), ("szʃ
 # vocales: IPA + redondeadas germánicas (ʏ ɶ ɞ ᵻ ᵿ) + yers/nasales eslavas de reconstrucción (ъ ь ǫ ę ě ą)
 VOW = set("aeiouyæœøɑɒɐɘɵɛɔəɜɤʌɨʉʊɪɚɝʏɶɞᵻᵿъьǫęěąųẽ"); GLI = set("jɥ")
 # marcas de tono/prosodia que NO son segmento (tono superíndice ±, flechas de entonación, dobles barras) → se ignoran
-IGNORE = set("¹²³⁴⁵⁶⁷⁸⁹⁰⁻⁺⁽⁾↗↘↑↓⫽ǀǃ:")   # tono/entonación + paréntesis superíndice (palatalización opcional eslava)
+IGNORE = set("¹²³⁴⁵⁶⁷⁸⁹⁰⁻⁺⁽⁾↗↘↑↓⫽ǀǃ:◌")   # tono/entonación + paréntesis palatalización eslava + ◌ (ancla devanagari)
 SKEL_NORM = {}
 for _chars, _canon in [("lɫɭʟłɬɮǁ", "l"), ("ʎ", "ʎ"), ("rɾɹɻʀʁɺ", "r"),
                        ("k", "k"), ("gɡ", "g"), ("cɟ", "c"), ("q", "q"),
@@ -36,6 +36,42 @@ for _chars, _canon in [("lɫɭʟłɬɮǁ", "l"), ("ʎ", "ʎ"), ("rɾɹɻʀʁɺ",
     for _ch in _chars:
         SKEL_NORM[_ch] = _canon
 BOUNDARY = set("+-_~")                                            # compuesto/multi-palabra (+/-/_) + variante (~)
+
+# ── Regla BICLASE (doc oas-segmentos-biclase, revisión versionada del mapeo IPA→clase) ──
+# Segmentos IPA únicos que comprometen DOS regiones a la vez → aportan DOS clases al esqueleto.
+# Orden: base·Χ (por defecto, §9). El IPA original se conserva en form.segments_raw (trazabilidad C0★★).
+BICLASS = {}
+for _chs, _pair in [("ʃʒʂʐɕʑ", (("S", "s"), ("K", "x"))),         # sibilantes desplazadas → Σ·Χ
+                    ("ɳɲŋɴ",   (("N", "n"), ("K", "x"))),         # nasales dorsales       → Ξ·Χ
+                    ("ʎ",       (("L", "l"), ("K", "x")))]:        # lateral palatal        → Λ·Χ
+    for _c in _chs:
+        BICLASS[_c] = _pair
+# Africadas: NO biclase — transición Θ→Σ, se leen por su DESTINO (Σ). Símbolo único o t/d + sibilante.
+AFF_SINGLE = set("ʦʣʧʤʨʥ")
+
+
+def _is_affricate(base):
+    if any(c in AFF_SINGLE for c in base):
+        return True
+    return len(base) >= 2 and base[0] in "td" and base[-1] in "szʃʒʂʐɕʑ"
+
+
+def consonant_classes(base, biclass=False):
+    """→ lista de (clase, canónica) de un segmento: 2 pares si es BICLASE (y biclass=True), 1 si simple/africada.
+    DEFAULT biclass=False: la biclase a ciegas REDUJO la conservación de código en todas las familias (medido,
+    ver analysis/biclass_conservation.py) → se deja apagada; sigue disponible para investigarla condicionada a
+    genealogía. La africada tʃ→Σ (por destino) sí queda siempre (corrige el bug del tie-bar previo)."""
+    if _is_affricate(base):                                       # africada primero (tʃ contiene ʃ pero es Σ)
+        return [("S", "s")]
+    for ch in base:
+        if ch in BICLASS:
+            return list(BICLASS[ch]) if biclass else [BICLASS[ch][0]]   # dos clases, o solo la base
+    for ch in base:                                               # clase simple: 1er char clasificable
+        if ch in VOW or ch in GLI:
+            return []
+        if ch in IPA:
+            return [(IPA[ch], base)]
+    return []
 
 
 def seg_class_char(seg):
@@ -63,25 +99,54 @@ def _clean(seg):
                    if unicodedata.category(c) not in ("Mn", "Lm", "Sk", "Cf")).replace("͡", "").replace("͜", "").lower()
 
 
-def compute(segments):
-    """Devuelve (cons, code, vowels, cv, is_compound). Vocales CONSERVADAS; compuestos marcados."""
-    cons, syms, vows, cv = [], [], [], []
-    compound = False
+def compute(segments, biclass=False):
+    """Devuelve (cons, code, vowels, cv, is_compound). Vocales CONSERVADAS; compuestos marcados.
+    biclass=False por DEFAULT (revertido: reducía la conservación de código, medido por familia).
+    BICLASE con GUARDA DE ASIMILACIÓN: un dorsal-nasal/sibilante cuya coloración Χ es adyacente a un
+    consonante Χ siguiente (ŋ+g en 'banco'/'angustus') es asimilación, NO ŋ fonémica → se lee solo la base
+    (no se duplica la Χ; el dorso lo aporta el segmento velar siguiente). La ŋ que absorbió el velar (sin
+    velar siguiente: 'sing') sí es biclase Ξ·Χ."""
+    # 1) clasificar cada segmento en una celda
+    cells = []
     for seg in segments:
         base = _clean(seg)
-        if not base or set(base) <= BOUNDARY:        # marcador de compuesto (+/_/-): frontera, no '?'
-            compound = True; cv.append("+"); continue
-        cc = seg_class_char(seg)
-        if cc:
-            cons.append(norm_char(cc[1])); syms.append(SYM[cc[0]]); cv.append("C")
+        if not base or set(base) <= BOUNDARY:
+            cells.append(("+",)); continue
+        pairs = consonant_classes(base, biclass)
+        if pairs:
+            cells.append(("C", pairs))
         elif any(ch in GLI for ch in base):
-            cv.append("G")                            # glide
+            cells.append(("G",))
         elif any(ch in VOW for ch in base):
-            vows.append(seg); cv.append("V")          # VOCAL: IPA crudo (calidad/longitud/tono)
+            cells.append(("V", seg))
         elif set(base) <= IGNORE:
-            cv.append("T")                            # tono/entonación/click prosódico: no es C ni V (conserva conteo)
+            cells.append(("T",))
         else:
-            cv.append("?")                            # residual real (símbolo raro no manejado)
+            cells.append(("?",))
+    # 2) guarda de asimilación: biclase (base·Χ) + siguiente consonante Χ → colapsar a base
+    for i, c in enumerate(cells):
+        if c[0] == "C" and len(c[1]) == 2 and c[1][1][0] == "K":
+            nxt = next((cells[j] for j in range(i + 1, len(cells)) if cells[j][0] in ("C", "V")), None)
+            if nxt and nxt[0] == "C" and nxt[1][0][0] == "K":
+                cells[i] = ("C", [c[1][0]])            # solo la base; el dorso es el velar siguiente
+    # 3) ensamblar
+    cons, syms, vows, cv = [], [], [], []
+    compound = False
+    for c in cells:
+        if c[0] == "+":
+            compound = True; cv.append("+")
+        elif c[0] == "C":
+            for cls, canon in c[1]:
+                cons.append(norm_char(canon)); syms.append(SYM[cls])
+            cv.append("C")
+        elif c[0] == "G":
+            cv.append("G")
+        elif c[0] == "V":
+            vows.append(c[1]); cv.append("V")
+        elif c[0] == "T":
+            cv.append("T")
+        else:
+            cv.append("?")
     if not cons and not vows:
         return None, None, None, None, compound
     return ("·".join(cons) or None, "·".join(syms) or None, "·".join(vows) or None, "".join(cv), compound)
