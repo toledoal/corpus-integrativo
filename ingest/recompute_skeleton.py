@@ -19,15 +19,18 @@ from config import DSN
 
 SYM = dict(zip("PTKSLMN", "ΦΘΧΣΛϺΞ"))
 IPA = {}
-for chars, cl in [("pbɓʙɸβfvʋwⱱ", "P"), ("tdʈɖθðɗ", "T"), ("szʃʒʂʐɕʑʦʣʧʤʨʥ", "S"),
-                  ("lɫɭʎʟrɾɹɻʀʁłɽ", "L"), ("kgɡcɟxɣχqɢʔhɦħʕçʝɠʄ", "K"), ("mɱ", "M"), ("nɳɲŋɴ", "N")]:
+for chars, cl in [("pbɓʙɸβfvʋwⱱʍ", "P"), ("tdʈɖθðɗ", "T"), ("szʃʒʂʐɕʑʦʣʧʤʨʥ", "S"),
+                  ("lɫɭʎʟrɾɹɻʀʁłɽɬɮǁɺ", "L"), ("kgɡcɟxɣχqɢʔhɦħʕçʝɠʄɧ", "K"), ("mɱ", "M"), ("nɳɲŋɴ", "N")]:
     for ch in chars:
         IPA[ch] = cl
-VOW = set("aeiouyæœøɑɒɐɘɵɛɔəɜɤʌɨʉʊɪɚɝ"); GLI = set("jɥ")
+# vocales (+ redondeadas anteriores/centrales germánicas ʏ ɶ ɞ ᵻ ᵿ, faltaban → producían '?')
+VOW = set("aeiouyæœøɑɒɐɘɵɛɔəɜɤʌɨʉʊɪɚɝʏɶɞᵻᵿ"); GLI = set("jɥ")
+# marcas de tono/prosodia que NO son segmento (tono superíndice ±, flechas de entonación, dobles barras) → se ignoran
+IGNORE = set("¹²³⁴⁵⁶⁷⁸⁹⁰⁻⁺↗↘↑↓⫽ǀǃ:")
 SKEL_NORM = {}
-for _chars, _canon in [("lɫɭʟł", "l"), ("ʎ", "ʎ"), ("rɾɹɻʀʁ", "r"),
+for _chars, _canon in [("lɫɭʟłɬɮǁ", "l"), ("ʎ", "ʎ"), ("rɾɹɻʀʁɺ", "r"),
                        ("k", "k"), ("gɡ", "g"), ("cɟ", "c"), ("q", "q"),
-                       ("xɣχçʝ", "x"), ("hɦʔħʕ", "h"),
+                       ("xɣχçʝɧ", "x"), ("hɦʔħʕ", "h"),
                        ("nɳ", "n"), ("ŋɲɴ", "n"), ("mɱ", "m"),      # nasales → canónica n/m (fix batería A)
                        ("rɾɹɻʀʁɽ", "r"), ("dɗ", "d")]:              # róticas retroflejas / implosivas → canónica
     for _ch in _chars:
@@ -75,8 +78,10 @@ def compute(segments):
             cv.append("G")                            # glide
         elif any(ch in VOW for ch in base):
             vows.append(seg); cv.append("V")          # VOCAL: IPA crudo (calidad/longitud/tono)
+        elif set(base) <= IGNORE:
+            cv.append("T")                            # tono/entonación/click prosódico: no es C ni V (conserva conteo)
         else:
-            cv.append("?")                            # residual real (tono suelto, símbolo raro)
+            cv.append("?")                            # residual real (símbolo raro no manejado)
     if not cons and not vows:
         return None, None, None, None, compound
     return ("·".join(cons) or None, "·".join(syms) or None, "·".join(vows) or None, "".join(cv), compound)

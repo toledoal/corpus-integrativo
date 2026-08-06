@@ -30,7 +30,7 @@ def main():
     cur.execute("""SELECT DISTINCT s.ipa FROM segment s JOIN form f ON f.id=s.form_id
                    WHERE f.lect_id = ANY(%s) AND s.ipa IS NOT NULL""", (MEMBERS,))
     phonemes = [r[0] for r in cur.fetchall()]
-    print(f"fonemas distintos en Romance: {len(phonemes):,}")
+    print(f"fonemas distintos en la familia: {len(phonemes):,}")
 
     nph = nrow = nmiss = 0
     for ph in phonemes:
