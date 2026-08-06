@@ -19,14 +19,14 @@ from config import DSN
 
 SYM = dict(zip("PTKSLMN", "ΦΘΧΣΛϺΞ"))
 IPA = {}
-for chars, cl in [("pbɓʙɸβfvʋwⱱʍ", "P"), ("tdʈɖθðɗþ", "T"), ("szʃʒʂʐɕʑʦʣʧʤʨʥ", "S"),
+for chars, cl in [("pbɓʙɸβfvʋwⱱʍ", "P"), ("tdʈɖθðɗþ", "T"), ("szʃʒʂʐɕʑʦʣʧʤʨʥſß", "S"),
                   ("lɫɭʎʟrɾɹɻʀʁłɽɬɮǁɺ", "L"), ("kgɡcɟxɣχqɢʔhɦħʕçʝɠʄɧ", "K"), ("mɱ", "M"), ("nɳɲŋɴ", "N")]:
     for ch in chars:
         IPA[ch] = cl
 # vocales: IPA + redondeadas germánicas (ʏ ɶ ɞ ᵻ ᵿ) + yers/nasales eslavas de reconstrucción (ъ ь ǫ ę ě ą)
 VOW = set("aeiouyæœøɑɒɐɘɵɛɔəɜɤʌɨʉʊɪɚɝʏɶɞᵻᵿъьǫęěąųẽɯ"); GLI = set("jɥɰ")   # +ɯ (posterior no-red., céltico)
 # marcas de tono/prosodia que NO son segmento (tono superíndice ±, flechas de entonación, dobles barras) → se ignoran
-IGNORE = set("¹²³⁴⁵⁶⁷⁸⁹⁰⁻⁺⁽⁾↗↘↑↓⫽ǀǃ:◌")   # tono/entonación + paréntesis palatalización eslava + ◌ (ancla devanagari)
+IGNORE = set("¹²³⁴⁵⁶⁷⁸⁹⁰⁻⁺⁽⁾↗↘↑↓⫽ǀǃ:◌0123456789*ꝛ⁊&")   # tono/entonación + paréntesis palatalización eslava + ◌ (ancla devanagari)
 SKEL_NORM = {}
 for _chars, _canon in [("lɫɭʟłɬɮǁ", "l"), ("ʎ", "ʎ"), ("rɾɹɻʀʁɺ", "r"),
                        ("k", "k"), ("gɡ", "g"), ("cɟ", "c"), ("q", "q"),
@@ -35,7 +35,7 @@ for _chars, _canon in [("lɫɭʟłɬɮǁ", "l"), ("ʎ", "ʎ"), ("rɾɹɻʀʁɺ",
                        ("rɾɹɻʀʁɽ", "r"), ("dɗ", "d")]:              # róticas retroflejas / implosivas → canónica
     for _ch in _chars:
         SKEL_NORM[_ch] = _canon
-BOUNDARY = set("+-_~,")                                            # compuesto/multi-palabra (+/-/_) + variante (~)
+BOUNDARY = set("+-_~,;")                                            # compuesto/multi-palabra (+/-/_) + variante (~)
 
 # ── Regla BICLASE (doc oas-segmentos-biclase, revisión versionada del mapeo IPA→clase) ──
 # Segmentos IPA únicos que comprometen DOS regiones a la vez → aportan DOS clases al esqueleto.

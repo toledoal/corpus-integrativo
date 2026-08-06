@@ -17,7 +17,24 @@ from config import DSN
 
 # lect → código epitran (los que dieron IPA fiable en el pre-flight de cobertura)
 G2P = {"hi": "hin-Deva", "mr": "mar-Deva", "bn": "ben-Beng", "or": "ori-Orya", "pa": "pan-Guru",
-       "si": "sin-Sinh", "ur": "urd-Arab", "tg": "tgk-Cyrl", "lv": "lav-Latn", "lt": "lit-Latn"}
+       "si": "sin-Sinh", "ur": "urd-Arab", "tg": "tgk-Cyrl", "lv": "lav-Latn", "lt": "lit-Latn",
+       "sv": "swe-Latn", "da": "dan-Latn", "nl": "nld-Latn", "de": "deu-Latn"}
+
+# INGLÉS: g2p_en (CMUdict + modelo neuronal para OOV; maneja la ortografía profunda: knight→N·AY·T).
+# Sale en ARPAbet → se convierte a IPA. El inglés es el mayor hueco germánico (450k formas, 20% con IPA).
+ARPA2IPA = {"AA":"ɑ","AE":"æ","AH":"ʌ","AO":"ɔ","AW":"aʊ","AY":"aɪ","EH":"ɛ","ER":"ɚ","EY":"eɪ",
+            "IH":"ɪ","IY":"i","OW":"oʊ","OY":"ɔɪ","UH":"ʊ","UW":"u",
+            "B":"b","CH":"t͡ʃ","D":"d","DH":"ð","F":"f","G":"ɡ","HH":"h","JH":"d͡ʒ","K":"k","L":"l",
+            "M":"m","N":"n","NG":"ŋ","P":"p","R":"ɹ","S":"s","SH":"ʃ","T":"t","TH":"θ","V":"v",
+            "W":"w","Y":"j","Z":"z","ZH":"ʒ"}
+
+
+def arpa_to_ipa(phones):
+    out = []
+    for p in phones:
+        p = p.rstrip("0123")                       # quita dígito de acento de las vocales
+        out.append(ARPA2IPA.get(p, ""))
+    return "".join(out)
 
 # rangos de scripts de FUENTE: si aparecen en la "IPA", epitran NO transliteró → salida inválida, se descarta.
 def _clean_ipa(s):
@@ -33,24 +50,40 @@ def _clean_ipa(s):
 def main():
     import epitran
     import warnings; warnings.filterwarnings("ignore")
-    want = sys.argv[1:] or list(G2P)
+    want = sys.argv[1:] or (["en"] + list(G2P))
     conn = psycopg.connect(DSN); cur = conn.cursor()
     total = 0
     for lect in want:
-        code = G2P.get(lect)
-        if not code:
-            print(f"  · {lect}: sin modelo G2P (usar esqueleto ortográfico)"); continue
+        # elige motor: inglés → g2p_en (ARPAbet→IPA); resto → epitran
+        transliterate = None
+        if lect == "en":
+            try:
+                from g2p_en import G2p
+                _g = G2p()
+                transliterate = lambda w: arpa_to_ipa(_g(w))
+                engine = "g2p_en"
+            except Exception as ex:
+                print(f"  · en: g2p_en no disponible ({str(ex)[:40]})"); continue
+        else:
+            code = G2P.get(lect)
+            if not code:
+                print(f"  · {lect}: sin modelo G2P (usar esqueleto ortográfico)"); continue
+            try:
+                _epi = epitran.Epitran(code)
+                transliterate = lambda w, e=_epi: e.transliterate(w)
+                engine = code
+            except Exception as ex:
+                print(f"  · {lect} ({code}): sin modelo epitran ({str(ex)[:35]})"); continue
         cur.execute("""SELECT id, orthography FROM form
                        WHERE source_id='kaikki' AND lect_id=%s AND ipa_raw IS NULL AND ipa_elab IS NULL
                          AND orthography IS NOT NULL""", (lect,))
         rows = cur.fetchall()
         if not rows:
             print(f"  · {lect}: nada por elaborar"); continue
-        epi = epitran.Epitran(code)
         buf = []
         for fid, orth in rows:
             try:
-                ipa = epi.transliterate(orth)
+                ipa = transliterate(orth)
             except Exception:
                 ipa = ""
             if ipa and ipa != orth and _clean_ipa(ipa):   # transliteró Y la salida es IPA limpia (no basura)
@@ -62,7 +95,7 @@ def main():
                     cp.write_row(r)
             cur.execute("UPDATE form f SET ipa_elab=e.ipa FROM _e e WHERE f.id=e.id")
             cur.execute("DROP TABLE _e"); conn.commit()
-        print(f"  · {lect} ({code}): {len(buf):,}/{len(rows):,} elaboradas")
+        print(f"  · {lect} ({engine}): {len(buf):,}/{len(rows):,} elaboradas")
         total += len(buf)
     print(f"OK · IPA elaborada (G2P) = {total:,} formas")
     cur.close(); conn.close()
