@@ -1,141 +1,21 @@
-# Redes semánticas de coderivados cross-familia
+# Redes semánticas de coderivados cross-familia (Germánico · Itálico · Eslavo)
 
-*Palabras que comparten **etymon** (cognados), **código OAS** y **campo semántico**, atravesando Germánico ↔ Itálico/Romance. Método anti-apofenia: cognación por etymon proto → conservación de código → campo leído de las glosas (solape léxico germánico∩itálico).*
+*Palabras que comparten **etymon** (cognados), **código OAS** y **campo semántico**, atravesando las ramas Germánica, Itálica/Romance y Eslava. Método anti-apofenia: cognación por etymon proto → conservación de código → campo leído de las glosas (palabra de contenido presente en ≥2 ramas).*
 
-**910 redes** encontradas (código+campo conservados entre ≥2 familias y ≥3 lenguas).
+**1428 redes** (código+campo en ≥2 ramas, ≥3 lenguas) — de ellas **526 abarcan las TRES ramas** (Germánico + Itálico + Eslavo).
 
-## Φ·Ξ  ·  itc-pro *winom  —  *wine, alcoholic, beverage, made*
+## Χ·Λ·Ξ  ·  ine-pro *(s)ker  —  *crown, royal, imperial, headdress* ⭐ 3 ramas
 
-19 lenguas · código **Φ·Ξ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| af | wyn | wine |
-| ang | win | wine |
-| da | vin | wine (an alcoholic beverage made from grapes) |
-| en | vine | Any plant whose stem requires support and whi |
-| en | vinho | Portuguese wine. |
-| en | vino | Wine. |
-| es | vino | wine (an alcoholic beverage made by fermentin |
-| fr | vigne | vine |
-| fro | vin | wine |
-| fy | wyn | wind |
-| gl | viño | wine |
-| it | vino | wine (an alcoholic beverage made by fermentin |
-| la | vinum | wine |
-| nap | vino | wine (an alcoholic beverage made by fermentin |
-| nl | wijn | wine (an alcoholic beverage produced by a cer |
-| nn | vin | wine |
-| pt | vinho | wine |
-| ro | vin | wine |
-| sc | binu | wine |
-| sc | vinu | wine |
-| scn | vinu | wine |
-| sv | vin | wine |
-
-## Φ·Ξ·Χ  ·  gem-pro *bankiz  —  *bench, bank, financial, institution*
-
-17 lenguas · código **Φ·Ξ·Χ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| af | bank | bench, couch |
-| af | bank | to deposit, to bank |
-| ang | banc | bench |
-| da | bank | bank (financial institution, branch office, c |
-| da | bank | imperative of banke |
-| de | bank | bench (which people sit on); pew |
-| en | banco | A bank, especially that of Venice; formerly u |
-| en | banco | In baccarat or chemin de fer, to bet an amoun |
-| en | bank | An institution where one can place and borrow |
-| en | bank | To deal with a bank or financial institution, |
-| es | banco | bank (financial institution) |
-| gl | banca | settle (bench) |
-| gl | banco | bench |
-| it | banca | bank (financial institution) |
-| it | banco | desk |
-| it | panca | bench |
-| lb | bank | bank (financial institution) |
-| lb | bänk | bench, pew |
-| nl | bank | bench |
-| nn | bank | a bank (financial institution) |
-| nn | benk | a bench |
-| ro | bancă | bench |
-| sc | bancu | desk |
-| scn | vancu | desk |
-| sco | bink | bench, ledge |
-| sv | bank | a bank (financial institution, branch of such |
-| yi | באַנק | bench |
-
-## Φ·Λ  ·  gem-pro *blewaz  —  *blue, color, colour, light*
-
-17 lenguas · código **Φ·Λ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| af | blou | blue |
-| ang | bleo | blue |
-| da | blå | blue (blue-colored) |
-| de | blau | blue (color/colour) |
-| de | bleu | light blue |
-| en | blee | Color, hue. |
-| en | blow | Blue. |
-| en | blue | Of a blue hue. |
-| en | blue | The colour of the clear sky or the deep sea;  |
-| en | blue | To make or become blue; to turn blue. |
-| es | blao | azure |
-| fr | bleu | blue |
-| fr | bleu | the color blue |
-| fy | blau | blue (having the blue color) |
-| fy | blau | blue (one of the seven primary colors, lying  |
-| gl | blao | azure |
-| goh | blao | blue |
-| it | blu | blue (color/colour) |
-| lb | blo | blue |
-| nl | blauw | blue |
-| nl | blauw | the colour blue |
-| nn | blå | blue |
-| ro | bleu | light blue |
-| sv | blå | blue |
-| yi | בלוי | blue |
-
-## Θ·Φ·Λ  ·  itc-pro *taðla  —  *table, board, furniture, surface*
-
-17 lenguas · código **Θ·Φ·Λ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| af | tafel | table |
-| ang | tæfl | gameboard |
-| ca | taula | table (furniture) |
-| da | tavle | blackboard, whiteboard, writing board (a larg |
-| de | zabel | chessboard, playing-board |
-| en | table | Furniture with a top surface to accommodate a |
-| en | table | To tabulate; to put into a table or grid. |
-| en | tavla | A version of the board game backgammon played |
-| es | teibol | strip club |
-| fr | table | table (furniture with a top surface to accomm |
-| gl | tabuela | lapwing (Vanellus vanellus) |
-| is | tafl | chess |
-| is | tafla | tablet, board (for writing on) |
-| it | tavola | table |
-| it | tavolo | table, board, desk |
-| la | tabula | tablet, sometimes a tablet covered with wax f |
-| nl | tafel | table (item of furniture) |
-| oc | taula | table |
-| pt | tabla | metal plate; sheet metal |
-| scn | tàvula | table |
-| yi | טאָוול | board (piece of wood or other material) |
-
-## Χ·Λ·Ξ  ·  ine-pro *(s)ker  —  *crown, dead*
-
-16 lenguas · código **Χ·Λ·Ξ**
+21 lenguas · Eslavo, Germánico, la · código **Χ·Λ·Ξ**
 
 | lengua | forma | glosa |
 |---|---|---|
 | af | kroon | A crown. |
 | ang | corona | crown |
+| bg | корона | crown |
 | ca | corona | crown (decorative headgear) |
+| cs | koruna | crown (royal, imperial, or princely headdress |
+| cs | koróna | corona |
 | da | krone | crown (a royal or imperial headdress, and in  |
 | de | korona | corona |
 | en | carrion | Pertaining to, or made up of, rotting flesh. |
@@ -162,11 +42,110 @@
 | nl | kruin | scalp, crest, crown |
 | nn | krone | crown (a royal or imperial headdress) |
 | nn | krone | to crown |
+| ru | корона | crown (royal, imperial or princely headdress) |
+| sla-pro | kъrnъ | truncated, cut |
 | sv | krona | a crown (headwear) |
+| uk | корона | crown (royal, imperial or princely headdress) |
 
-## Φ·Ξ  ·  itc-pro *dwenos  —  *good, well*
+## Φ·Ξ  ·  itc-pro *winom  —  *wine, made, alcoholic, beverage* ⭐ 3 ramas
 
-16 lenguas · código **Φ·Ξ**
+20 lenguas · Eslavo, Germánico, la · código **Φ·Ξ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| af | wyn | wine |
+| ang | win | wine |
+| da | vin | wine (an alcoholic beverage made from grapes) |
+| en | vine | Any plant whose stem requires support and whi |
+| en | vinho | Portuguese wine. |
+| en | vino | Wine. |
+| es | vino | wine (an alcoholic beverage made by fermentin |
+| fr | vigne | vine |
+| fro | vin | wine |
+| fy | wyn | wind |
+| gl | viño | wine |
+| it | vino | wine (an alcoholic beverage made by fermentin |
+| la | vinum | wine |
+| nap | vino | wine (an alcoholic beverage made by fermentin |
+| nl | wijn | wine (an alcoholic beverage produced by a cer |
+| nn | vin | wine |
+| pt | vinho | wine |
+| ro | vin | wine |
+| sc | binu | wine |
+| sc | vinu | wine |
+| scn | vinu | wine |
+| sla-pro | vino | wine |
+| sv | vin | wine |
+
+## Φ·Ξ·Χ  ·  gem-pro *bankiz  —  *bench, bank, institution, financial* ⭐ 3 ramas
+
+19 lenguas · Eslavo, Germánico, la · código **Φ·Ξ·Χ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| af | bank | bench, couch |
+| af | bank | to deposit, to bank |
+| ang | banc | bench |
+| da | bank | bank (financial institution, branch office, c |
+| da | bank | imperative of banke |
+| de | bank | bench (which people sit on); pew |
+| en | banco | A bank, especially that of Venice; formerly u |
+| en | banco | In baccarat or chemin de fer, to bet an amoun |
+| en | bank | An institution where one can place and borrow |
+| en | bank | To deal with a bank or financial institution, |
+| es | banco | bank (financial institution) |
+| gl | banca | settle (bench) |
+| gl | banco | bench |
+| it | banca | bank (financial institution) |
+| it | banco | desk |
+| it | panca | bench |
+| lb | bank | bank (financial institution) |
+| lb | bänk | bench, pew |
+| nl | bank | bench |
+| nn | bank | a bank (financial institution) |
+| nn | benk | a bench |
+| ro | bancă | bench |
+| ru | банк | bank (financial institution) |
+| sc | bancu | desk |
+| scn | vancu | desk |
+| sco | bink | bench, ledge |
+| sv | bank | a bank (financial institution, branch of such |
+| uk | банк | bank (financial institution) |
+| yi | באַנק | bench |
+
+## Θ·Φ·Λ  ·  itc-pro *taðla  —  *table, board, surface, furniture* ⭐ 3 ramas
+
+19 lenguas · Eslavo, Germánico, la · código **Θ·Φ·Λ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| af | tafel | table |
+| ang | tæfl | gameboard |
+| ca | taula | table (furniture) |
+| da | tavle | blackboard, whiteboard, writing board (a larg |
+| de | zabel | chessboard, playing-board |
+| en | table | Furniture with a top surface to accommodate a |
+| en | table | To tabulate; to put into a table or grid. |
+| en | tavla | A version of the board game backgammon played |
+| es | teibol | strip club |
+| fr | table | table (furniture with a top surface to accomm |
+| gl | tabuela | lapwing (Vanellus vanellus) |
+| is | tafl | chess |
+| is | tafla | tablet, board (for writing on) |
+| it | tavola | table |
+| it | tavolo | table, board, desk |
+| la | tabula | tablet, sometimes a tablet covered with wax f |
+| nl | tafel | table (item of furniture) |
+| oc | taula | table |
+| pl | tafla | smooth, shiny surface |
+| pt | tabla | metal plate; sheet metal |
+| scn | tàvula | table |
+| sla-pro | tobola | bag, sack (container) |
+| yi | טאָוול | board (piece of wood or other material) |
+
+## Φ·Ξ  ·  itc-pro *dwenos  —  *good, well, voucher* ⭐ 3 ramas
+
+18 lenguas · Eslavo, Germánico, la · código **Φ·Ξ**
 
 | lengua | forma | glosa |
 |---|---|---|
@@ -205,55 +184,23 @@
 | ro | bine | well |
 | ro | bun | good |
 | ro | bun | good, asset, possession |
+| ru | бон | voucher |
 | sc | bonu | good |
 | sc | bonu | goodness |
 | scn | beni | good |
 | scn | beni | well |
 | scn | bonu | good |
 | scn | bonu | good!; nice! |
+| uk | бона | bon, bond, bd |
 
-## Φ·Σ  ·  itc-pro *pattus  —  *step, pace, pass*
+## Ϻ·Σ·Θ·Λ  ·  itc-pro *magisteros  —  *master, expert, maestro, teacher* ⭐ 3 ramas
 
-16 lenguas · código **Φ·Σ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| ca | pas | pace, step |
-| ca | pas | used to intensify negation: at all, ever |
-| ca | passar | to pass, to pass by, to go by (to move past) |
-| de | pass | pass, mountain pass |
-| en | pace | A step. |
-| en | pace | Describing a bowler who bowls fast balls. |
-| en | pace | To walk back and forth in a small distance. |
-| en | pass | To change place. |
-| es | paso | dried |
-| es | paso | step, footstep |
-| fo | pass | passport |
-| fr | passer | to go past |
-| fro | pas | pace; step |
-| fur | pas | step, footstep |
-| gl | paso | first-person singular present indicative of p |
-| gl | paso | slowly |
-| gl | paso | step |
-| lb | pass | pass (permission or license to pass) |
-| nl | pas | fitting, having a proper fit, having the corr |
-| nl | pas | just, recently |
-| nl | pas | pace, step; also as a measure of distance |
-| oc | passar | to pass (by) |
-| osp | passo | step (advance or movement made from one foot  |
-| pt | passo | step; footstep; pace (movement made from one  |
-| ro | pas | step, pace, footstep, stride |
-| ro | păsa | to care (about) |
-| ro | păsui | to grant someone an extension to a payment, i |
-| sv | passa | fit, suit; be suitable |
-
-## Ϻ·Σ·Θ·Λ  ·  itc-pro *magisteros  —  *master, expert, teacher, skill*
-
-15 lenguas · código **Ϻ·Σ·Θ·Λ**
+18 lenguas · Eslavo, Germánico, la · código **Ϻ·Σ·Θ·Λ**
 
 | lengua | forma | glosa |
 |---|---|---|
 | af | meester | A master. |
+| bg | майстор | master (someone who has mastered a field of s |
 | ca | mestre | master |
 | da | mester | master |
 | en | maestro | A master in some art, especially a composer o |
@@ -275,15 +222,20 @@
 | pt | mestria | ability (high level of capability or skill) |
 | ro | maestru | master (male) |
 | ro | măiestru | masterly, skillful, artistic |
+| ru | мастер | master, craftsman, expert |
+| ru | маэстро | maestro |
 | sv | mästare | a master (expert at something, or spiritual t |
 | sv | mäster | Master, an older title of address |
+| uk | маестро | maestro (unofficial title of distinguished mu |
+| uk | майстер | expert, master, professional, specialist |
 
-## Φ·Λ·Θ  ·  itc-pro *porta  —  *gate, doorman, gateway*
+## Φ·Λ·Θ  ·  itc-pro *porta  —  *gate, door, doorman, porter* ⭐ 3 ramas
 
-15 lenguas · código **Φ·Λ·Θ**
+18 lenguas · Eslavo, Germánico, la · código **Φ·Λ·Θ**
 
 | lengua | forma | glosa |
 |---|---|---|
+| bg | порта | gate |
 | ca | porta | doorway, gateway |
 | ca | porter | doorman, doorkeeper, gatekeeper |
 | de | portier | doorman, porter |
@@ -299,13 +251,168 @@
 | lb | portier | porter, doorman |
 | nl | poort | gate |
 | oc | pòrta | door |
+| pl | furta | wicket gate (small door or gate, especially o |
 | pt | porta | door |
+| ru | портье | porter, doorman, receptionist |
 | scn | porta | gate |
 | sv | port | a larger entrance |
 
-## Χ·Λ·Λ  ·  ine-pro *kelh₁  —  *clear, course, white, egg*
+## Χ·Φ  ·  ine-pro *kewp  —  *cup, glass, vessel, large* ⭐ 3 ramas
 
-14 lenguas · código **Χ·Λ·Λ**
+17 lenguas · Eslavo, Germánico, la · código **Χ·Φ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| bg | купа | bowl (container used to hold, mix or present  |
+| ca | copa | cup (drinking vessel) |
+| ca | cupè | coupé |
+| cs | kupé | a coupe or coupé (two-door car with fixed roo |
+| de | cup | cup (trophy) |
+| en | coupe | A shallow glass or glass dish, usually with a |
+| en | cup | A concave vessel for drinking, usually made o |
+| en | cup | To form into the shape of a cup, particularly |
+| es | copa | stemmed glass, glass, goblet or its content |
+| es | cuba | barrel |
+| es | cubo | cube (a regular polyhedron having six identic |
+| fr | coupe | goblet, cup |
+| fr | cuve | tank; vat |
+| fro | cope | cup (vessel from which liquid is drunk) |
+| gl | cuba | cask (large barrel for the storage of liquid, |
+| gl | cubo | cube (shape) |
+| is | kúpa | hollow hemispherical object; bowl, dome, helm |
+| la | cupa | tub, cask, tun, vat |
+| nl | cup | cup (trophy) |
+| nl | kuip | tub, basin (medium to large container, e.g. u |
+| pt | copa | crop (top of a plant) |
+| pt | copo | glass (vessel from which one drinks) |
+| pt | cuba | cask (large barrel for the storage of liquid, |
+| ro | cupă | goblet (usually of wood), bowl, dish |
+| ru | купе | compartment, couchette |
+| sv | cup | cup |
+| sv | kupa | a hood, cover |
+| sv | kupa | to fold one’s hand as into a cup |
+| uk | куба | Cuba (a country, the largest island (based on |
+
+## Χ·Σ  ·  itc-pro *kapsos  —  *box, cash, desk, checkout* ⭐ 3 ramas
+
+17 lenguas · Eslavo, Germánico, la · código **Χ·Σ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| ca | caixa | box |
+| de | kassa | cash desk |
+| de | kasse | cash register, cash box |
+| en | case | The last remaining card of a particular rank. |
+| en | cashier | One who works at a till or receives payments. |
+| en | cashier | To dismiss (someone, especially military pers |
+| fo | kassi | box, case of iron, wood, etc.; bigger than an |
+| fr | caisse | box, crate |
+| fr | casse | burglary, break-in |
+| fro | casse | Old Northern French form of chasse |
+| fy | kas | greenhouse |
+| gl | caixa | box |
+| gl | queixo | cheese |
+| is | kassi | box |
+| lb | keess | cash register, till |
+| lb | kess | till |
+| nl | kas | a greenhouse |
+| nl | kassa | cash desk, checkout |
+| nn | case | a case study; a case as used in a case study |
+| pl | kasa | cash desk; checkout |
+| pt | caixa | box |
+| pt | queixo | chin (bottom of the face) |
+| ru | касса | pay desk, cash desk, checkout |
+| ru | кейс | briefcase |
+| sv | case | a case (instance or event as a topic of study |
+| uk | каса | pay desk, cash desk, checkout |
+
+## Σ·Θ·Θ  ·  itc-pro *status  —  *state, political, country, territory* ⭐ 3 ramas
+
+17 lenguas · Eslavo, Germánico, la · código **Σ·Θ·Θ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| af | staat | alternative form of staan |
+| af | staat | state (nation) |
+| bg | щат | state (a political division, e.g. a US state) |
+| ca | estat | state |
+| cs | stát | state |
+| de | staat | country, state (politically constituted legal |
+| en | estate | Previously owned; secondhand. |
+| en | estate | The collective property and liabilities of so |
+| en | estate | To give an estate to. |
+| en | stade | Synonym of stadion (“former Greek unit of dis |
+| en | state | A condition; a set of circumstances applying  |
+| en | state | Stately. |
+| en | state | To declare to be a fact. |
+| es | estado | country, land (any broad area or territory) |
+| es | estado | past participle of estar |
+| fro | estat | state |
+| it | stato | past participle of essere |
+| it | stato | state (physical property of matter as solid,  |
+| lb | stot | household |
+| nl | staat | state (political entity) |
+| nn | stat | a state, country |
+| ro | stat | past participle of sta |
+| ro | stat | state, government |
+| ru | штат | state (a political division, e.g. a US state) |
+| sc | istadu | past participle of èssere |
+| sc | istadu | state (sovereign polity) |
+| sv | stat | A state; a nation. |
+| uk | штат | state (a political division, e.g. a US state) |
+
+## Φ·Σ·Θ·Λ  ·  sla-pro *piscalь  —  *pistol, handgun, gun* ⭐ 3 ramas
+
+16 lenguas · Eslavo, Germánico, la · código **Φ·Σ·Θ·Λ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| bg | пищял | pipe, flute |
+| cs | pistole | pistol |
+| da | pistol | handgun, pistol |
+| de | pistole | pistol, gun |
+| en | pistol | A handgun |
+| en | pistol | To shoot (at) a target with a pistol. |
+| en | pistole | A Spanish gold double-escudo coin of the mid- |
+| es | pistola | pistol, handgun |
+| fr | pistole | handgun, pistol |
+| fr | pistolet | gun, pistol |
+| fy | pistoal | pistol |
+| it | pistola | pistol, handgun |
+| la | pistolium | pistol |
+| lb | pistoul | pistol |
+| nl | pistool | pistol |
+| pl | piszczel | tibia, shinbone (leg bone) |
+| pt | pistola | pissed off, mad, aggressively angry |
+| pt | pistola | pistol (handgun) |
+| uk | пищаль | shepherd's pipe |
+| wa | pistolet | pistol |
+
+## Φ·Λ·Θ  ·  gem-pro *fluto  —  *fleet* ⭐ 3 ramas
+
+15 lenguas · Eslavo, Germánico, la · código **Φ·Λ·Θ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| af | vloot | fleet |
+| ang | flota | sailor, shipman |
+| ca | flota | crowd |
+| cs | flota | naval fleet |
+| da | flåde | raft (a floating timber platform or an inflat |
+| de | flotte | fleet |
+| en | float | A buoyant device used to support something in |
+| fo | floti | fleet (all ships of a country) |
+| fr | flotte | fleet |
+| is | floti | fleet |
+| lb | flott | fleet |
+| nl | vloot | fleet |
+| ru | флот | fleet, naval fleet |
+| uk | флот | fleet |
+| yi | פֿלאָוט | float (soft beverage with a scoop of ice crea |
+
+## Χ·Λ·Λ  ·  ine-pro *kelh₁  —  *clear, course, egg, white* ⭐ 3 ramas
+
+15 lenguas · Eslavo, Germánico, la · código **Χ·Λ·Λ**
 
 | lengua | forma | glosa |
 |---|---|---|
@@ -330,64 +437,184 @@
 | lb | kloer | clearly |
 | nl | klaar | ready |
 | nn | klar | clear |
+| pl | klar | a male surname from German |
 | ro | clar | clear, obvious |
 | ro | clar | clearly, evidently |
 | sv | klar | ready, finished, done |
 | yi | קלאָר | clear (transparent in colour) |
 
-## Φ·Λ  ·  ine-pro *peys  —  *pear, fruit*
+## Φ·Λ  ·  ine-pro *perh₂  —  *pair, peer, couple* ⭐ 3 ramas
 
-14 lenguas · código **Φ·Λ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| af | peer | pear |
-| ca | pera | pear (fruit) |
-| en | perry | A fermented alcoholic beverage made from pear |
-| es | pera | pear |
-| fo | pera | pear (fruit) |
-| gl | pera | pear (fruit) |
-| is | pera | pear (fruit) |
-| it | pera | pear (the fruit) |
-| la | pirum | a pear (fruit) |
-| nl | peer | a pear, a fruit of the pear tree |
-| oc | pera | pear |
-| pt | pera | pear |
-| sc | pira | pear (fruit) |
-| sco | peer | pear (fruit) |
-
-## Χ·Σ  ·  itc-pro *kapsos  —  *box*
-
-14 lenguas · código **Χ·Σ**
+15 lenguas · Eslavo, Germánico, la · código **Φ·Λ**
 
 | lengua | forma | glosa |
 |---|---|---|
-| ca | caixa | box |
-| de | kassa | cash desk |
-| de | kasse | cash register, cash box |
-| en | case | The last remaining card of a particular rank. |
-| en | cashier | One who works at a till or receives payments. |
-| en | cashier | To dismiss (someone, especially military pers |
-| fo | kassi | box, case of iron, wood, etc.; bigger than an |
-| fr | caisse | box, crate |
-| fr | casse | burglary, break-in |
-| fro | casse | Old Northern French form of chasse |
-| fy | kas | greenhouse |
-| gl | caixa | box |
-| gl | queixo | cheese |
-| is | kassi | box |
-| lb | keess | cash register, till |
-| lb | kess | till |
-| nl | kas | a greenhouse |
-| nl | kassa | cash desk, checkout |
-| nn | case | a case study; a case as used in a case study |
-| pt | caixa | box |
-| pt | queixo | chin (bottom of the face) |
-| sv | case | a case (instance or event as a topic of study |
+| af | paar | pair |
+| ca | par | peer |
+| ca | par | similar, equal |
+| cs | pár | pair, couple |
+| de | paar | pair, couple |
+| es | apero | horse tack, riding gear |
+| fo | par | pair |
+| fr | pair | a peer, high nobleman/vassal (as in peer of t |
+| fr | pair | even (divisible by two) |
+| fr | pareil | such |
+| fr | pareil | the same; alike |
+| gl | apeiro | set of pieces that constitute the yoke |
+| is | par | pair |
+| it | pari | equal |
+| it | pari | peer |
+| la | par | companion, comrade, mate, spouse |
+| la | par | even (of a number) |
+| nl | paar | pair, couple |
+| pt | par | even |
+| pt | par | pair |
+| ru | пара | pair, couple |
+| ru | пэр | peer |
+| sv | pari | par (value equalling the face value) |
+| sv | pär | peer (British noble) |
 
-## Χ·Σ  ·  gem-pro *gatwo  —  *gas, state, matter, plasma*
+## Σ·Χ·Λ  ·  ine-pro *skend  —  *scale, sequence, measure* ⭐ 3 ramas
 
-13 lenguas · código **Χ·Σ**
+15 lenguas · Eslavo, Germánico, la · código **Σ·Χ·Λ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| bg | скеле | scaffolding |
+| ca | escala | stairs |
+| cs | škála | scale (means of assigning a magnitude) |
+| de | skala | scale, gamut (ordered numerical sequence) |
+| es | escala | ladder (a frame, usually portable, of wood, m |
+| fr | escale | port of call |
+| fr | escalier | step, stair |
+| gl | esqueira | ladder |
+| it | scala | ladder |
+| la | scala | ladder |
+| nl | scala | assortment, range |
+| oc | escala | ladder |
+| pt | escala | scale, measure |
+| ro | scară | ladder |
+| ru | шкала | scale (a graph or instrument depicting a sequ |
+| sv | skala | a scale; ordered numerical sequence |
+| sv | skala | to peel (to remove the skin or outer covering |
+
+## Σ·Φ·Λ·Ξ  ·  itc-pro *super  —  *sovereign, soprano, pitch, ruler* ⭐ 3 ramas
+
+15 lenguas · Eslavo, Germánico, la · código **Σ·Φ·Λ·Ξ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| af | soewerein | sovereign |
+| af | soewerein | sovereign; ruler |
+| bg | сопран | soprano (singer or voice) |
+| ca | soprano | soprano |
+| da | sopran | soprano (singing voice and singer; pitch of m |
+| da | suveræn | sovereign |
+| de | sopran | soprano (pitch) |
+| de | souverän | sovereign |
+| de | souverän | sovereign (holder of the most fundamental aut |
+| en | soprano | The musical part higher in pitch than alto, t |
+| en | soprano | To sing or utter with high pitch. |
+| en | sovereign | A monarch; the ruler of a country. |
+| en | sovereign | Exercising power of rule. |
+| en | sovereign | To rule over as a sovereign. |
+| es | soberano | sovereign |
+| es | soprano | soprano (singer) |
+| fr | soprano | soprano |
+| gl | soberano | sovereign (exercising supreme authority) |
+| gl | soberano | sovereign, monarch |
+| it | soprano | a singer, commonly a woman, with a register h |
+| it | sovrano | a sovereign |
+| it | sovrano | sovereign |
+| nl | soeverein | sovereign |
+| pl | sopran | soprano (musical part or section higher in pi |
+| pl | suweren | sovereign (independent ruler, especially in t |
+| pt | soberano | monarch; sovereign (the ruler of a country) |
+| pt | soberano | sovereign (exercising power to reign); regal, |
+| pt | soprano | soprano (the highest vocal range) |
+| ro | suveran | sovereign |
+| ru | сопрано | soprano (pitch) |
+| ru | суверен | sovereign, ruler |
+
+## Λ  ·  gem-pro *alu  —  *ale, beer* ⭐ 3 ramas
+
+14 lenguas · Eslavo, Germánico, la · código **Λ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| ang | ealu | beer, ale |
+| da | øl | beer (liquid) |
+| de | ale | ale |
+| en | ale | A beer made without hops. |
+| fo | øl | beer |
+| fr | ale | ale |
+| is | öl | ale, beer (loosely), yill |
+| nl | ale | ale |
+| nn | øl | beer (the drink as such) |
+| ru | эль | ale (English beer) |
+| sco | yill | ale |
+| sv | öl | a beer (a kind or brand of beer) |
+| uk | ель | ale |
+| yi | אייל | oil |
+
+## Φ·Χ  ·  gem-pro *baka  —  *back, forecastle, direction, reverse* ⭐ 3 ramas
+
+14 lenguas · Eslavo, Germánico, la · código **Φ·Χ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| af | bak | covered bowl, basin |
+| bg | бак | forecastle |
+| cs | bek | back |
+| da | bag | behind |
+| da | bag | behind, bottom, butt, buttocks |
+| da | bakke | to back |
+| de | back | forecastle (raised part of the upper deck) |
+| en | back | At or near the rear. |
+| en | back | The rear of the body, especially the part bet |
+| en | back | To go in the reverse direction. |
+| en | back | To or in a previous condition or place. |
+| en | bakkie | A small bowl or container, sometimes with a c |
+| fr | bac | ferry |
+| fr | back | back |
+| fr | back | to back (something) up, to move (something) b |
+| is | bak | back |
+| nl | bak | container, such as a box, a crate, a tray or  |
+| nn | bak | at the back, behind |
+| nn | bak | behind |
+| nn | bak | behind, bottom, backside |
+| ro | bac | river ferry |
+| ru | бак | forecastle |
+| sv | bak | behind, 'hind |
+| sv | bak | behind, ass, butt |
+| sv | bak | behind, at the back |
+| uk | бак | tank, cistern, can (a large vessel for storin |
+
+## Φ·Λ·Ϻ  ·  gem-pro *filmin  —  *film, movie, picture, motion* ⭐ 3 ramas
+
+14 lenguas · Eslavo, Germánico, la · código **Φ·Λ·Ϻ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| af | film | film |
+| ca | film | film (a movie) |
+| cs | film | film |
+| da | film | a movie, a film, motion picture |
+| de | film | film (a thin layer of some substance) |
+| en | film | A thin layer of some substance; a pellicle; a |
+| en | film | To record (activity, or a motion picture) on  |
+| es | film | alternative spelling of filme (film, motion p |
+| fr | film | movie, film |
+| fy | film | film, movie, motion picture |
+| nl | film | a film, thin layer or membrane; especially th |
+| ro | film | movie, film |
+| ru | фильм | film, movie |
+| uk | фільм | film, movie |
+| yi | פֿילם | movie, film (motion picture) |
+
+## Χ·Σ  ·  gem-pro *gatwo  —  *gas, matter, state, liquid* ⭐ 3 ramas
+
+14 lenguas · Eslavo, Germánico, la · código **Χ·Σ**
 
 | lengua | forma | glosa |
 |---|---|---|
@@ -405,115 +632,178 @@
 | nl | gas | gas |
 | pt | gás | gas (material in an intermediate state betwee |
 | ro | gaz | gas (state of matter) |
+| ru | газ | gas (state of matter) |
 | sv | gas | gas; a state of matter |
 | yi | גאַס | street |
 
-## Λ·Φ  ·  gem-pro *liba  —  *life*
+## Σ·Φ  ·  gem-pro *supo  —  *soup, any, made, various* ⭐ 3 ramas
 
-13 lenguas · código **Λ·Φ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| af | lyf | body, corpse |
-| ang | lif | life |
-| da | liv | life |
-| de | leib | body |
-| en | life | Synonym of God's life (an oath). |
-| en | life | The state of organisms preceding their death, |
-| en | life | To replace components whose operational lifet |
-| fo | lív | life |
-| fr | life | life |
-| is | líf | life (the state of being alive) |
-| lb | leif | body |
-| nl | lijf | a body |
-| nn | liv | life |
-| sv | liv | life (time alive) |
-| yi | לײַב | body |
-
-## Χ·Σ  ·  ine-pro *kat  —  *house*
-
-13 lenguas · código **Χ·Σ**
+14 lenguas · Eslavo, Germánico, la · código **Σ·Φ**
 
 | lengua | forma | glosa |
 |---|---|---|
-| ca | casa | house |
-| en | casa | house |
-| en | khazi | An outhouse or lavatory: a place used for uri |
-| es | casa | house |
-| fr | case | hut, cabin, shack |
-| fur | cjase | house |
-| gl | casa | house |
-| it | casa | house |
-| la | casa | hut, cottage, cabin |
-| lb | case | compartment, pigeonhole |
-| osp | casa | house |
-| pt | casa | house |
-| ro | casă | house, dwelling |
-| scn | casa | house |
+| ca | sopa | soup (any of various dishes commonly made by  |
+| de | suppe | soup |
+| en | sop | Something entirely soaked. |
+| en | sop | To steep or dip in any liquid. |
+| en | soup | Any of various dishes commonly made by combin |
+| en | soup | To feed: to provide with soup or a meal. |
+| en | zuppa | Any of various Italian soups. |
+| es | sopa | soup (any of various dishes commonly made by  |
+| fr | soupe | soup |
+| gl | sopa | soup (any of various dishes commonly made by  |
+| is | súpa | soup |
+| nl | soep | soup, liquid dish |
+| nl | zopie | a heated and spiced alcohol beverage made of  |
+| pl | zupa | soup |
+| pt | sopa | soup (any of various dishes commonly made by  |
+| ro | supă | soup |
+| ru | суп | soup (dish) |
+| uk | зупа | soup |
+| uk | суп | soup |
+| yi | זופּ | soup (dish) |
 
-## Χ·Φ  ·  ine-pro *kewp  —  *cup, glass, vessel, usually*
+## Λ·Φ  ·  ine-pro *h₁loywom  —  *olive, fruit, tree* ⭐ 3 ramas
 
-13 lenguas · código **Χ·Φ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| ca | copa | cup (drinking vessel) |
-| ca | cupè | coupé |
-| de | cup | cup (trophy) |
-| en | coupe | A shallow glass or glass dish, usually with a |
-| en | cup | A concave vessel for drinking, usually made o |
-| en | cup | To form into the shape of a cup, particularly |
-| es | copa | stemmed glass, glass, goblet or its content |
-| es | cuba | barrel |
-| es | cubo | cube (a regular polyhedron having six identic |
-| fr | coupe | goblet, cup |
-| fr | cuve | tank; vat |
-| fro | cope | cup (vessel from which liquid is drunk) |
-| gl | cuba | cask (large barrel for the storage of liquid, |
-| gl | cubo | cube (shape) |
-| is | kúpa | hollow hemispherical object; bowl, dome, helm |
-| la | cupa | tub, cask, tun, vat |
-| nl | cup | cup (trophy) |
-| nl | kuip | tub, basin (medium to large container, e.g. u |
-| pt | copa | crop (top of a plant) |
-| pt | copo | glass (vessel from which one drinks) |
-| pt | cuba | cask (large barrel for the storage of liquid, |
-| ro | cupă | goblet (usually of wood), bowl, dish |
-| sv | cup | cup |
-| sv | kupa | a hood, cover |
-| sv | kupa | to fold one’s hand as into a cup |
-
-## Φ·Λ  ·  ine-pro *perh₂  —  *pair, peer*
-
-13 lenguas · código **Φ·Λ**
+14 lenguas · Eslavo, Germánico, la · código **Λ·Φ**
 
 | lengua | forma | glosa |
 |---|---|---|
-| af | paar | pair |
-| ca | par | peer |
-| ca | par | similar, equal |
-| de | paar | pair, couple |
-| es | apero | horse tack, riding gear |
-| fo | par | pair |
-| fr | pair | a peer, high nobleman/vassal (as in peer of t |
-| fr | pair | even (divisible by two) |
-| fr | pareil | such |
-| fr | pareil | the same; alike |
-| gl | apeiro | set of pieces that constitute the yoke |
-| is | par | pair |
-| it | pari | equal |
-| it | pari | peer |
-| la | par | companion, comrade, mate, spouse |
-| la | par | even (of a number) |
-| nl | paar | pair, couple |
-| pt | par | even |
-| pt | par | pair |
-| sv | pari | par (value equalling the face value) |
-| sv | pär | peer (British noble) |
+| ca | oliu | olive tree |
+| ca | oliva | olive (fruit) |
+| cs | oliva | olive (fruit) |
+| de | olive | olive (fruit) |
+| es | olivo | olive tree |
+| fr | olive | olive |
+| gl | oliva | olive (fruit) |
+| is | ólífa | olive |
+| it | oliva | olive (color) |
+| it | oliva | olive (fruit) |
+| it | olivo | olive tree, olive |
+| la | oliva | an olive (fruit) |
+| nl | olijf | olive (oily fruit) |
+| ro | oliv | olive (color) |
+| ro | olivă | olive (fruit) |
+| scn | aliva | alternative form of auliva (synaeretic) |
+| uk | олива | olive (tree and fruit) |
+| yi | אָליוו | olive (fruit) |
 
-## Χ·Φ  ·  itc-pro *kaput  —  *cape, coast, extending, point*
+## Χ·Λ·Λ  ·  ine-pro *krsos  —  *career, path, occupation* ⭐ 3 ramas
 
-13 lenguas · código **Χ·Φ**
+14 lenguas · Eslavo, Germánico, la · código **Χ·Λ·Λ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| ca | carrera | way, route |
+| cs | kariéra | career |
+| de | karriere | career (occupational path) |
+| es | carrera | race |
+| fr | carrière | racecourse |
+| gl | carreira | way; a path or traditional road, usually larg |
+| it | carraia | a street, road, or path for carts, wagons, ca |
+| it | carraio | carriage, vehicle |
+| it | carro | a wagon, cart, van, lorry or truck (a means o |
+| nl | carrière | career, a person's occupation(s) |
+| pl | kariera | career (one's professional development) |
+| pt | carreira | path, trail (particularly one which had to be |
+| ro | cărare | path, footway |
+| ru | карьер | full gallop |
+| ru | карьера | career |
+| sc | carru | wagon, cart |
+| uk | кар'єр | quarry, borrow pit (a pit dug to extract mate |
+| uk | кар'єра | career (one's calling in life; a person's occ |
+
+## Χ·Λ  ·  ine-pro *krsos  —  *cart, barrow, vehicle, drawn* ⭐ 3 ramas
+
+14 lenguas · Eslavo, Germánico, la · código **Χ·Λ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| af | kar | cart |
+| ca | carrer | street |
+| ca | carro | cart |
+| de | karre | cart, barrow |
+| en | career | Doing something professionally, for a living  |
+| en | career | One’s calling in life; one's working occupati |
+| en | career | To move rapidly straight ahead, especially in |
+| en | carry | A manner of transporting or lifting something |
+| en | carry | To lift (something) and take it to another pl |
+| es | carro | cart |
+| fr | car | a single-decked long-distance, or privately h |
+| gl | carro | cart |
+| is | kerra | cart, barrow |
+| nl | kar | a cart, vehicle on wheels without motor |
+| nn | kjerre | a cart (two-wheeled horse-drawn vehicle, also |
+| pt | carro | cart (vehicle drawn or pushed by a person or  |
+| ro | car | cart |
+| ro | căra | to carry, bear, transport |
+| ru | кар | power barrow, dummy car |
+| uk | ґара | groove, slot |
+
+## Θ·Φ·Λ  ·  itc-pro *duplos  —  *double, twice, two, number* ⭐ 3 ramas
+
+14 lenguas · Eslavo, Germánico, la · código **Θ·Φ·Λ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| cs | debl | doubles (a game between pairs of players) |
+| de | double | stand-in, double (actor who shoots certain sc |
+| de | dubbel | sandwich |
+| en | double | Made up of two matching or complementary elem |
+| en | double | To multiply by two. |
+| en | double | Twice over; twofold; doubly. |
+| en | double | Twice the number, amount, size, etc. |
+| en | duple | Double. |
+| en | duplo- | double, twofold |
+| es | doble | double |
+| es | doble | double, twice as much |
+| fr | double | double (all senses), two |
+| fr | double | double (twice the number, amount, etc.) |
+| fr | double | inflection of doubler: |
+| fr | doubler | to double, duplicate |
+| it | duplo | duple, double |
+| it | duplo | duple, duplet |
+| lb | duebel | double (made up of two matching or complement |
+| nl | dubbel | double, twofold |
+| nn | dobbel | double |
+| pl | dubel | double (repeat of a film shot) |
+| pt | dobro | double |
+| ro | dublu | double |
+| ru | дубль | take |
+| sv | dubbel | double |
+
+## Φ·Χ  ·  itc-pro *fakos  —  *fig, fruit, tree, gesture* ⭐ 3 ramas
+
+14 lenguas · Eslavo, Germánico, la · código **Φ·Χ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| ca | fic | wart |
+| ca | figa | fig |
+| en | fico | a fig; an insignificant trifle |
+| en | fig | The fruit of the fig tree, pear-shaped and co |
+| en | fig | To insult with a fico, a contemptuous gesture |
+| fo | fika | fig |
+| fr | figue | fig (fruit) |
+| gl | figa | fig sign, used to ward off evil spirits, the  |
+| gl | figo | fig (tree) |
+| is | fíkja | fig |
+| it | fica | feminine singular of fico |
+| it | fica | pussy |
+| it | fico | fig (fresh fruit and tree) |
+| lb | fig | fig (plant, fruit) |
+| nn | fike | a fig |
+| pt | figo | fig (fruit) |
+| ru | фиг | a hand gesture made by making a fist and putt |
+| ru | фига | fig (fruit, wood, or tree) |
+| sc | figu | fig (tree) |
+| scn | fica | fig (fresh fruit and tree) |
+| scn | ficu | fig |
+| uk | фіг | a hand gesture made by making a fist and putt |
+
+## Χ·Φ  ·  itc-pro *kaput  —  *other, cape, kapo, beyond* ⭐ 3 ramas
+
+14 lenguas · Eslavo, Germánico, la · código **Χ·Φ**
 
 | lengua | forma | glosa |
 |---|---|---|
@@ -542,228 +832,130 @@
 | oc | cap | head (the part of the body of an animal or hu |
 | pt | cabo | cape (piece of land extending beyond the coas |
 | ro | cap | head |
+| ru | капо | kapo (a prisoner in a Nazi concentration camp |
+| ru | кэп | cap (of an RNA molecule) |
 | scn | capa | head |
 | scn | capu | boss |
 | sv | kappa | women's overcoat |
 
-## Ϻ·Λ  ·  itc-pro *moiros  —  *wall*
+## Ϻ·Ξ·Σ  ·  itc-pro *minos  —  *minus, less, sign, number* ⭐ 3 ramas
 
-13 lenguas · código **Ϻ·Λ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| ang | mur | a wall |
-| da | mur | wall (defence structure) |
-| de | mauer | a wall, usually one made of stone or concrete |
-| en | mure | mural (as a postmodifier) |
-| en | mure | to wall in or fortify |
-| en | mure | wall |
-| fr | mur | wall |
-| fur | mûr | wall |
-| is | múr | brick wall |
-| nl | muur | wall |
-| nn | mur | a wall (of stone, concrete or similar materia |
-| ro | mur | blackberry bush |
-| scn | muru | wall |
-| sv | mur | a (usually free-standing) wall built of overl |
-| wa | meur | wall |
-
-## Φ·Λ  ·  itc-pro *puros  —  *pure, puree, cigar*
-
-13 lenguas · código **Φ·Λ**
+14 lenguas · Eslavo, Germánico, la · código **Ϻ·Ξ·Σ**
 
 | lengua | forma | glosa |
 |---|---|---|
-| ca | pur | pure |
-| da | pure | puree |
-| de | pur | pure, mere, sheer (nothing other than) |
-| de | püree | puree |
-| en | puro | A cigar, especially one made with tobacco fro |
-| es | puro | cigar, puro |
-| es | puro | only, merely |
-| es | puro | pure, clear |
-| es | puré | puree |
-| fr | pur | pure (unspoilt) |
-| fr | purée | euphemistic form of putain (“expression of ir |
-| fr | purée | feminine singular of puré |
-| fr | purée | puree |
-| gl | puro | cigar |
-| gl | puro | pure, unadulterated |
-| is | púra | pure, absolute, total |
-| it | puro |  |
-| it | puro | pure |
-| it | purè | puree, purée |
-| nl | puree | puree |
-| nl | puur | pure |
-| pt | puré | purée or puree |
-| ro | piure | mashed potatoes (short for piure de cartofi) |
-| ro | pur | pure, clean, clear |
-| scn | puru | pure |
+| bg | минус | minus sign (−) |
+| ca | menys | less (not as much) |
+| cs | minus | minus |
+| de | minus | minus (negative quantity) |
+| en | minus | Being a negative quantity; pertaining to a de |
+| en | minus | Made less or reduced by (followed by an expre |
+| en | minus | The minus sign (−). |
+| en | minus | To subtract. |
+| es | menos | except, besides |
+| es | menos | less |
+| es | menos | less, fewer |
+| es | menos | minus |
+| es | menos | minus sign |
+| fr | minus | idiot, imbecile |
+| is | mínus | minus sign |
+| la | minus | comparative degree of parum (“very little, to |
+| la | minus | nominative/accusative/vocative neuter singula |
+| nl | minus | minus |
+| nl | minus | minus sign |
+| pl | minus | minus, minus sign |
+| pt | menos | except; but |
+| pt | menos | fewer (a smaller number of), less (a smaller  |
+| pt | menos | less (in lower degree) |
+| pt | menos | minus sign (the symbol −) |
+| ru | минус | minus |
+| yi | מינוס | minus (mathematics: less) |
 
-## Σ·Θ·Θ  ·  itc-pro *status  —  *state, country, territory, property*
+## Φ·Θ  ·  itc-pro *wideo  —  *video, see, look, movie* ⭐ 3 ramas
 
-13 lenguas · código **Σ·Θ·Θ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| af | staat | alternative form of staan |
-| af | staat | state (nation) |
-| ca | estat | state |
-| de | staat | country, state (politically constituted legal |
-| en | estate | Previously owned; secondhand. |
-| en | estate | The collective property and liabilities of so |
-| en | estate | To give an estate to. |
-| en | stade | Synonym of stadion (“former Greek unit of dis |
-| en | state | A condition; a set of circumstances applying  |
-| en | state | Stately. |
-| en | state | To declare to be a fact. |
-| es | estado | country, land (any broad area or territory) |
-| es | estado | past participle of estar |
-| fro | estat | state |
-| it | stato | past participle of essere |
-| it | stato | state (physical property of matter as solid,  |
-| lb | stot | household |
-| nl | staat | state (political entity) |
-| nn | stat | a state, country |
-| ro | stat | past participle of sta |
-| ro | stat | state, government |
-| sc | istadu | past participle of èssere |
-| sc | istadu | state (sovereign polity) |
-| sv | stat | A state; a nation. |
-
-## Λ  ·  gem-pro *alu  —  *ale*
-
-12 lenguas · código **Λ**
+14 lenguas · Eslavo, Germánico, la · código **Φ·Θ**
 
 | lengua | forma | glosa |
 |---|---|---|
-| ang | ealu | beer, ale |
-| da | øl | beer (liquid) |
-| de | ale | ale |
-| en | ale | A beer made without hops. |
-| fo | øl | beer |
-| fr | ale | ale |
-| is | öl | ale, beer (loosely), yill |
-| nl | ale | ale |
-| nn | øl | beer (the drink as such) |
-| sco | yill | ale |
-| sv | öl | a beer (a kind or brand of beer) |
-| yi | אייל | oil |
+| bg | видео | video (electronic display of moving picture m |
+| ca | video- | video- |
+| ca | vídeo | video |
+| de | video | video |
+| en | vada | To look (at), to see. |
+| en | video | To record using a video camera, to videotape. |
+| en | video | Transient visual content or media, processed  |
+| fr | vidéo | video |
+| fr | vidéo | video (television show, movie) |
+| fr | vidéo- | video- |
+| it | video | video (all senses) |
+| la | video | to see, perceive; look (at) |
+| nl | video | video, movie (regardless of medium) |
+| pl | wideo | video |
+| ro | vedea | to see |
+| ru | видео | video |
+| sv | video | video |
+| uk | відео | video |
+| yi | ווידעאָ | video |
 
-## Φ·Χ  ·  gem-pro *boks  —  *book*
+## Φ·Λ·Χ  ·  gem-pro *blukka  —  *block, cuboid, obstruct, wood* ⭐ 3 ramas
 
-12 lenguas · código **Φ·Χ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| af | boek | book |
-| ang | boc | book |
-| da | bog | book |
-| en | book | A collection of sheets of paper bound togethe |
-| fo | bók | book |
-| fr | bouquin | old, worn-out book |
-| fy | boek | book |
-| is | bók | book |
-| nl | boek | book |
-| nn | bok | book |
-| sv | bok | book: |
-| yi | בוך | book |
-
-## Φ·Λ·Ξ  ·  gem-pro *brunaz  —  *brown, colour, color, black*
-
-12 lenguas · código **Φ·Λ·Ξ**
+13 lenguas · Eslavo, Germánico, la · código **Φ·Λ·Χ**
 
 | lengua | forma | glosa |
 |---|---|---|
-| da | brun | brown (color/colour) |
-| en | brown | A colour like that of chocolate or coffee. |
-| en | brown | Having a brown color/colour. |
-| en | brown | To become brown. |
-| fro | brun | brown (color/colour) |
-| fro | brun | brown-haired person |
-| gl | brun | brown |
-| it | bruno | a dark-haired person |
-| it | bruno | dark gray, almost black |
-| lb | brong | brown |
-| nl | bruin | brown |
-| non | brúnn | a black horse |
-| non | brúnn | brown |
-| ro | brun | brown (color/colour) |
-| sco | broon | Of the colour brown. |
-| sco | broon | The colour brown. |
-| sv | brun | brown (color/colour) |
-| yi | ברוין | brown |
+| bg | блок | block (cuboid chunk of material) |
+| ca | bloc | block |
+| ca | blocar | to block, to blockade |
+| cs | blok | block |
+| de | block | bloc |
+| en | bloc | A group of voters or politicians who share co |
+| en | block | A substantial, often approximately cuboid, pi |
+| en | block | To fill or obstruct (something) so that it is |
+| en | bloke | A fellow, a man; especially an ordinary man,  |
+| fr | bloc | a block (e.g., of wood) |
+| fr | bloke | anglophone Canadian |
+| fr | bloquer | to block (physically), to barricade, to obstr |
+| is | blók | a person who is of little worth or miserable |
+| nl | blok | a block (e.g. wood) |
+| pl | blok | block (cuboid piece of hard material) |
+| ro | bloc | block (a big chunk of solid matter) |
+| ro | bloca | to block; to obstruct |
+| ru | блок | block (cuboid object) |
+| sv | block | a block, a boulder, a cuboid (of ice, wood, r |
+| uk | блок | pulley, pulley block |
 
-## Φ·Λ·Θ  ·  gem-pro *fluto  —  *fleet*
+## Χ·Λ·Φ  ·  gem-pro *kruppaz  —  *group, croup* ⭐ 3 ramas
 
-12 lenguas · código **Φ·Λ·Θ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| af | vloot | fleet |
-| ang | flota | sailor, shipman |
-| ca | flota | crowd |
-| da | flåde | raft (a floating timber platform or an inflat |
-| de | flotte | fleet |
-| en | float | A buoyant device used to support something in |
-| fo | floti | fleet (all ships of a country) |
-| fr | flotte | fleet |
-| is | floti | fleet |
-| lb | flott | fleet |
-| nl | vloot | fleet |
-| yi | פֿלאָוט | float (soft beverage with a scoop of ice crea |
-
-## Λ·Φ  ·  ine-pro *h₁loywom  —  *olive, fruit*
-
-12 lenguas · código **Λ·Φ**
+13 lenguas · Eslavo, Germánico, la · código **Χ·Λ·Φ**
 
 | lengua | forma | glosa |
 |---|---|---|
-| ca | oliu | olive tree |
-| ca | oliva | olive (fruit) |
-| de | olive | olive (fruit) |
-| es | olivo | olive tree |
-| fr | olive | olive |
-| gl | oliva | olive (fruit) |
-| is | ólífa | olive |
-| it | oliva | olive (color) |
-| it | oliva | olive (fruit) |
-| it | olivo | olive tree, olive |
-| la | oliva | an olive (fruit) |
-| nl | olijf | olive (oily fruit) |
-| ro | oliv | olive (color) |
-| ro | olivă | olive (fruit) |
-| scn | aliva | alternative form of auliva (synaeretic) |
-| yi | אָליוו | olive (fruit) |
+| bg | група | group |
+| ca | carpó | coccyx |
+| ca | grop | knot (in wood) |
+| ca | gropa | croupe |
+| da | gruppe | A group, a unit, a team. |
+| da | krop | body (of animals, including humans) |
+| de | gruppe | group |
+| de | krupp | croup (infectious illness of the larynx) |
+| en | crop | A plant, grown for it, or its fruits or seeds |
+| en | croup | The top of the rump of a horse or other quadr |
+| is | grúbba | group |
+| lb | grupp | group |
+| lb | krapp | crop, craw |
+| nl | kroep | croup (viral or diphtherial infection of the  |
+| nl | krop | an unhealthy enlargement of a bird's gullet |
+| nn | gruppe | a group |
+| pl | grupa | group (set of things or people in one place) |
+| ru | группа | group |
+| ru | круп | croup |
+| ru | крупье | croupier (person who collects bets and pays o |
+| sv | kropp | a body (of a human, whether living or dead, l |
+| yi | קראָפּ | dill (Anethum) |
 
-## Χ·Λ  ·  ine-pro *krsos  —  *cart, vehicle, drawn, transport*
+## Λ·Χ  ·  ine-pro *lokus  —  *lake* ⭐ 3 ramas
 
-12 lenguas · código **Χ·Λ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| af | kar | cart |
-| ca | carrer | street |
-| ca | carro | cart |
-| de | karre | cart, barrow |
-| en | career | Doing something professionally, for a living  |
-| en | career | One’s calling in life; one's working occupati |
-| en | career | To move rapidly straight ahead, especially in |
-| en | carry | A manner of transporting or lifting something |
-| en | carry | To lift (something) and take it to another pl |
-| es | carro | cart |
-| fr | car | a single-decked long-distance, or privately h |
-| gl | carro | cart |
-| is | kerra | cart, barrow |
-| nl | kar | a cart, vehicle on wheels without motor |
-| nn | kjerre | a cart (two-wheeled horse-drawn vehicle, also |
-| pt | carro | cart (vehicle drawn or pushed by a person or  |
-| ro | car | cart |
-| ro | căra | to carry, bear, transport |
-
-## Λ·Χ  ·  ine-pro *lokus  —  *lake*
-
-12 lenguas · código **Λ·Χ**
+13 lenguas · Eslavo, Germánico, la · código **Λ·Χ**
 
 | lengua | forma | glosa |
 |---|---|---|
@@ -779,11 +971,12 @@
 | osp | lago | lake |
 | pt | lago | lake |
 | ro | lac | lake |
+| sla-pro | loky | puddle |
 | wa | lak | lake |
 
-## Ξ·Χ·Λ  ·  ine-pro *negʷ  —  *black, nigger, negro, light*
+## Ξ·Χ·Λ  ·  ine-pro *negʷ  —  *black, nigger, negro, african* ⭐ 3 ramas
 
-12 lenguas · código **Ξ·Χ·Λ**
+13 lenguas · Eslavo, Germánico, la · código **Ξ·Χ·Λ**
 
 | lengua | forma | glosa |
 |---|---|---|
@@ -808,33 +1001,56 @@
 | pt | negro | black in colour |
 | ro | negru | black |
 | ro | negru | black (color) |
+| ru | негр | black (man); negro |
+| ru | ниггер | nigger (а person descended from the native pe |
 | sv | neger | a negro, a nigger (black person) |
 | sv | nigger | nigger, a variant of neger |
 
-## Σ·Χ·Λ  ·  ine-pro *skend  —  *scale*
+## Λ·Θ  ·  ine-pro *neredʰ  —  *radio, radiation, tuner* ⭐ 3 ramas
 
-12 lenguas · código **Σ·Χ·Λ**
+13 lenguas · Eslavo, Germánico, la · código **Λ·Θ**
 
 | lengua | forma | glosa |
 |---|---|---|
-| ca | escala | stairs |
-| de | skala | scale, gamut (ordered numerical sequence) |
-| es | escala | ladder (a frame, usually portable, of wood, m |
-| fr | escale | port of call |
-| fr | escalier | step, stair |
-| gl | esqueira | ladder |
-| it | scala | ladder |
-| la | scala | ladder |
-| nl | scala | assortment, range |
-| oc | escala | ladder |
-| pt | escala | scale, measure |
-| ro | scară | ladder |
-| sv | skala | a scale; ordered numerical sequence |
-| sv | skala | to peel (to remove the skin or outer covering |
+| ca | radi | radius |
+| ca | raig | ray, beam |
+| cs | rádio | radio (radio broadcasting) |
+| de | radio- | radio- (radiation) |
+| en | radi- | Alternative form of radio-. |
+| es | raza | race, ethnicity |
+| fr | radian | radian |
+| fr | radio- | radio- (radiation) |
+| gl | raza | race |
+| it | radio | radius |
+| nl | radio | radio, tuner |
+| pl | raca | flare |
+| pt | rádio | radium (chemical element) |
+| ro | radio | radio |
+| ru | радио | radio, tuner |
 
-## Σ  ·  ine-pro *wents  —  *ous, adjectives, osis*
+## Θ·Ϻ·Φ  ·  ine-pro *tempos  —  *tempo, rate, frequency* ⭐ 3 ramas
 
-12 lenguas · código **Σ**
+13 lenguas · Eslavo, Germánico, la · código **Θ·Ϻ·Φ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| ca | tempo | tempo |
+| da | tempo | pace |
+| de | tempo | tempo, pace (rate, speed) |
+| en | tempo | A frequency or rate. |
+| es | tiempo | time |
+| fur | timp | time |
+| gl | tempo | time |
+| it | tempo | time |
+| nl | tempo | tempo (pace, relative speed) |
+| pl | tempo | tempo (frequency or rate) |
+| ro | timp | time |
+| scn | tempu | time |
+| uk | темп | tempo |
+
+## Σ  ·  ine-pro *wents  —  *ous, adjectives, osis, suffix* ⭐ 3 ramas
+
+13 lenguas · Eslavo, Germánico, la · código **Σ**
 
 | lengua | forma | glosa |
 |---|---|---|
@@ -851,43 +1067,15 @@
 | it | -oso | -ous, -ful, -y |
 | it | osé | daring |
 | nl | -eus | suffix used to form adjectives |
+| pl | -oza | forms feminine noun meaning -osis, diseasing  |
 | pt | -oso | -ous, -y, -ful |
 | ro | -os | Forms adjectives; -ous |
 | rup | -os | -ous; used to form adjectives |
 | sv | -ös | -ous; making an adjective from a noun |
 
-## Λ  ·  ine-pro *yeh₁  —  *hour, time, twenty, period*
+## Θ·Ϻ  ·  itc-pro *domana  —  *lady, woman, dame, breeding* ⭐ 3 ramas
 
-12 lenguas · código **Λ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| af | uur | hour |
-| ca | hora | hour (sixty minutes) |
-| de | uhr | hours, o'clock (indicates the time within a t |
-| fo | ur | watch, timepiece |
-| fy | oere | hour |
-| gl | hora | hour |
-| gl | ora | inflection of orar: |
-| gl | ora | now |
-| gl | ora | sometimes … sometimes |
-| gl | ora | stop! |
-| it | ora | and yet |
-| it | ora | hour (a unit of time of one twenty-fourth of  |
-| it | ora | now |
-| nl | uur | an hour, a period of time |
-| oc | ora | hour (a unit of time of one twenty-fourth of  |
-| pt | hora | hour (period of sixty minutes) |
-| pt | ora | duh; obviously (expresses that something is o |
-| pt | ora | now |
-| pt | ora | sometimes … sometimes |
-| ro | oară | a time, instance |
-| ro | oră | hour |
-| sv | ur | watch, clock (usually a mechanical one, and w |
-
-## Θ·Ϻ  ·  itc-pro *domana  —  *lady, woman, dame*
-
-12 lenguas · código **Θ·Ϻ**
+13 lenguas · Eslavo, Germánico, la · código **Θ·Ϻ**
 
 | lengua | forma | glosa |
 |---|---|---|
@@ -905,458 +1093,11 @@
 | pt | dama | lady |
 | sco | deem | woman, dame |
 | sv | dam | a lady ((respectful way to refer to a) woman  |
+| uk | дама | lady (a woman of breeding or higher class, a  |
 
-## Φ·Χ  ·  itc-pro *fakos  —  *fig, fruit, tree, fico*
+## Φ·Ϻ·Λ  ·  itc-pro *famelia  —  *family, daughters, father, mother* ⭐ 3 ramas
 
-12 lenguas · código **Φ·Χ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| ca | fic | wart |
-| ca | figa | fig |
-| en | fico | a fig; an insignificant trifle |
-| en | fig | The fruit of the fig tree, pear-shaped and co |
-| en | fig | To insult with a fico, a contemptuous gesture |
-| fo | fika | fig |
-| fr | figue | fig (fruit) |
-| gl | figa | fig sign, used to ward off evil spirits, the  |
-| gl | figo | fig (tree) |
-| is | fíkja | fig |
-| it | fica | feminine singular of fico |
-| it | fica | pussy |
-| it | fico | fig (fresh fruit and tree) |
-| lb | fig | fig (plant, fruit) |
-| nn | fike | a fig |
-| pt | figo | fig (fruit) |
-| sc | figu | fig (tree) |
-| scn | fica | fig (fresh fruit and tree) |
-| scn | ficu | fig |
-
-## Χ·Σ  ·  itc-pro *kaussa  —  *reason*
-
-12 lenguas · código **Χ·Σ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| ca | cosa | thing |
-| ca | cosa | what (interrogative) |
-| de | causa | case (a dispute or controversy, often of a le |
-| en | cause | The source of, or reason for, an event or act |
-| en | cause | To set off an event or action; to bring about |
-| es | causa | cause |
-| es | cosa | thing (object, concept) |
-| fr | cause | cause |
-| fur | cjosse | thing |
-| it | cosa | thing, matter |
-| it | cosa | what? |
-| la | causa | cause, reason |
-| la | causa | for the sake of, on account of |
-| osp | cosa | thing |
-| pt | coisa | thing (a physical object, entity, or situatio |
-| ro | cauză | cause (reason) |
-| scn | cosa | thing |
-
-## Χ·Λ·Θ  ·  itc-pro *kortos  —  *short*
-
-12 lenguas · código **Χ·Λ·Θ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| af | kort | short (in extent, physical length) |
-| ca | curt | short |
-| de | kurz | briefly (for a short extent) |
-| de | kurz | short, quick, brief |
-| es | corzo | roe deer |
-| fr | courtil | (small) garden, yard |
-| gl | corzo | roe deer |
-| gl | curto | short |
-| goh | kurz | short |
-| nap | curto | short |
-| nl | kort | short |
-| scn | curtu | short |
-| sv | kort | short |
-| yi | קורץ | short |
-
-## Φ·Λ  ·  itc-pro *pistla  —  *pillar, heap, small, large*
-
-12 lenguas · código **Φ·Λ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| af | pil | A pill. |
-| ca | pila | pile, stack, heap |
-| ca | pilar | pillar |
-| da | pille | pillar |
-| en | pile | A mass of things heaped together; a heap. |
-| en | pill | Of a woven fabric surface, to form small matt |
-| en | pillar | A large post, often used as supporting archit |
-| en | pillar | To provide with pillars or added strength as  |
-| es | pila | small battery |
-| fr | pile | heap, stack |
-| fr | pile | just, exactly |
-| fr | pilier | pillar |
-| gl | pear | pillar |
-| gl | piar | column; pillar (large post) |
-| it | pila | pile (all senses) |
-| it | pile | polar fleece, fleece |
-| la | pila | mortar (used with a pestle) |
-| nl | pil | a pill, a usually ball- or oval-shaped, coate |
-| oc | pilar | pillar |
-| scn | pila | plural of pilu |
-
-## Σ·Φ·Λ·Ξ  ·  itc-pro *super  —  *sovereign, soprano, ruler, exercising*
-
-12 lenguas · código **Σ·Φ·Λ·Ξ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| af | soewerein | sovereign |
-| af | soewerein | sovereign; ruler |
-| ca | soprano | soprano |
-| da | sopran | soprano (singing voice and singer; pitch of m |
-| da | suveræn | sovereign |
-| de | sopran | soprano (pitch) |
-| de | souverän | sovereign |
-| de | souverän | sovereign (holder of the most fundamental aut |
-| en | soprano | The musical part higher in pitch than alto, t |
-| en | soprano | To sing or utter with high pitch. |
-| en | sovereign | A monarch; the ruler of a country. |
-| en | sovereign | Exercising power of rule. |
-| en | sovereign | To rule over as a sovereign. |
-| es | soberano | sovereign |
-| es | soprano | soprano (singer) |
-| fr | soprano | soprano |
-| gl | soberano | sovereign (exercising supreme authority) |
-| gl | soberano | sovereign, monarch |
-| it | soprano | a singer, commonly a woman, with a register h |
-| it | sovrano | a sovereign |
-| it | sovrano | sovereign |
-| nl | soeverein | sovereign |
-| pt | soberano | monarch; sovereign (the ruler of a country) |
-| pt | soberano | sovereign (exercising power to reign); regal, |
-| pt | soprano | soprano (the highest vocal range) |
-| ro | suveran | sovereign |
-
-## Φ·Λ·Ϻ  ·  gem-pro *filmin  —  *film, movie, motion, picture*
-
-11 lenguas · código **Φ·Λ·Ϻ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| af | film | film |
-| ca | film | film (a movie) |
-| da | film | a movie, a film, motion picture |
-| de | film | film (a thin layer of some substance) |
-| en | film | A thin layer of some substance; a pellicle; a |
-| en | film | To record (activity, or a motion picture) on  |
-| es | film | alternative spelling of filme (film, motion p |
-| fr | film | movie, film |
-| fy | film | film, movie, motion picture |
-| nl | film | a film, thin layer or membrane; especially th |
-| ro | film | movie, film |
-| yi | פֿילם | movie, film (motion picture) |
-
-## Χ·Λ·Φ  ·  gem-pro *harpo  —  *harp*
-
-11 lenguas · código **Χ·Λ·Φ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| ang | hearpe | harp |
-| da | harpe | harp |
-| de | harfe | harp |
-| fo | harpa | harp |
-| fo | hørpa | harp |
-| fro | harpe | harp (stringed musical instrument) |
-| is | harpa | harp |
-| lb | harf | harp |
-| nl | harp | harp |
-| nn | harpe | harp |
-| ro | harfă | alternative form of harpă |
-| ro | harpă | harp |
-| wa | harpe | harp |
-
-## Ϻ·Ξ  ·  gem-pro *mann  —  *man, male*
-
-11 lenguas · código **Ϻ·Ξ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| af | man | man |
-| da | mand | man (adult male human) |
-| de | man | one, you, they (indefinite pronoun, referring |
-| de | mann | man, male human being |
-| en | man | An adult male human. |
-| en | man | Used to place emphasis upon something or some |
-| en | man | Used to refer to oneself or one's group: I, w |
-| es | man | man, guy, dude |
-| fr | -man | used to form names of male professions or spo |
-| fy | man | man |
-| lb | mann | man (male human) |
-| nl | man | indicates that something is larger/stronger/e |
-| nl | man | man, human male, either adult or age-irrespec |
-| nn | mann | man (an adult male human being) |
-| sv | man | man (adult male human) |
-| sv | man | people in general (in some implied group, oft |
-
-## Σ·Θ  ·  gem-pro *sunþra  —  *south*
-
-11 lenguas · código **Σ·Θ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| af | suid | south |
-| ang | suþ | south |
-| ca | sud | south |
-| da | syd | south (compass point) |
-| en | south | The direction towards the pole to the right-h |
-| en | south | To turn or move toward the south; to veer tow |
-| en | south | Toward the south; southward. |
-| fr | sud | south |
-| fy | súd | south |
-| it | sud | south |
-| nl | zuid | south |
-| ro | sud | south |
-| sco | sooth | south |
-
-## Σ·Φ  ·  gem-pro *supo  —  *soup, any, made, various*
-
-11 lenguas · código **Σ·Φ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| ca | sopa | soup (any of various dishes commonly made by  |
-| de | suppe | soup |
-| en | sop | Something entirely soaked. |
-| en | sop | To steep or dip in any liquid. |
-| en | soup | Any of various dishes commonly made by combin |
-| en | soup | To feed: to provide with soup or a meal. |
-| en | zuppa | Any of various Italian soups. |
-| es | sopa | soup (any of various dishes commonly made by  |
-| fr | soupe | soup |
-| gl | sopa | soup (any of various dishes commonly made by  |
-| is | súpa | soup |
-| nl | soep | soup, liquid dish |
-| nl | zopie | a heated and spiced alcohol beverage made of  |
-| pt | sopa | soup (any of various dishes commonly made by  |
-| ro | supă | soup |
-| yi | זופּ | soup (dish) |
-
-## Θ·Φ  ·  gem-pro *tappo  —  *container, hole*
-
-11 lenguas · código **Θ·Φ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| ca | tapa | lid, top, cover |
-| da | tap | protruding component of a device |
-| da | tape | Scotch tape, adhesive tape |
-| da | tape | tape (to bind with adhesive tape) |
-| da | tappe | to draw, bottle |
-| en | tap | A conical peg or pin used to close and open t |
-| en | tap | To furnish (a container, etc.) with a tap (no |
-| en | tapa | A kind of cloth prepared by the Polynesians f |
-| en | tape | Flexible material in a roll with a sticky sur |
-| en | tape | To bind with adhesive tape. |
-| es | tapa | lid, cap (the top or cover of a container) |
-| es | tapia | enclosing wall |
-| fr | tampon | plug, stopper |
-| gl | zapa | bung hole of a barrel |
-| is | teip | adhesive tape |
-| lb | zap | peg, pin, spigot |
-| nl | tap | tap |
-| nn | tape | alternative spelling of teip |
-| nn | tape | to lose (to come last, lose a match, lose mon |
-| pt | tapa | a slap |
-
-## Φ·Ξ  ·  gem-pro *upanaz  —  *open*
-
-11 lenguas · código **Φ·Ξ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| ang | open | open |
-| ca | open | open |
-| da | åben | open |
-| en | open | Open or unobstructed space; an exposed locati |
-| en | open | Physically unobstructed, uncovered, etc. |
-| en | open | To make or become physically unobstructed, un |
-| fr | open | open; open tournament |
-| is | opinn | open |
-| nl | open | open, not closed |
-| nn | open | open |
-| sco | apen | open |
-| sv | öppen | open (not closed) |
-| yi | אָפֿן | open (not closed) |
-
-## Φ·Χ  ·  ine-pro *bʰew  —  *hole, through*
-
-11 lenguas · código **Φ·Χ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| ca | boca | mouth |
-| en | bocca | The round hole in the furnace of a glassworks |
-| es | boca | mouth, oral cavity |
-| fur | bocje | mouth |
-| gl | boca | mouth |
-| it | buca | hole |
-| oc | boca | mouth |
-| osp | boca | mouth |
-| pt | boca | mouth (the opening of a creature through whic |
-| ro | bucă | asscheek, butt-cheek, buttock |
-| wa | boke | mouth |
-
-## Φ·Λ·Χ  ·  ine-pro *gʰerk(ʷ)  —  *fork, pitchfork*
-
-11 lenguas · código **Φ·Λ·Χ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| ca | forca | fork, pitchfork (for gardening) |
-| da | fork | fork, pitchfork |
-| de | forke | pitchfork |
-| gl | furco | the distance between the outstretched tips of |
-| it | forca | fork (instrument used in agriculture and gard |
-| la | furca | A two-pronged fork, pitchfork. |
-| nap | forca | fork |
-| nl | fork | a fork, splitting-up of an existing process i |
-| nl | vork | forked object |
-| pt | forca | gallows (wooden framework on which persons ar |
-| ro | furcă | fork |
-| scn | furca | fork (instrument used in agriculture and gard |
-
-## Ϻ·Λ  ·  ine-pro *melh₂  —  *mill, building*
-
-11 lenguas · código **Ϻ·Λ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| ang | myl | dust |
-| de | mull | mould, loose earth |
-| en | moil | Hard work. |
-| en | mull | Marijuana that has been chopped to prepare it |
-| en | mull | To work (over) mentally; to cogitate; to rumi |
-| en | muller | To grind up (something) into, or as if into,  |
-| fr | meule | grindstone |
-| gl | moer | to mill |
-| got | 𐌼𐌰𐌻𐍉 | moth (insect) |
-| is | mylla | mill (building housing grinding apparatus; th |
-| it | mola | millstone |
-| pt | malho | sledgehammer |
-| ro | moară | mill (building where grain is processed) |
-| sv | mölla | a mill |
-
-## Σ·Λ  ·  ine-pro *soh₂wl  —  *sun, sol*
-
-11 lenguas · código **Σ·Λ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| ca | sol | sun |
-| en | sol | In a movable-do or tonic sol-fa system: the f |
-| en | solar | Ellipsis of solar energy. |
-| en | solar | Of or pertaining to the sun; proceeding from  |
-| es | sol | sun |
-| fr | soleil | sun (star) |
-| gl | sol | sun |
-| it | sol | sol (a musical note) |
-| it | sole | sun |
-| la | sol | the Sun |
-| nap | sole | Sun |
-| ro | soare | sun |
-| scn | suli | sun |
-| wa | solea | sun |
-| wa | solo | sun |
-
-## Σ·Σ  ·  ine-pro *sweks  —  *six*
-
-11 lenguas · código **Σ·Σ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| ca | sis | six |
-| en | sice | The number six in a game of dice. |
-| es | seis | six |
-| fr | six | six |
-| fro | sis | six |
-| gl | seis | six |
-| oc | sièis | six |
-| osp | seys | six |
-| pt | seis | six |
-| ro | șase | six |
-| wa | shijh | six |
-
-## Θ·Ϻ·Φ  ·  ine-pro *tempos  —  *tempo*
-
-11 lenguas · código **Θ·Ϻ·Φ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| ca | tempo | tempo |
-| da | tempo | pace |
-| de | tempo | tempo, pace (rate, speed) |
-| en | tempo | A frequency or rate. |
-| es | tiempo | time |
-| fur | timp | time |
-| gl | tempo | time |
-| it | tempo | time |
-| nl | tempo | tempo (pace, relative speed) |
-| ro | timp | time |
-| scn | tempu | time |
-
-## Χ·Σ·Θ  ·  itc-pro *augostos  —  *august, noble*
-
-11 lenguas · código **Χ·Σ·Θ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| ca | agost | August |
-| en | august | Awe-inspiring, majestic, noble, venerable. |
-| en | auguste | A kind of clown, usually serving as an anarch |
-| es | agosto | August |
-| es | augusto | august |
-| fr | auguste | august; noble, stately |
-| gl | agosto | August |
-| is | ágúst | August |
-| it | agosto | August |
-| nl | oogst | harvest |
-| pt | agosto | August |
-| ro | agust | August |
-| sv | augusti | August |
-
-## Θ·Φ·Λ  ·  itc-pro *duplos  —  *double, twice, two, etc*
-
-11 lenguas · código **Θ·Φ·Λ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| de | double | stand-in, double (actor who shoots certain sc |
-| de | dubbel | sandwich |
-| en | double | Made up of two matching or complementary elem |
-| en | double | To multiply by two. |
-| en | double | Twice over; twofold; doubly. |
-| en | double | Twice the number, amount, size, etc. |
-| en | duple | Double. |
-| en | duplo- | double, twofold |
-| es | doble | double |
-| es | doble | double, twice as much |
-| fr | double | double (all senses), two |
-| fr | double | double (twice the number, amount, etc.) |
-| fr | double | inflection of doubler: |
-| fr | doubler | to double, duplicate |
-| it | duplo | duple, double |
-| it | duplo | duple, duplet |
-| lb | duebel | double (made up of two matching or complement |
-| nl | dubbel | double, twofold |
-| nn | dobbel | double |
-| pt | dobro | double |
-| ro | dublu | double |
-| sv | dubbel | double |
-
-## Φ·Ϻ·Λ  ·  itc-pro *famelia  —  *family, father, sons, mother*
-
-11 lenguas · código **Φ·Ϻ·Λ**
+13 lenguas · Eslavo, Germánico, la · código **Φ·Ϻ·Λ**
 
 | lengua | forma | glosa |
 |---|---|---|
@@ -1372,102 +1113,56 @@
 | oc | familha | family |
 | pt | família | family; nuclear family (a father, mother and  |
 | ro | familie | family |
+| ru | фамилия | surname, last name, family name |
+| uk | фамілія | surname, last name, family name |
 
-## Φ·Χ  ·  itc-pro *fuga  —  *fugue*
+## Ϻ·Λ  ·  itc-pro *majjos  —  *major, rank, mayor, captain* ⭐ 3 ramas
 
-11 lenguas · código **Φ·Χ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| ca | fuga | flight, escape |
-| da | fuga | fugue |
-| de | fuge | joint (of bricks/tiles) |
-| en | fuga | A fugue. |
-| en | fugue | A contrapuntal piece of music wherein a parti |
-| en | fugue | To improvise, in singing, by introducing voca |
-| fr | fougue | enthusiasm, ardour |
-| fr | fugue | fugue |
-| is | fúga | joint (between bricks, wooden panels, etc.) |
-| it | foga | enthusiasm |
-| it | fuga | flight, escape |
-| la | fuga | flight, fleeing, escape |
-| nl | fuga | fugue (piece of music) |
-| pt | fuga | escape, flight (act of fleeing) |
-| ro | fugă | run (the act of running) |
-| ro | fugă | third-person singular/plural present subjunct |
-
-## Χ·Λ·Φ  ·  itc-pro *gʷraus  —  *grave, hardship, complaint*
-
-11 lenguas · código **Χ·Λ·Φ**
+13 lenguas · Eslavo, Germánico, la · código **Ϻ·Λ**
 
 | lengua | forma | glosa |
 |---|---|---|
-| af | graf | grave |
-| ca | greu | heavy, weighty |
-| da | grave | grave (low in pitch, tone etc.) |
-| en | grave | Characterised by a dignified sense of serious |
-| en | grief | Suffering, hardship. |
-| en | grief | To deliberately harass and annoy or cause gri |
-| es | grave | serious, grave |
-| fr | grave | much; a lot |
-| fr | grave | serious |
-| fr | grief | complaint |
-| fr | grief | grievous |
-| it | grave | grave, serious |
-| it | greve | heavy |
-| nl | graaf | cool (in the sense of nice or impressive) |
-| nl | graaf | very |
-| nl | graf | very |
-| nl | grief | grievance, complaint, bone to pick, issue |
-| osp | grieve | hard, difficult |
-| ro | grav | grave, serious |
-| ro | grav | gravely |
-| ro | greu | difficulty or hardship |
-| ro | greu | heavy |
-| sv | grav | severe, as in a mistake or a congenital disor |
+| af | majoor | major |
+| bg | майор | major (military rank between captain and lieu |
+| fr | maire | mayor |
+| gl | mor | head; chief; main (foremost in rank) |
+| la | maior | ancestors, forefathers; advanced in years, th |
+| la | maior | comparative degree of magnus |
+| nl | majoor | major, a rank above captain |
+| nl | meier | bailiff |
+| pl | major | major (military rank) |
+| pt | mor | head; chief; main (foremost in rank) |
+| ro | mare | big, large, great |
+| ru | майор | major |
+| ru | мэр | mayor |
+| sc | mere | owner, master |
+| sco | mair | mayor |
+| uk | майор | major |
 
-## Χ·Λ·Λ  ·  itc-pro *kelos  —  *color, colour*
+## Ϻ·Θ  ·  itc-pro *modos  —  *fashion, trend, vogue* ⭐ 3 ramas
 
-11 lenguas · código **Χ·Λ·Λ**
+13 lenguas · Eslavo, Germánico, la · código **Ϻ·Θ**
 
 | lengua | forma | glosa |
 |---|---|---|
-| af | kleur | color; colour |
-| da | kulør | color, colour |
-| es | color | color / colour, hue |
-| fr | couleur | color/colour |
-| fur | colôr | color |
-| gl | color | color / colour, hue |
-| la | color | color (US), colour (UK); shade, hue, tint |
-| nl | kleur | a color, colour |
-| osp | color | color / colour |
-| ro | culoare | color |
-| sv | kulör | non-greyscale color |
+| ca | moda | fashion, trend, style, vogue |
+| ca | mode | way, manner |
+| da | mode | fashion |
+| de | mode | fashion, trend |
+| en | mode | A particular means of accomplishing something |
+| es | modo | way, manner |
+| fr | mode | fashion, trend |
+| it | modo | manner, way |
+| lb | moud | fashion, trend |
+| nl | mode | fashion, trend |
+| pl | moda | fashion |
+| ro | mod | mode, fashion, style, way |
+| ru | мода | fashion, vogue |
+| uk | мода | fashion, vogue |
 
-## Ϻ·Λ  ·  itc-pro *mari  —  *large*
+## Ϻ·Φ·Λ  ·  itc-pro *moweðlis  —  *mobile, furniture, piece, phone* ⭐ 3 ramas
 
-11 lenguas · código **Ϻ·Λ**
-
-| lengua | forma | glosa |
-|---|---|---|
-| ca | mar | sea |
-| de | maar | maar (broad, low-relief volcanic crater cause |
-| de | mare | mare (such as the large black plains on the M |
-| es | mar | sea |
-| fr | marée | tide |
-| fr | mer | sea (large body of water) |
-| gl | mar | sea |
-| it | mare | sea |
-| la | mare | sea |
-| nap | mare | sea (a vast mass of salty water) |
-| pt | mar | sea |
-| ro | mare | sea |
-| ro | maree | tide |
-| scn | mari | sea |
-
-## Ϻ·Φ·Λ  ·  itc-pro *moweðlis  —  *mobile, furniture, piece, phone*
-
-11 lenguas · código **Ϻ·Φ·Λ**
+13 lenguas · Eslavo, Germánico, la · código **Ϻ·Φ·Λ**
 
 | lengua | forma | glosa |
 |---|---|---|
@@ -1491,10 +1186,276 @@
 | nl | mobiel | mobile |
 | ro | mobil | mobile |
 | ro | mobil | mobile (phone) |
+| ru | мебель | furniture |
+| uk | меблі | furniture |
 
-## Φ·Λ  ·  itc-pro *per  —  *through, per, via, means*
+## Ξ·Ϻ·Λ  ·  itc-pro *nomezos  —  *number* ⭐ 3 ramas
 
-11 lenguas · código **Φ·Λ**
+13 lenguas · Eslavo, Germánico, la · código **Ξ·Ϻ·Λ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| af | nommer | number |
+| bg | номер | number |
+| ca | número | digit, numeral, number |
+| de | numero | dated form of Nummer |
+| fr | numéro | number |
+| it | numero | number |
+| nl | nummer | number used as a means of identification |
+| nn | nummer | a number |
+| pt | número | number (quantity) |
+| ru | номер | nominal number |
+| ru | № | No., number |
+| sv | nummer | a number |
+| uk | номер | ordinal number |
+| yi | נומער | number |
+
+## Φ·Θ  ·  gem-pro *bito  —  *bit* ⭐ 3 ramas
+
+12 lenguas · Eslavo, Germánico, la · código **Φ·Θ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| ang | bita | bite (of food), mouthful |
+| ca | bita | bitt |
+| cs | bit | bit |
+| de | bit | bit (eighth of a dollar) |
+| en | bit | A piece of metal placed in a horse's mouth an |
+| en | bit | To put a bridle upon; to put the bit in the m |
+| fr | bite | knob, cock, dick |
+| fr | bitte | bitt, bollard, mooring post |
+| gl | bita | bitt |
+| it | bit | bit, smallest unit of storage. |
+| nl | bit | bit (for a working animal) |
+| nn | bit | a bit, piece (of something) |
+| ru | бит | bit (binary digit) |
+| sv | bit | a piece (forming a part of some whole) |
+
+## Σ·Λ  ·  gem-pro *saliz  —  *hall, room, large* ⭐ 3 ramas
+
+12 lenguas · Eslavo, Germánico, la · código **Σ·Λ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| ang | sel | good, noble |
+| ang | sele | great hall, house, dwelling, prison |
+| bg | зала | hall, large room |
+| da | sal | hall, room |
+| de | saal | hall or large room (chiefly for gatherings or |
+| es | sala | room (a separate part of a building) |
+| it | sala | room |
+| lb | sall | hall (large room) |
+| nl | zaal | room, hall |
+| nn | sal | a large room in which parties and meetings an |
+| ru | зал | hall |
+| uk | зал | hall |
+| yi | זאַל | large room, hall |
+
+## Σ·Θ  ·  gem-pro *sunþra  —  *south* ⭐ 3 ramas
+
+12 lenguas · Eslavo, Germánico, la · código **Σ·Θ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| af | suid | south |
+| ang | suþ | south |
+| ca | sud | south |
+| da | syd | south (compass point) |
+| en | south | The direction towards the pole to the right-h |
+| en | south | To turn or move toward the south; to veer tow |
+| en | south | Toward the south; southward. |
+| fr | sud | south |
+| fy | súd | south |
+| it | sud | south |
+| nl | zuid | south |
+| ro | sud | south |
+| ru | зюйд | south |
+| sco | sooth | south |
+
+## Σ·Λ  ·  ine-pro *gel  —  *jelly, gel* ⭐ 3 ramas
+
+12 lenguas · Eslavo, Germánico, la · código **Σ·Λ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| ca | gel | ice |
+| ca | gelar | to freeze |
+| cs | želé | jelly (sweet gelatinous substance) |
+| da | gele | jelly |
+| da | gelé | jelly |
+| de | gelee | jelly (food based on boiled gelatin) |
+| fr | gel | frost |
+| fr | geler | to freeze |
+| fr | gelée | feminine singular of gelé |
+| fr | gelée | frost |
+| gl | xear | to freeze |
+| lb | gel | gel |
+| nl | gel | gel (suspension of solid in liquid) |
+| pt | gear | to frost (weather) |
+| pt | gelo | ice (frozen water) |
+| pt | gelo | whose colour is a shade of white like that of |
+| ru | желе | jelly |
+| uk | желе | jelly |
+| yi | זשעלע | jelly |
+
+## Λ·Χ  ·  ine-pro *leyg  —  *league, association, group, organization* ⭐ 3 ramas
+
+12 lenguas · Eslavo, Germánico, la · código **Λ·Χ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| ca | lligar | to link |
+| ca | lligó | a type of small hoe (agricultural tool) |
+| de | liga | league (group or organization) |
+| en | league | A group or association of cooperating members |
+| en | league | Playing in the The Football League or the Pre |
+| en | league | To form an association; to unite in a league  |
+| fr | ligue | inflection of liguer: |
+| fr | ligue | league (alliance, group) |
+| it | lega | league (politics, sports, distance), gang |
+| la | ligo | to tie, bind |
+| lb | liga | league |
+| pl | liga | league (organization of sports teams which pl |
+| pt | liga | alloy (metal combined of more elements) |
+| ro | lega | to tie, bind, connect |
+| ru | лига | league |
+| uk | ліга | league, association, society |
+
+## Χ·Σ·Θ  ·  itc-pro *augostos  —  *august, noble* ⭐ 3 ramas
+
+12 lenguas · Eslavo, Germánico, la · código **Χ·Σ·Θ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| bg | огоста | a river in Bulgaria |
+| ca | agost | August |
+| en | august | Awe-inspiring, majestic, noble, venerable. |
+| en | auguste | A kind of clown, usually serving as an anarch |
+| es | agosto | August |
+| es | augusto | august |
+| fr | auguste | august; noble, stately |
+| gl | agosto | August |
+| is | ágúst | August |
+| it | agosto | August |
+| nl | oogst | harvest |
+| pt | agosto | August |
+| ro | agust | August |
+| sv | augusti | August |
+
+## Λ  ·  itc-pro *auzom  —  *gold, nouns, verbs, agent* ⭐ 3 ramas
+
+12 lenguas · Eslavo, Germánico, la · código **Λ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| ca | or | gold |
+| ca | oro | a suit in a Spanish deck of cards |
+| de | -eur | Suffix of agent nouns from verbs, mostly in F |
+| en | or | Alternative form of OR. |
+| en | or | Of gold or yellow tincture on a coat of arms. |
+| es | oro | gold. |
+| es | oro | or |
+| fr | -eur | forms masculine agent nouns from verbs (some  |
+| fr | or | gold |
+| fro | or | gold (metal) |
+| it | oro | gold |
+| it | oro | gold (color/colour) |
+| la | aurum | gold (as mineral or metal) |
+| pl | jer | yer |
+| ro | aur | gold |
+| ru | -ёр | Suffix added to nouns and verbs to form agent |
+| sc | oro | gold (metal) |
+| sc | oru | gold |
+
+## Λ  ·  itc-pro *azea  —  *area, surface, unit, are* ⭐ 3 ramas
+
+12 lenguas · Eslavo, Germánico, la · código **Λ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| bg | ар | are (unit of measurement, equal to 100 square |
+| ca | era | era (time period) |
+| cs | ar | are (unit of area equal to 100 square metres) |
+| da | -ær | -ary |
+| da | ar | scar |
+| de | -är | -ary; forms personal nouns from latinate loan |
+| es | era | era, age |
+| es | área | area (a particular geographic region) |
+| fr | aire | (surface) area |
+| gl | eira | threshing floor (a yard, usually paved, used  |
+| la | area | a piece of level ground, a vacant place (esp. |
+| nl | -air | -ary; of or pertaining to |
+| nl | are | are, a unit of surface area |
+| pt | eira | threshing floor |
+| ro | arie | threshing floor |
+
+## Φ·Χ  ·  itc-pro *fuga  —  *fugue* ⭐ 3 ramas
+
+12 lenguas · Eslavo, Germánico, la · código **Φ·Χ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| ca | fuga | flight, escape |
+| da | fuga | fugue |
+| de | fuge | joint (of bricks/tiles) |
+| en | fuga | A fugue. |
+| en | fugue | A contrapuntal piece of music wherein a parti |
+| en | fugue | To improvise, in singing, by introducing voca |
+| fr | fougue | enthusiasm, ardour |
+| fr | fugue | fugue |
+| is | fúga | joint (between bricks, wooden panels, etc.) |
+| it | foga | enthusiasm |
+| it | fuga | flight, escape |
+| la | fuga | flight, fleeing, escape |
+| nl | fuga | fugue (piece of music) |
+| pt | fuga | escape, flight (act of fleeing) |
+| ro | fugă | run (the act of running) |
+| ro | fugă | third-person singular/plural present subjunct |
+| ru | фуга | fugue |
+
+## Χ·Λ·Λ  ·  itc-pro *kelos  —  *color, colour* ⭐ 3 ramas
+
+12 lenguas · Eslavo, Germánico, la · código **Χ·Λ·Λ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| af | kleur | color; colour |
+| da | kulør | color, colour |
+| es | color | color / colour, hue |
+| fr | couleur | color/colour |
+| fur | colôr | color |
+| gl | color | color / colour, hue |
+| la | color | color (US), colour (UK); shade, hue, tint |
+| nl | kleur | a color, colour |
+| osp | color | color / colour |
+| ro | culoare | color |
+| sv | kulör | non-greyscale color |
+| uk | колір | color |
+
+## Λ·Φ·Λ  ·  itc-pro *luβros  —  *livery* ⭐ 3 ramas
+
+12 lenguas · Eslavo, Germánico, la · código **Λ·Φ·Λ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| ca | llibre | book |
+| fr | liber | bast (of a tree) |
+| fur | libri | book |
+| gl | libre | free, not captive, unbound |
+| gl | libro | book |
+| it | libro | book |
+| la | liber | singular of līberī: son; child (to a parent) |
+| nap | libro | book |
+| oc | libre | book |
+| pt | livro | book |
+| pt | líber | synonym of floema |
+| ro | liber | free, at liberty |
+| ru | ливрея | livery (in bourgeois houses and courts, the u |
+| yi | ליוורעע | livery |
+
+## Φ·Λ  ·  itc-pro *per  —  *through, per, means, via* ⭐ 3 ramas
+
+12 lenguas · Eslavo, Germánico, la · código **Φ·Λ**
 
 | lengua | forma | glosa |
 |---|---|---|
@@ -1509,7 +1470,354 @@
 | la | per | through, by means of |
 | nl | per | for each; for every; per |
 | nn | par | a pair |
+| pl | per | forms adverbs from nouns |
 | pt | para | for (directed at, intended to belong to or to |
 | ro | pre- | used with verbs to indicate repetition or ins |
 | sc | per | per, by, through |
+
+## Φ·Φ·Λ  ·  itc-pro *poplos  —  *people, group, persons* ⭐ 3 ramas
+
+12 lenguas · Eslavo, Germánico, la · código **Φ·Φ·Λ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| cs | póvl | trash, garbage, scum (something worthless) |
+| da | pøbel | a mob, riffraff |
+| de | pappel | poplar, cottonwood (Populus spp.) |
+| de | popel | booger, boogers, bogey (piece of solid or sem |
+| de | populär | popular |
+| de | pöbel | mob |
+| en | people | To interact with people; to socialize. |
+| en | people | plural of person: a body of persons considere |
+| en | popple | poplar |
+| fr | peuple | people (nation, distinct ethnic group) |
+| fro | pueple | a people |
+| it | popolo | people |
+| lb | pëppel | poplar |
+| oc | pòble | a people (persons forming or belonging to a p |
+| ro | popor | a people |
+| ru | пипл | people (sometimes used pejoratively) |
+| scn | pòpulu | people |
+
+## Φ·Λ·Θ  ·  itc-pro *portus  —  *port, harbour, place, town* ⭐ 3 ramas
+
+12 lenguas · Eslavo, Germánico, la · código **Φ·Λ·Θ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| ang | port | a port, a haven (a harbor or harbor-town) |
+| ca | port | port, harbour |
+| da | port | gate |
+| de | port | haven (place of safety) |
+| fro | port | port (for watercraft) |
+| gl | porto | first-person singular present indicative of p |
+| gl | porto | port, harbour |
+| it | porto | port, harbour/harbor |
+| nl | port | postage |
+| pt | porto | port; harbour (place on the coast at which sh |
+| ro | port | port (town with port) |
+| uk | порт | port (place on the coast at which ships can s |
+| yi | פּאָרט | port, haven, harbour |
+
+## Φ·Λ·Σ  ·  itc-pro *pretjom  —  *other* ⭐ 3 ramas
+
+12 lenguas · Eslavo, Germánico, la · código **Φ·Λ·Σ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| ca | apreciar | to appraise |
+| da | pris | price |
+| de | preis | price |
+| en | appraise | To determine the value or worth of (something |
+| en | price | The cost required to gain possession of somet |
+| en | price | To determine the monetary value of (an item); |
+| fr | apprécier | to appreciate |
+| fr | priser | to snuff, take snuff (to inhale a drug or oth |
+| is | prís | praise |
+| lb | präis | price |
+| nl | prijs | price, fare, charge |
+| ro | priza | to snuff |
+| ru | приз | prize |
+| sv | pris | a price (monetary or other cost) |
+| uk | приз | prize |
+
+## Θ·Σ·Θ  ·  itc-pro *tristos  —  *test, challenge, trial, examination* ⭐ 3 ramas
+
+12 lenguas · Eslavo, Germánico, la · código **Θ·Σ·Θ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| ca | test | flowerpot |
+| da | test | A test, assessment or examination. |
+| da | teste | to test, examine |
+| de | test | test |
+| en | test | A challenge, trial. |
+| en | test | To challenge, to put a strain on (something). |
+| es | teste | testicle |
+| fr | test | test, a cupel or cupelling hearth in which pr |
+| it | teste | witness |
+| it | testo | an earthenware lid |
+| nl | test | inflection of testen: |
+| nl | test | test |
+| pl | test | examination, exam, test (formal test) |
+| pt | teste | witness |
+| ru | тест | test (challenge, trial, exam, etc.) |
+| uk | тест | test |
+
+## Φ·Λ·Σ  ·  itc-pro *weizos  —  *virus, rna, dna, submicroscopic* ⭐ 3 ramas
+
+12 lenguas · Eslavo, Germánico, la · código **Φ·Λ·Σ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| bg | вирус | virus |
+| ca | virus | virus |
+| de | virus | virus |
+| en | virus | A submicroscopic, non-cellular structure that |
+| en | virus | To send or infect an electronic device with a |
+| fr | virus | virus |
+| it | virus | virus |
+| la | virus | venom (a poisonous substance secreted by anim |
+| nl | virus | virus |
+| pl | wirus | virus (infectious organism) |
+| ro | virus | virus (a submicroscopic, non-cellular structu |
+| ru | вирус | virus (DNA/RNA causing disease) |
+| sv | virus | virus |
+
+## Φ·Λ·Σ  ·  itc-pro *werto  —  *verse, version, poem, something* ⭐ 3 ramas
+
+12 lenguas · Eslavo, Germánico, la · código **Φ·Λ·Σ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| af | versie | version |
+| ang | fers | verse |
+| bg | версия | version (a specific form, state, or variation |
+| ca | vers | towards (in the direction of) |
+| ca | vers | verse, poem |
+| cs | verš | verse |
+| de | vers | line (of a poem or song) |
+| fr | version | version; model (a specific state, variant, or |
+| it | verso | toward |
+| it | verso | verse |
+| nl | vers | a verse, a stanza |
+| nl | versie | version |
+| nn | vers | verse |
+| pl | wersja | version |
+| uk | версія | version |
+| uk | вірш | poem (literary piece written in verse) |
+
+## Φ·Λ  ·  gem-pro *beuza  —  *beer, material, starch, drink* ⭐ 3 ramas
+
+11 lenguas · Eslavo, Germánico, la · código **Φ·Λ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| af | bier | beer (alcoholic drink brewed from grains or o |
+| ang | beor | beer, ale |
+| bg | бира | beer (an alcoholic drink fermented from starc |
+| es | birra | beer |
+| fo | bjór | beer |
+| fr | bière | beer |
+| fy | bier | beer |
+| nl | bier | beer (alcoholic drink brewed from grains or o |
+| ro | bere | beer |
+| wa | bire | beer |
+| yi | ביר | beer |
+
+## Φ·Λ·Σ·Χ  ·  gem-pro *flasko  —  *bottle, flask* ⭐ 3 ramas
+
+11 lenguas · Eslavo, Germánico, la · código **Φ·Λ·Σ·Χ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| ang | flasce | flask, bottle |
+| ca | flascó | a bottle or vial with a wide neck |
+| cs | flaška | bottle |
+| da | flaske | bottle |
+| da | flaske | flaske op – bottle-feed, bring up on the bott |
+| en | flask | A narrow-necked vessel of metal or glass, use |
+| en | flask | To invest a denture in a flask so as to produ |
+| es | frasco | bottle (for medicine, perfume) |
+| fo | fløska | bottle |
+| gl | frasca | shit; trash; crap; litter |
+| is | flaska | bottle |
+| pt | frasco | bottle (for medicine, perfume) |
+| ru | фляжка | flask, hip flask (container for a small amoun |
+
+## Χ·Λ  ·  gem-pro *gallo  —  *gall, usually* ⭐ 3 ramas
+
+11 lenguas · Eslavo, Germánico, la · código **Χ·Λ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| ca | agalla | oak apple |
+| ca | gala | pomp, display |
+| da | galde | bile, gall |
+| de | galle | bile, gall |
+| en | gall | Impudence or brazenness; temerity; chutzpah. |
+| en | gall | To chafe, to rub or subject to friction; to c |
+| fr | galle | gall |
+| gl | galla | twig |
+| is | galli | fault, flaw, shortcoming |
+| lb | gal | bile |
+| nl | gal | bile, gall (yellow-green bodily fluid secrete |
+| pt | galha | gall (tumorous growth on the surface of plant |
+| pt | galho | branch (woody part of a tree arising from the |
+| ru | галл | Gaul (native or inhabitant of the historical  |
+
+## Χ  ·  gem-pro *ganhuz  —  *gay, homosexual, male, cheerful* ⭐ 3 ramas
+
+11 lenguas · Eslavo, Germánico, la · código **Χ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| ca | gai | gay man |
+| ca | gai | gay, merry |
+| de | gay | gay |
+| en | gay | A homosexual, especially a male homosexual. |
+| en | gay | Considerably, very. |
+| en | gay | Homosexual: |
+| en | gay | To make happy or cheerful. |
+| fr | gai | cheerful; merry |
+| fr | gay | gay (homosexual person) |
+| lb | géi | steep |
+| nds | gau | quick |
+| nl | gauw | quickly |
+| ru | гей | a male homosexual; gay |
+| sco | gey | very |
+| uk | гей | a male homosexual; gay |
+| uk | ґей | alternative form of гей (hej) |
+| yi | גיי | gay, homosexual |
+
+## Χ·Λ·Φ  ·  gem-pro *gripana  —  *flu, influenza, grasp, grab* ⭐ 3 ramas
+
+11 lenguas · Eslavo, Germánico, la · código **Χ·Λ·Φ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| ca | grip | flu (influenza) |
+| de | grippe | flu; influenza; grippe. |
+| en | gripe | A complaint, often a petty or trivial one. |
+| en | gripe | To complain; to whine. |
+| en | grippe | Influenza, the flu. |
+| fr | griffer | to scratch |
+| fr | gripper | to grab, to grasp |
+| fy | gripe | to grab, to grasp |
+| is | grípa | to catch an object |
+| lb | gripp | flu, influenza |
+| nl | griep | influenza, flu |
+| nn | gripa | to grab, grasp, grip |
+| pl | grypa | influenza; the flu |
+| sv | gripa | to catch hold of |
+
+## Φ·Λ·Φ  ·  gem-pro *hrawaz  —  *bravo, well, good, brave* ⭐ 3 ramas
+
+11 lenguas · Eslavo, Germánico, la · código **Φ·Λ·Φ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| da | brav | brave, bold, good, worthy |
+| de | brav | good, well-behaved or reliable, obedient |
+| en | brave | A Native American warrior. |
+| en | brave | Strong in the face of fear; courageous. |
+| en | bravo | A hired soldier; an assassin; a desperado. |
+| en | bravo | To cheer or applaud, especially by saying bra |
+| en | bravo | Used to express acclaim, especially to a perf |
+| fr | brave | brave |
+| fr | brave | hero |
+| fr | bravo | applause, cheers |
+| fr | bravo | bravo!, hear, hear!, well said!, well done! |
+| is | bravó | bravo |
+| it | bravo | good, well-behaved |
+| it | bravo | henchman |
+| it | bravo | well done!, good show! |
+| nl | braaf | well-behaved, obedient |
+| nl | bravo | bravo! |
+| ro | brav | brave, courageous |
+| ru | браво | bravo! |
+| ru | бравый | gallant, dashing |
+| sv | bravo | bravo |
+| yi | בראַוואָ | bravo! |
+
+## Λ·Φ  ·  gem-pro *lubbo  —  *magnifying, glass* ⭐ 3 ramas
+
+11 lenguas · Eslavo, Germánico, la · código **Λ·Φ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| ca | lupa | magnifying glass |
+| cs | lupa | magnifying glass |
+| de | lupe | magnifying glass |
+| en | lob | A pass or stroke which arcs high into the air |
+| fr | lob | lob |
+| fr | loupe | magnifying glass |
+| it | lob | lob (in ball games) |
+| lb | lupp | magnifying glass |
+| nl | lob | lobe, lobule |
+| nl | loep | magnifying glass |
+| pl | lupa | magnifying glass |
+| ro | lupă | magnifying glass |
+| ru | лупа | magnifying glass, magnifier (instrument) |
+
+## Ϻ·Σ  ·  gem-pro *musa  —  *moss, mousse, plant, pudding* ⭐ 3 ramas
+
+11 lenguas · Eslavo, Germánico, la · código **Ϻ·Σ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| af | mos | moss |
+| ang | mos | moss |
+| bg | мус | mousse (type of pudding) |
+| de | moos | moss |
+| en | moss | Any of various small, green, seedless plants  |
+| en | moss | To become covered with moss. |
+| en | mousse | An airy pudding served chilled, particularly  |
+| en | mousse | To apply mousse (styling cream). |
+| fo | mosi | moss |
+| fr | mousse | moss (the plant) |
+| is | mosi | moss |
+| lb | moos | moss |
+| nl | mos | moss (small seedless plant(s) growing on surf |
+| ru | мусс | mousse (dessert) |
+
+## Σ·Λ  ·  gem-pro *saiwalo  —  *soul, music* ⭐ 3 ramas
+
+11 lenguas · Eslavo, Germánico, la · código **Σ·Λ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| da | sjæl | soul |
+| de | seele | soul |
+| de | soul | soul music, soul |
+| en | soul | Characteristic of or pertaining to African Am |
+| en | soul | The spirit or essence of a person usually tho |
+| en | soul | To endow with a soul or mind. |
+| fr | soul | soul, soul music |
+| fy | siel | soul |
+| is | sál | a soul |
+| it | soul | soul music |
+| lb | séil | soul, spirit |
+| nl | ziel | soul (animate principle in non-materialist an |
+| ru | соул | soul music |
+| uk | соул | soul music |
+
+## Σ·Φ·Λ  ·  gem-pro *spolo  —  *spool* ⭐ 3 ramas
+
+11 lenguas · Eslavo, Germánico, la · código **Σ·Φ·Λ**
+
+| lengua | forma | glosa |
+|---|---|---|
+| af | spoel | spool |
+| da | spole | spool |
+| de | spule | spool |
+| en | spool | A reel; a device around which thread, wire or |
+| en | spool | To wind on a spool or spools. |
+| is | spóla | a videotape |
+| it | spola | shuttle (in weaving and in transportation) |
+| nl | spoel | spool |
+| pl | szpula | spool |
+| ru | шпуля | spool, bobbin |
+| sv | spole | spool |
+| uk | шпуля | synonym of шпу́лька f (špúlʹka, “spool, bobbi |
 
