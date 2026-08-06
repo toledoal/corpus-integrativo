@@ -67,6 +67,18 @@ FAMILIES = {
         "all_load": [],
         "reconcile_pairs": {"hind1269": "hi", "urdu1245": "ur"},
     },
+    # ───────────────────────── CÉLTICO (script latino; Irlandés/Galés con IPA; Bretón/Córnico/Manés escasos) ─────────────────────────
+    "celtic": {
+        "members": ["ga", "cy", "br", "kw", "gv", "sga", "cel-pro"],   # goidélico(ga,gv)+britónico(cy,br,kw)
+        "ancestors": [
+            ("old-irish", ["sga"], "atestiguado"),                     # ancestro goidélico atestiguado (sin dump)
+            ("proto-celtic", ["cel-pro"], "reconstruido"),
+            ("proto-ie", ["ine-pro"], "reconstruido"),
+        ],
+        "kaikki_files": {"Irish": "ga", "Welsh": "cy", "Breton": "br", "Cornish": "kw", "Manx": "gv"},
+        "all_load": [],
+        "reconcile_pairs": {"iris1253": "ga", "wels1247": "cy", "bret1244": "br", "corn1251": "kw", "manx1243": "gv"},
+    },
     # ───────────────────────── GERMÁNICO (definido, NO cargado) ─────────────────────────
     "germanic": {
         # alineado a los .jsonl descargados (2026-08): sin Middle-*/Old_Saxon/Bokmål (no hay dump);

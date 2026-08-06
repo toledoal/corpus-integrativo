@@ -24,7 +24,7 @@ for chars, cl in [("pbɓʙɸβfvʋwⱱʍ", "P"), ("tdʈɖθðɗþ", "T"), ("szʃ
     for ch in chars:
         IPA[ch] = cl
 # vocales: IPA + redondeadas germánicas (ʏ ɶ ɞ ᵻ ᵿ) + yers/nasales eslavas de reconstrucción (ъ ь ǫ ę ě ą)
-VOW = set("aeiouyæœøɑɒɐɘɵɛɔəɜɤʌɨʉʊɪɚɝʏɶɞᵻᵿъьǫęěąųẽ"); GLI = set("jɥ")
+VOW = set("aeiouyæœøɑɒɐɘɵɛɔəɜɤʌɨʉʊɪɚɝʏɶɞᵻᵿъьǫęěąųẽɯ"); GLI = set("jɥɰ")   # +ɯ (posterior no-red., céltico)
 # marcas de tono/prosodia que NO son segmento (tono superíndice ±, flechas de entonación, dobles barras) → se ignoran
 IGNORE = set("¹²³⁴⁵⁶⁷⁸⁹⁰⁻⁺⁽⁾↗↘↑↓⫽ǀǃ:◌")   # tono/entonación + paréntesis palatalización eslava + ◌ (ancla devanagari)
 SKEL_NORM = {}
