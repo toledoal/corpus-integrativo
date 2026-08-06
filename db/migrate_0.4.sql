@@ -72,3 +72,5 @@ ALTER TABLE cognate_member ADD  CONSTRAINT cognate_member_cognate_set_id_fkey
       FOREIGN KEY (cognate_set_id) REFERENCES cognate_set(id) ON DELETE CASCADE;
 
 COMMIT;
+
+ALTER TABLE form ADD COLUMN IF NOT EXISTS ipa_elab TEXT;  -- IPA elaborada por G2P (epitran)

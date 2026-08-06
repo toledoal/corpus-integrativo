@@ -71,7 +71,9 @@ def segment(ipa):
 
 def main():
     conn = psycopg.connect(DSN); cur = conn.cursor()
-    cur.execute("SELECT id, ipa_raw FROM form WHERE source_id='kaikki' AND ipa_raw IS NOT NULL AND segments_raw IS NULL")
+    # IPA de la FUENTE si existe, si no la ELABORADA por G2P (coalesce) → el esqueleto sale de cualquiera
+    cur.execute("SELECT id, COALESCE(ipa_raw, ipa_elab) FROM form "
+                "WHERE source_id='kaikki' AND COALESCE(ipa_raw, ipa_elab) IS NOT NULL AND segments_raw IS NULL")
     rows = cur.fetchall()
     print(f"formas Kaikki a segmentar: {len(rows):,}")
     # bulk vía COPY por LOTES (solo un COPY activo a la vez): segmentos → tabla `segment`;

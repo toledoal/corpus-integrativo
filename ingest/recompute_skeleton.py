@@ -35,7 +35,7 @@ for _chars, _canon in [("lɫɭʟłɬɮǁ", "l"), ("ʎ", "ʎ"), ("rɾɹɻʀʁɺ",
                        ("rɾɹɻʀʁɽ", "r"), ("dɗ", "d")]:              # róticas retroflejas / implosivas → canónica
     for _ch in _chars:
         SKEL_NORM[_ch] = _canon
-BOUNDARY = set("+-_~")                                            # compuesto/multi-palabra (+/-/_) + variante (~)
+BOUNDARY = set("+-_~,")                                            # compuesto/multi-palabra (+/-/_) + variante (~)
 
 # ── Regla BICLASE (doc oas-segmentos-biclase, revisión versionada del mapeo IPA→clase) ──
 # Segmentos IPA únicos que comprometen DOS regiones a la vez → aportan DOS clases al esqueleto.

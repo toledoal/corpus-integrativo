@@ -53,11 +53,22 @@ la ambigüedad del `š` de superficie se resuelve en la protoforma). Ver `docs/e
 - **Medir, no asumir** (biclase, campo semántico): la genealogía/el uso arbitran, no la superficie.
 - **Marcar, no filtrar.** El corpus crece; nada se tira, se anota (`is_proper`, `core_valid`…).
 
+## 3b. Capa G2P — elaboración de IPA (`ingest/elaborate_ipa.py`)
+
+Capa 2 de la arquitectura: para formas SIN IPA de fuente, se ELABORA vía epitran (grafema→fonema) y se guarda
+en `form.ipa_elab` (precedencia: `ipa_raw` de fuente > `ipa_elab`; `segment_kaikki` usa coalesce). Modelos
+fiables: hi mr bn or pa si tg lv lt (+ ur parcial). **Validación anti-basura:** si la salida conserva
+caracteres del script fuente (epitran no transliteró, típico en abjad urdu ی ہ ک), se DESCARTA — no se inventa.
+Ganancia medida: **Letón 23%→96%, Panyabí 53%→94%, Hindi/Bengalí/Lituano/Tayiko→100%** (11.550 formas elaboradas).
+Lenguas sin modelo epitran (Sánscrito/Osetio/Nepalí…) se cubren por el esqueleto ORTOGRÁFICO (romanize).
+
 ## 4. Huecos declarados (honestidad del corpus)
 
-- **Cobertura de esqueleto por IPA** parcial en lenguas con poco IPA en Wiktionary (célticas menores 24–58%,
-  urdu 69%, iranias menores por ver) → **pendiente la capa G2P** (elaboración de IPA) que recupera el residuo y
-  será imprescindible para los antiguos (Védico/Avéstico).
+- **Cobertura de esqueleto (auditoría `tests/audit.py`), por familia:** báltico 98%, eslavo 98%, indo-iranio 90%,
+  romance 63%, itálico 58%, céltico 49%, **germánico 34%** (el mayor hueco: English 450k con poco IPA y sin G2P —
+  epitran-inglés requiere flite y su ortografía es profunda). El G2P NO cubre: abjad sin vocales (perso-árabe salvo
+  IPA de fuente), ortografía profunda (inglés/francés), lenguas sin modelo epitran.
+- Antiguos futuros (Védico/Avéstico) dependerán de esta capa + esqueleto ortográfico IAST.
 - **Róticas retroflejas ɭ ɽ:** el documento las declara hueco abierto (biclase no decidida) — hoy caen en Λ.
 - **Biclase:** apagada; pendiente la versión condicionada a genealogía.
 - **Colexificación:** solo donde hay `concept_id` (Lexibank) — escasa fuera de romance.

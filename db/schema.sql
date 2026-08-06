@@ -112,6 +112,7 @@ CREATE TABLE form (
     lect_id       TEXT NOT NULL REFERENCES lect(id),
     concept_id    INTEGER REFERENCES concept(id),
     ipa_raw       TEXT,
+    ipa_elab      TEXT,                          -- IPA ELABORADA por G2P (procedencia: fuente>elaborada)
     segments_raw  TEXT[],                       -- IPA cruda por segmento
     segments_norm TEXT[],                       -- fonémica normalizada (mata artefacto ʲ)
     orthography   TEXT,
