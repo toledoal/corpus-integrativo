@@ -56,16 +56,23 @@ FAMILIES = {
     # Genealogía (cuidado, Alejandro): Védico/Sánscrito = indoario ATESTIGUADO (no proto); Avéstico = iranio,
     # hermana del indoario; el proto común reconstruido es Proto-Indo-Iranio (iir-pro ≈ "proto-ario").
     "indo-iranian": {
-        "members": ["hi", "ur", "sa", "fa", "pa", "bn", "mr", "gu", "ne", "or", "iir-pro"],
+        # INDO-ARIO (hi ur sa bn pa mr gu ne or…) + IRANIO (fa ps tg os zza tly…); proto común iir-pro.
+        "members": ["hi", "ur", "sa", "bn", "pa", "mr", "gu", "ne", "or",
+                    "fa", "ps", "tg", "os", "zza", "tly",
+                    "sga", "inc-pro", "ira-pro", "iir-pro"],
         "ancestors": [
             ("sanskrit", ["sa"], "atestiguado"),                # sánscrito atestiguado, ancestro de las indoarias
             ("proto-indo-aryan", ["inc-pro"], "reconstruido"),
+            ("proto-iranian", ["ira-pro"], "reconstruido"),     # rama irania
             ("proto-indo-iranian", ["iir-pro"], "reconstruido"),   # "proto-ario"
             ("proto-ie", ["ine-pro"], "reconstruido"),
         ],
-        "kaikki_files": {"Hindi": "hi", "Urdu": "ur"},          # descargados; Sanskrit/Persian a futuro
+        "kaikki_files": {"Hindi": "hi", "Urdu": "ur",
+                         "Persian": "fa", "Pashto": "ps", "Tajik": "tg",
+                         "Ossetian": "os", "Zazaki": "zza", "Talysh": "tly"},
         "all_load": [],
-        "reconcile_pairs": {"hind1269": "hi", "urdu1245": "ur"},
+        "reconcile_pairs": {"hind1269": "hi", "urdu1245": "ur", "west2369": "fa",
+                            "pash1269": "ps", "taji1245": "tg", "osse1243": "os"},
     },
     # ───────────────────────── CÉLTICO (script latino; Irlandés/Galés con IPA; Bretón/Córnico/Manés escasos) ─────────────────────────
     "celtic": {
