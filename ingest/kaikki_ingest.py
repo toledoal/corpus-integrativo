@@ -64,15 +64,24 @@ def main():
     # códigos de lect que se van a (re)cargar → borrado INCREMENTAL acotado a ellos (no toca otras lenguas)
     codes = sorted({NAME2CODE.get(l, l.lower()) for l in args.languages})
     print(f"recarga incremental de códigos: {codes}")
-    famforms = "SELECT id FROM form WHERE source_id='kaikki' AND lect_id = ANY(%s)"
-    # 1) dependencias NO-CASCADE que apuntan a esas formas (borrar antes que la forma)
-    cur.execute(f"DELETE FROM form_etymology WHERE child_form_id IN ({famforms})", (codes,))
-    cur.execute(f"DELETE FROM cognate_member WHERE form_id IN ({famforms})", (codes,))
-    cur.execute(f"DELETE FROM cohort_member  WHERE form_id IN ({famforms})", (codes,))
-    cur.execute(f"DELETE FROM substrate_edge WHERE form_id IN ({famforms})", (codes,))
+    # BORRADO EXPLÍCITO de hijos en BLOQUE (set-based), NO por cascade: el ON DELETE CASCADE de RI
+    # dispara triggers fila-por-fila y a gran escala (English: 450k formas → millones de hijos) es
+    # patológicamente lento (min→horas). Set-based con join a una temp indexada = segundos.
+    cur.execute("CREATE TEMP TABLE _del ON COMMIT DROP AS "
+                "SELECT id FROM form WHERE source_id='kaikki' AND lect_id = ANY(%s)", (codes,))
+    cur.execute("CREATE INDEX ON _del(id)")
+    cur.execute("ANALYZE _del")   # da estadísticas al planner → hashea la tabla chica, no la grande
+    cur.execute("DELETE FROM crypto         c USING _del d WHERE c.form_id      = d.id")   # antes que skeleton
+    cur.execute("DELETE FROM form_etymology e USING _del d WHERE e.child_form_id = d.id")
+    cur.execute("DELETE FROM cognate_member m USING _del d WHERE m.form_id      = d.id")
+    cur.execute("DELETE FROM cohort_member  m USING _del d WHERE m.form_id      = d.id")
+    cur.execute("DELETE FROM substrate_edge s USING _del d WHERE s.form_id      = d.id")
+    cur.execute("DELETE FROM morph          m USING _del d WHERE m.form_id      = d.id")
+    cur.execute("DELETE FROM sense          s USING _del d WHERE s.form_id      = d.id")
+    cur.execute("DELETE FROM segment        g USING _del d WHERE g.form_id      = d.id")
+    cur.execute("DELETE FROM skeleton       k USING _del d WHERE k.form_id      = d.id")
     cur.execute("DELETE FROM ancestry_edge WHERE source_id='kaikki' AND child_lect = ANY(%s)", (codes,))
-    # 2) las formas (cascada borra crypto/morph/segment/sense/skeleton de esas formas)
-    cur.execute("DELETE FROM form WHERE source_id='kaikki' AND lect_id = ANY(%s)", (codes,))
+    cur.execute("DELETE FROM form           f USING _del d WHERE f.id           = d.id")   # sin hijos → rápido
     conn.commit()
     cur.execute("INSERT INTO source(id,citation,url,kind,license,redistributable) "
                 "VALUES('kaikki','Wiktionary via Kaikki/wiktextract','https://kaikki.org','diccionario','CC-BY-SA-3.0',TRUE) "

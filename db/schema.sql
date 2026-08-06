@@ -313,6 +313,22 @@ CREATE INDEX ix_colex_lect   ON colex(lect_id);
 CREATE INDEX ix_cohmem_form  ON cohort_member(form_id);
 CREATE INDEX ix_cohmem_coh   ON cohort_member(cohort_id);
 CREATE INDEX ix_subst_form   ON substrate_edge(form_id);
+-- TODA columna-FK indexada (borrar el padre hace seq-scan del hijo por fila si falta el índice → O(n·m)):
+CREATE INDEX ix_poly_sense_a    ON polyseme_link(sense_a);
+CREATE INDEX ix_poly_sense_b    ON polyseme_link(sense_b);
+CREATE INDEX ix_crypto_skel     ON crypto(skeleton_id);
+CREATE INDEX ix_cogmem_cond     ON cognate_member(condition_hyp);
+CREATE INDEX ix_colex_ca        ON colex(concept_a);
+CREATE INDEX ix_colex_cb        ON colex(concept_b);
+CREATE INDEX ix_proto_lect      ON protoform_hypothesis(lect_id);
+CREATE INDEX ix_proto_source    ON protoform_hypothesis(source_id);
+CREATE INDEX ix_subst_srclect   ON substrate_edge(source_lect);
+CREATE INDEX ix_subst_source    ON substrate_edge(source_id);
+CREATE INDEX ix_affix_origin    ON affix(origin_lect);
+CREATE INDEX ix_affix_source    ON affix(source_id);
+CREATE INDEX ix_ancestry_source ON ancestry_edge(source_id);
+CREATE INDEX ix_formety_source  ON form_etymology(source_id);
+CREATE INDEX ix_lect_source     ON lect(source_id);
 
 -- ----------------------------------------------------------------------------
 -- Vistas: "toda la historia de la palabra" (linaje) + "resonancia" (mismo esqueleto)

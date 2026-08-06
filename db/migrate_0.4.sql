@@ -43,6 +43,23 @@ CREATE INDEX IF NOT EXISTS ix_cohmem_form     ON cohort_member(form_id);
 CREATE INDEX IF NOT EXISTS ix_cohmem_coh      ON cohort_member(cohort_id);
 CREATE INDEX IF NOT EXISTS ix_subst_form      ON substrate_edge(form_id);
 
+-- TODA columna-FK indexada: sin índice, borrar el PADRE hace seq-scan del hijo por fila (borrado O(n·m),
+-- patológico a escala — fue el bug que colgó la carga germánica 90 min en crypto.skeleton_id/polyseme.sense_*).
+CREATE INDEX IF NOT EXISTS ix_poly_sense_a    ON polyseme_link(sense_a);
+CREATE INDEX IF NOT EXISTS ix_poly_sense_b    ON polyseme_link(sense_b);
+CREATE INDEX IF NOT EXISTS ix_crypto_skel     ON crypto(skeleton_id);
+CREATE INDEX IF NOT EXISTS ix_cogmem_cond     ON cognate_member(condition_hyp);
+CREATE INDEX IF NOT EXISTS ix_colex_ca        ON colex(concept_a);
+CREATE INDEX IF NOT EXISTS ix_colex_cb        ON colex(concept_b);
+CREATE INDEX IF NOT EXISTS ix_proto_lect      ON protoform_hypothesis(lect_id);
+CREATE INDEX IF NOT EXISTS ix_subst_srclect   ON substrate_edge(source_lect);
+CREATE INDEX IF NOT EXISTS ix_affix_origin    ON affix(origin_lect);
+CREATE INDEX IF NOT EXISTS ix_affix_source    ON affix(source_id);
+CREATE INDEX IF NOT EXISTS ix_ancestry_source ON ancestry_edge(source_id);
+CREATE INDEX IF NOT EXISTS ix_formety_source  ON form_etymology(source_id);
+CREATE INDEX IF NOT EXISTS ix_lect_source     ON lect(source_id);
+CREATE INDEX IF NOT EXISTS ix_proto_source    ON protoform_hypothesis(source_id);
+
 -- FKs a CASCADE (form_etymology sigue a la forma; protoforma sigue al cognate_set)
 ALTER TABLE form_etymology DROP CONSTRAINT IF EXISTS form_etymology_child_form_id_fkey;
 ALTER TABLE form_etymology ADD  CONSTRAINT form_etymology_child_form_id_fkey
