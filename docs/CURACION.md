@@ -258,6 +258,24 @@ documentado, o su proto no lo tiene). Subir más requiere Pokorny (CLDF público
   gâteau` es hoja-préstamo y `gato → la-lat cattus` para en latín tardío (origen incierto ✓, llega_PIE=False).
   Afectaba **65.155 formas** que cruzaban un préstamo hacia ancestros falsos. (Diagnóstico vía subagente.)
 
+## 4j. Vuelta de CALIDAD + procedencia/legalidad (audit)
+
+Nuevo `tests/audit_quality.py` (calidad semántica/genealógica, ≠ integridad estructural de qa.py). Arreglos:
+- **Herencia que cruza familia → préstamo** (2.199 aristas): la herencia no cruza familias; eran préstamos
+  (paprika<húngaro, sakè<日本語, kilim<turco…). Reclasificadas → 0. Además el walk ya no las trepa.
+- **Mapeo de concepto erróneo**: 11.428→**54**. Causa: mi normalizador quitaba el paréntesis de la glosa del
+  concepto (`SET (HEAVENLY BODIES)`→`set`) y cualquier "set" matcheaba ese concepto especializado (ajustar→SET,
+  hoja→SHEET (CLASSIFIER)…). Fix: `map_concepticon.py` EXCLUYE conceptos con paréntesis-desambiguador del match por
+  palabra suelta. Re-mapeado (320k sentidos) y colex reconstruida (231k).
+- **Bug del walk por préstamo (gato)**: el linaje recursivo trepaba por aristas de préstamo hacia la ascendencia del
+  DONANTE (gato→gâteau→PIE falso). Fix en `viewer/serve.py`: recursar solo por herencia/reconstruido. PIE-reach
+  honesto = 133.371 (los 151k previos inflaban con préstamos trepados).
+- **Nombres de lengua** (`fix_lect_names.py`): 0 lects Kaikki sin nombre real.
+- **Procedencia/legalidad**: `docs/FUENTES.md` (atribución + licencias + cuarentena). Tabla `source` con cita/URL/
+  licencia de las 15 fuentes+estándares; 3 en cuarentena (Pokorny CC-BY-NC-ND, de Vaan/Kroonen copyright) →
+  EXCLUIR con `redistributable=true` en cualquier export público. 0 formas sin fuente, 0 procedencia rota.
+- Pendiente menor: 150 ciclos de linaje (cycle-safe) y 2.803 duplicados exactos kaikki (dedup riesgoso por hijos).
+
 ## 5. Familias cargadas
 
 Registro en `ingest/families.py`. Estado: **12 familias, ~2.05M formas, 551 lenguas, QA 27 OK/0.**

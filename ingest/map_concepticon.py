@@ -40,6 +40,10 @@ def main():
     v2c = defaultdict(set)
     for cid, en, cc in cur.fetchall():
         for g in (en, cc):
+            # EXCLUIR conceptos con paréntesis-desambiguador ("SET (HEAVENLY BODIES)", "SHEET (CLASSIFIER)"):
+            # quitar el paréntesis daría el match por palabra suelta ("set") a un concepto especializado → falsos.
+            if not g or "(" in g:
+                continue
             for v in variants(g):
                 v2c[v].add(cid)
     lookup = {v: next(iter(cs)) for v, cs in v2c.items() if len(cs) == 1}
