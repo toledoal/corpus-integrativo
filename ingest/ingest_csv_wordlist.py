@@ -36,7 +36,8 @@ def main():
     args = ap.parse_args()
 
     langs = {r["ID"]: r for r in rd(os.path.join(args.dir, "languages.csv"))}
-    params = {r["ID"]: r for r in rd(os.path.join(args.dir, "parameters.csv"))}
+    pfile = "parameters.csv" if os.path.exists(os.path.join(args.dir, "parameters.csv")) else "concepts.csv"
+    params = {r["ID"]: r for r in rd(os.path.join(args.dir, pfile))}   # Lexibank usa concepts.csv; NEL/IDS parameters.csv
     forms = rd(os.path.join(args.dir, "forms.csv"))
     print(f"{args.source}: {len(langs)} lenguas · {len(params)} conceptos · {len(forms):,} formas")
 

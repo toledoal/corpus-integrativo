@@ -20,13 +20,14 @@ from config import DSN
 SYM = dict(zip("PTKSLMN", "ΦΘΧΣΛϺΞ"))
 IPA = {}
 for chars, cl in [("pbɓʙɸβfvʋwⱱʍ", "P"), ("tdʈɖθðɗþ", "T"), ("szʃʒʂʐɕʑʦʣʧʤʨʥſß", "S"),
-                  ("lɫɭʎʟrɾɹɻʀʁłɽɬɮǁɺ", "L"), ("kgɡcɟxɣχqɢʔhɦħʕçʝɠʄɧʜʡʢȷ", "K"), ("mɱ", "M"), ("nɳɲŋɴ", "N")]:
+                  ("lɫɭʎʟrɾɹɻʀʁłɽɬɮǁɺȴ", "L"), ("kgɡcɟxɣχqɢʔhɦħʕçʝɠʄɧʜʡʢȷ", "K"), ("mɱ", "M"), ("nɳɲŋɴȵ", "N"),
+                  ("ȶȡ", "T")]:                       # +alveolopalatales sinológicas: ȴ→L, ȵ→N, ȶ/ȡ→T
     for ch in chars:
         IPA[ch] = cl
 # vocales: IPA + redondeadas germánicas (ʏ ɶ ɞ ᵻ ᵿ) + yers/nasales eslavas de reconstrucción (ъ ь ǫ ę ě ą)
-VOW = set("aeiouyæœøɑɒɐɘɵɛɔəɜɤʌɨʉʊɪɚɝʏɶɞᵻᵿъьǫęěąųẽɯ"); GLI = set("jɥɰ")   # +ɯ (posterior no-red., céltico)
+VOW = set("aeiouyæœøɑɒɐɘɵɛɔəɜɤʌɨʉʊɪɚɝʏɶɞᵻᵿъьǫęěąųẽɯɿʅʮʯ"); GLI = set("jɥɰ")   # +ɯ céltico; +ɿʅʮʯ vocales apicales silábicas (sinológicas)
 # marcas de tono/prosodia que NO son segmento (tono superíndice ±, flechas de entonación, dobles barras) → se ignoran
-IGNORE = set("¹²³⁴⁵⁶⁷⁸⁹⁰⁻⁺⁽⁾()↗↘↑↓⫽ǀǃǂʘ:◌0123456789*ꝛ⁊&")   # tono + clics + paréntesis (laringal incierta) + ◌
+IGNORE = set("¹²³⁴⁵⁶⁷⁸⁹⁰⁻⁺⁽⁾()↗↘↑↓⫽ǀǃǂʘ∼~ⁿ:◌0123456789*ꝛ⁊&")   # tono + clics + paréntesis + ∼/~/ⁿ nasalización
 SKEL_NORM = {}
 for _chars, _canon in [("lɫɭʟłɬɮǁ", "l"), ("ʎ", "ʎ"), ("rɾɹɻʀʁɺ", "r"),
                        ("k", "k"), ("gɡ", "g"), ("cɟ", "c"), ("q", "q"),

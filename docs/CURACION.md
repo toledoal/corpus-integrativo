@@ -228,6 +228,23 @@ Problema (Alejandro): muchas palabras llegaban a su proto de rama pero no a PIE.
 documentado, o su proto no lo tiene). Subir más requiere Pokorny (CLDF público, descargable) o de Vaan/Kroonen
 (copyright). Columnas: `form_etymology.parent_form_id`.
 
+## 4h. Densidad Lexibank + limpieza de genealogía
+
+- **Lexibank completo** (`ingest_csv_wordlist.py`, COPY): **1.740.092 formas · 5.501 lenguas · 3.205 conceptos**
+  (con segmentos, cognacy, CV). Total del corpus 2,06M→**3,78M formas**, lenguas 556→**3.404**, concepto 39%→**66.6%**,
+  colexificación 138k→**223.428** (escala CLICS real, cientos de familias). Costo en disco REAL: solo **+0,33 GB**
+  (base = forma+concepto+is_loan+segmentos-array vía COPY; sin segment/skeleton/crypto rows) — mucho menor que el
+  estimado conservador de 1,5 GB. El pipeline completo (esqueleto/crypto sobre Lexibank) añadiría ~4,8 GB si se corre.
+- **Esqueleto sobre Lexibank** (corrido): **1.739.994 esqueletos** (99,99%) → corpus con 3,08M esqueletos (82%).
+  Costo real solo **+0,44 GB** (el esqueleto es barato; las caras son segment/crypto/morph, no corridas). Sin
+  clasificar 0,44%→**0** tras mapear extensiones sinológicas/SE-asiáticas (ɿ ʅ vocales apicales; ȵ ȴ ȶ ȡ
+  alveolopalatales; ∼ ~ ⁿ nasalización); los modificadores IPA (ejectivo ˀ, faringalizado ˠ, labializado ʷ) se
+  despojan y la consonante base clasifica.
+- **Limpieza de genealogía** (Latín/Romance parecía "desactualizada"): eran **duplicados** (misma arista de varias
+  fuentes/pasadas: kaikki+kaikki-tree+kaikki-prose+pokorny) y **malformadas** (parent_form vacío). Borradas 22.284
+  vacías + 311.785 duplicadas → 1,26M→**923k aristas** limpias. Ejemplo: `padre → osp padre → la pater/patrem →
+  itc-pro *patēr → ine-pro *ph₂tḗr` sin ruido. PIE-reach 151.353.
+
 ## 5. Familias cargadas
 
 Registro en `ingest/families.py`. Estado: **12 familias, ~2.05M formas, 551 lenguas, QA 27 OK/0.**
