@@ -69,22 +69,86 @@ def detail(fid):
         d["senses"] = [g[0] for g in cur.fetchall()]
         cur.execute("SELECT count(*) FROM polyseme_link pl JOIN sense s ON s.id=pl.sense_a WHERE s.form_id=%s", (fid,))
         d["polyseme_links"] = cur.fetchone()[0]
-        cur.execute("SELECT parent_lect, parent_form, kind FROM form_etymology WHERE child_form_id=%s ORDER BY id", (fid,))
-        d["etymology"] = [{"lect": e[0], "form": e[1], "kind": e[2]} for e in cur.fetchall()]
-        cur.execute("""SELECT cs.id, cs.label, cs.source, cs.family FROM cognate_member cm
-                       JOIN cognate_set cs ON cs.id=cm.cognate_set_id WHERE cm.form_id=%s""", (fid,))
-        d["cognate_sets"] = []
-        for cs_id, label, source, fam in cur.fetchall():
-            cur.execute("""SELECT DISTINCT ON (f.lect_id, lower(f.orthography))
-                           f.lect_id, f.orthography, (SELECT gloss FROM sense s WHERE s.form_id=f.id LIMIT 1)
-                           FROM cognate_member cm JOIN form f ON f.id=cm.form_id
-                           WHERE cm.cognate_set_id=%s ORDER BY f.lect_id, lower(f.orthography) LIMIT 60""", (cs_id,))
-            mem = [{"lect": m[0], "word": m[1], "gloss": m[2]} for m in cur.fetchall()]
-            d["cognate_sets"].append({"label": label, "source": source, "family": fam, "members": mem})
+        # LINAJE COMPLETO "toda la historia" (§3f): walk recursivo hacia arriba, encadenando por parent_form_id,
+        # hasta PIE y más allá. Cycle-safe (path array + tope de profundidad).
+        cur.execute("""WITH RECURSIVE up AS (
+                         SELECT fe.parent_lect, fe.parent_form, fe.parent_form_id, fe.kind, fe.source_id,
+                                1 AS depth, ARRAY[fe.child_form_id] AS path
+                         FROM form_etymology fe WHERE fe.child_form_id=%s
+                         UNION ALL
+                         SELECT fe.parent_lect, fe.parent_form, fe.parent_form_id, fe.kind, fe.source_id,
+                                up.depth+1, up.path||fe.child_form_id
+                         FROM form_etymology fe JOIN up ON fe.child_form_id=up.parent_form_id
+                         WHERE up.depth<15 AND NOT fe.child_form_id = ANY(up.path))
+                       SELECT DISTINCT ON (up.parent_lect, up.parent_form)
+                              up.parent_lect, up.parent_form, up.kind, up.source_id, up.depth, l.name, l.level
+                       FROM up LEFT JOIN lect l ON l.id=up.parent_lect
+                       ORDER BY up.parent_lect, up.parent_form, up.depth""", (fid,))
+        _RANK = {"idiolecto": 0, "dialecto": 1, "lengua": 2, "estadio": 3, "subfamilia": 4,
+                 "proto_rama": 5, "pie": 6, "nostratico": 7}
+        lin = [{"lect": r[0], "form": r[1], "kind": r[2], "src": r[3], "depth": r[4],
+                "lect_name": r[5], "rank": _RANK.get(r[6], 2)} for r in cur.fetchall()]
+        lin.sort(key=lambda x: (x["rank"], x["depth"]))     # más cercano primero → PIE al final
+        for i, x in enumerate(lin):
+            x["depth"] = i + 1                               # profundidad de despliegue por posición en la cadena
+        d["etymology"] = lin
+        d["reaches_pie"] = any(x["lect"] == "ine-pro" for x in lin)
+        d["deepest"] = (lin[-1]["lect_name"] or lin[-1]["lect"]) if lin else None
+        # COGNADOS unificados: unión de TODOS los cognate_sets del form, deduplicados por (lengua, forma
+        # normalizada NFC) para no repetir (una palabra que está en varios sets solapados se muestra UNA vez),
+        # con las fuentes que la atestiguan agregadas. Evita las tarjetas redundantes.
+        cur.execute("""WITH sets AS (SELECT DISTINCT cognate_set_id FROM cognate_member WHERE form_id=%s)
+                       SELECT f.lect_id, max(l.name) AS lname,
+                              (array_agg(f.orthography ORDER BY length(f.orthography), f.id))[1] AS word,
+                              min(g.gloss) AS gloss,
+                              string_agg(DISTINCT cs.source, ', ' ORDER BY cs.source) AS srcs
+                       FROM sets
+                       JOIN cognate_member cm ON cm.cognate_set_id=sets.cognate_set_id
+                       JOIN cognate_set cs ON cs.id=sets.cognate_set_id
+                       JOIN form f ON f.id=cm.form_id
+                       LEFT JOIN lect l ON l.id=f.lect_id
+                       LEFT JOIN LATERAL (SELECT gloss FROM sense s WHERE s.form_id=f.id AND gloss IS NOT NULL LIMIT 1) g ON true
+                       GROUP BY f.lect_id, lower(normalize(f.orthography, NFC))
+                       ORDER BY f.lect_id, word
+                       LIMIT 150""", (fid,))
+        rows = cur.fetchall()
+        cur.execute("SELECT count(DISTINCT cognate_set_id), string_agg(DISTINCT cs.source, ', ') "
+                    "FROM cognate_member cm JOIN cognate_set cs ON cs.id=cm.cognate_set_id WHERE cm.form_id=%s", (fid,))
+        nsets, allsrc = cur.fetchone()
+        d["cognates"] = [{"lect": r[0], "lect_name": r[1], "word": r[2], "gloss": r[3], "srcs": r[4]} for r in rows]
+        d["cognate_meta"] = {"n_sets": nsets or 0, "sources": allsrc or ""}
+        # RED DE SIGNIFICADO — conceptos de la forma (de sus SENTIDOS + form.concept_id) + colexificación global
+        cur.execute("""SELECT DISTINCT c.id, COALESCE(c.gloss_en,c.concepticon_gloss)
+                       FROM concept c WHERE c.id IN (
+                         SELECT concept_id FROM sense WHERE form_id=%s AND concept_id IS NOT NULL
+                         UNION SELECT concept_id FROM form WHERE id=%s AND concept_id IS NOT NULL)
+                       ORDER BY 2""", (fid, fid))
+        cc = cur.fetchall()
+        d["concepts"] = [r[1] for r in cc]
+        d["colex"] = []
+        cids = [r[0] for r in cc]
+        if cids:
+            cur.execute("""SELECT COALESCE(c.gloss_en,c.concepticon_gloss) g,
+                                  count(DISTINCT x.lect_id) langs, count(DISTINCT l.family) fams
+                           FROM colex x
+                           JOIN concept c ON c.id = CASE WHEN x.concept_a = ANY(%s) THEN x.concept_b ELSE x.concept_a END
+                           LEFT JOIN lect l ON l.id=x.lect_id
+                           WHERE (x.concept_a = ANY(%s) OR x.concept_b = ANY(%s))
+                             AND NOT (x.concept_a = ANY(%s) AND x.concept_b = ANY(%s))
+                           GROUP BY 1 ORDER BY 2 DESC LIMIT 15""", (cids, cids, cids, cids, cids))
+            d["colex"] = [{"concept": r[0], "langs": r[1], "families": r[2]} for r in cur.fetchall()]
+        # morfología: un código POR MORFEMA, con la RAÍZ marcada (decomposición por etimología)
+        cur.execute("""SELECT role, surface, gloss, cons_skeleton, code FROM morph
+                       WHERE form_id=%s ORDER BY morph_ord NULLS LAST, id""", (fid,))
+        d["morphemes"] = [{"role": m[0], "surface": m[1] or m[2], "cons": m[3], "code": m[4]} for m in cur.fetchall()]
         # análisis (secundario)
-        cur.execute("SELECT cons_skeleton, code, core_skeleton, vowels, cv_template FROM skeleton WHERE form_id=%s", (fid,))
+        cur.execute("SELECT cons_skeleton, code, core_skeleton, vowels, cv_template, is_compound FROM skeleton WHERE form_id=%s", (fid,))
         s = cur.fetchone()
-        d["skeleton"] = ({"cons": s[0], "code": s[1], "core": s[2], "vowels": s[3], "cv": s[4]} if s else None)
+        d["skeleton"] = ({"cons": s[0], "code": s[1], "core": s[2], "vowels": s[3], "cv": s[4], "compound": s[5]} if s else None)
+        # código de la RAÍZ = el de la morph raíz (si la decomposición existe)
+        root = next((m for m in d["morphemes"] if m["role"] == "root" and m["code"]), None)
+        d["root_code"] = root["code"] if root else None
+        d["root_surface"] = root["surface"] if root else None
         cur.execute("SELECT ipa, is_stressed FROM segment WHERE form_id=%s ORDER BY pos", (fid,))
         d["segments"] = [{"ipa": g[0], "stress": g[1]} for g in cur.fetchall()]
         cur.execute("SELECT self_info FROM crypto WHERE form_id=%s", (fid,))
@@ -119,7 +183,20 @@ PAGE = r"""<!doctype html><html lang="es"><head><meta charset="utf-8">
  .cog{border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:8px 0;background:var(--card)}
  .cog h4{margin:0 0 6px;font-size:13px;font-weight:600}.cog .src{color:var(--mut);font-weight:400;font-size:12px}
  table{border-collapse:collapse;width:100%}td{padding:3px 8px;border-bottom:1px solid var(--line);font-size:14px;vertical-align:top}
- td.lc{color:var(--mut);width:52px}td.gl{color:var(--mut)}
+ td.lc{color:var(--fg);white-space:nowrap;width:1%}td.gl{color:var(--mut)}
+ .iso{color:var(--mut);font-size:11px;font-family:ui-monospace,monospace}
+ td.srccol{text-align:right;white-space:nowrap}.src2{display:inline-block;font-size:10px;color:var(--mut);background:var(--soft);border-radius:4px;padding:0 5px;margin-left:3px}
+ .colx{line-height:2}.cxlead{font-weight:700;color:var(--acc);text-transform:uppercase;font-size:13px;letter-spacing:.03em}
+ .cxchip{display:inline-block;padding:2px 9px;margin:2px;border:1px solid var(--line);border-radius:20px;background:var(--card);font-size:13px}
+ .cxn{color:var(--mut);font-size:11px}
+ .pie{display:inline-block;font-size:10px;font-weight:700;color:#fff;background:var(--acc);border-radius:4px;padding:0 6px;letter-spacing:.04em}
+ .mbreak{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin:2px 0 4px}
+ .mchip{display:inline-flex;gap:5px;align-items:center;padding:3px 9px;border:1px solid var(--line);border-radius:7px;background:var(--card);font-size:13px}
+ .mchip.root{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 10%,var(--card))}
+ .mchip code{background:var(--soft)}.mchip.root code{background:var(--card);color:var(--acc);font-weight:700}
+ .rlbl{font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--acc);font-weight:700}
+ .plus{color:var(--mut);margin:0 2px}.rootcode{margin-bottom:8px}.rootcode .big,.anal code.big{font-size:16px}
+ .anal code.big{background:var(--card);color:var(--acc);font-weight:700;padding:2px 9px}.subline{margin-top:8px}
  .seg{display:inline-block;padding:2px 7px;margin:2px;border:1px solid var(--line);border-radius:6px;font-family:ui-monospace,monospace}
  .seg.st{border-color:var(--acc);color:var(--acc);font-weight:700}
  .anal{background:var(--soft);border-radius:8px;padding:12px 14px;margin-top:6px;font-size:13px;color:var(--mut)}
@@ -150,15 +227,48 @@ async function go(e){e&&e.preventDefault();const q=document.getElementById('q').
 async function show(id){const d=await (await fetch('/api/form?id='+encodeURIComponent(id))).json();const D=document.getElementById('detail');
  const sk=d.skeleton||{};
  let sens=(d.senses||[]).map((g,i)=>'<div class="sens"><span class="n">'+(i+1)+'.</span>'+esc(g)+'</div>').join('')||'<span class="mut">—</span>';
- let lin=(d.etymology||[]).map(e=>'<div class="lin"><span class="kind">'+esc(e.kind||'')+'</span>'+esc(e.lect)+' <i>'+esc(e.form)+'</i></div>').join('');
- let cogs=(d.cognate_sets||[]).map(cs=>'<div class="cog"><h4>'+esc(cs.label||'')+' <span class="src">· '+esc(cs.source)+(cs.family?' · '+esc(cs.family):'')+'</span></h4>'+
-   '<table>'+cs.members.map(m=>'<tr><td class="lc">'+m.lect+'</td><td>'+esc(m.word)+'</td><td class="gl">'+esc(m.gloss||'')+'</td></tr>').join('')+'</table></div>').join('')||'<span class="mut">no ligado a cognados aún</span>';
+ const lname=(lc,nm)=>nm||(LECTS[lc]&&LECTS[lc].name)||lc;
+ const lcell=(lc,nm)=>esc(lname(lc,nm))+' <span class="iso">'+esc(lc)+'</span>';
+ let lin=(d.etymology||[]).map(e=>'<div class="lin" style="margin-left:'+((e.depth-1)*16)+'px">'+
+   '<span class="mut">↑</span> <span class="kind">'+esc(e.kind||'')+'</span>'+lcell(e.lect,e.lect_name)+
+   ' <i>'+esc(e.form)+'</i>'+(e.lect==='ine-pro'?' <span class="pie">PIE</span>':'')+
+   (e.src?' <span class="iso">· '+esc(e.src)+'</span>':'')+'</div>').join('');
+ const SRCLBL={'kaikki-cog':'cog','kaikki-etymology':'etim','iecor-gold':'iecor★','liv':'LIV²'};
+ const srcb=s=>(s||'').split(', ').map(x=>'<span class="src2">'+esc(SRCLBL[x]||x)+'</span>').join(' ');
+ const cg=(d.cognates||[]); const cm=d.cognate_meta||{};
+ let cogs=cg.length?('<div class="cog"><h4>'+cg.length+' coderivados <span class="src">· '+
+   (cm.n_sets>1?cm.n_sets+' conjuntos · ':'')+esc(cm.sources||'')+'</span></h4>'+
+   '<table>'+cg.map(m=>'<tr><td class="lc">'+lcell(m.lect,m.lect_name)+'</td><td>'+esc(m.word)+'</td>'+
+     '<td class="gl">'+esc(m.gloss||'')+'</td><td class="srccol">'+srcb(m.srcs)+'</td></tr>').join('')+
+   '</table></div>'):'<span class="mut">no ligado a cognados aún</span>';
+ const CC=(d.concepts||[]);
+ let colex=CC.length?('<div class="colx">'+
+   '<div>'+CC.map(g=>'<span class="cxlead">'+esc(g)+'</span>').join(' <span class="mut">+</span> ')+
+     (CC.length>1?' <span class="mut">(esta palabra ya colexifica '+CC.length+' conceptos)</span>':'')+'</div>'+
+   ((d.colex||[]).length?'<div style="margin-top:4px"><span class="mut">se colexifica cross-lingüísticamente con</span> '+
+     d.colex.map(x=>'<span class="cxchip">'+esc(x.concept)+' <span class="cxn">'+x.langs+' leng'+(x.families>1?' · '+x.families+' fam':'')+'</span></span>').join('')+'</div>'
+    :'<div class="mut">— sin colexificaciones cross-lingüísticas registradas</div>')+'</div>'):'';
+ let morphs=(d.morphemes||[]);
+ let endo;
+ if(morphs.length){
+   let chips=morphs.map(m=>'<span class="mchip'+(m.role==='root'?' root':'')+'">'+esc(m.surface)+' <code>'+esc(m.code||'∅')+'</code>'+(m.role==='root'?' <span class="rlbl">raíz</span>':'')+'</span>').join('<span class="plus">+</span>');
+   endo='<div class="anal">'+
+     (d.root_code?'<div class="rootcode"><span class="lbl">código de la raíz</span> <span class="mut">('+esc(d.root_surface)+')</span> <code class="big">'+esc(d.root_code)+'</code></div>':'')+
+     '<div class="mbreak">'+chips+'</div>'+
+     '<div class="subline"><span class="lbl">núcleo</span> <code>'+esc(sk.core||'—')+'</code> · <span class="lbl">forma completa</span> <code>'+esc(sk.code||'—')+'</code>'+(sk.compound?' <span class="tag">univerbación</span>':'')+
+      ' · <span class="lbl">vocales</span> <code>'+esc(sk.vowels||'—')+'</code>'+(d.self_info!=null?' · <span class="lbl">self-info</span> <code>'+d.self_info.toFixed(2)+'</code>':'')+'</div></div>';
+ } else {
+   endo='<div class="anal"><span class="lbl">código (forma superficial)</span> <code class="big">'+esc(sk.code||'—')+'</code> <span class="mut">— raíz sin segmentar aún</span>'+
+     ' · <span class="lbl">esqueleto</span> <code>'+esc(sk.cons||'—')+'</code> · <span class="lbl">vocales</span> <code>'+esc(sk.vowels||'—')+'</code>'+
+     (d.self_info!=null?' · <span class="lbl">self-info</span> <code>'+d.self_info.toFixed(2)+'</code>':'')+'</div>';
+ }
  let segs=(d.segments||[]).map(s=>'<span class="seg'+(s.stress?' st':'')+'">'+esc(s.ipa)+'</span>').join('')||'<span class="mut">—</span>';
  D.innerHTML='<div class="word">'+esc(d.word)+'</div>'+
   '<div class="meta"><b>'+esc(d.lect_name||d.lect)+'</b> ('+d.lect+') · rama <b>'+esc(d.branch)+'</b>'+(d.subgroup?' / '+esc(d.subgroup):'')+' · '+esc(d.pos||'')+
     (d.is_loan?' · <span class="tag">préstamo</span>':'')+(d.is_proper?' · <span class="tag">propio</span>':'')+' · <span class="mut">fuente '+esc(d.source)+'</span></div>'+
   '<div class="sec">Sentidos'+(d.polyseme_links?' · '+d.polyseme_links+' enlaces de polisemia':'')+'</div>'+sens+
-  '<div class="sec">Etimología (historia)</div>'+
+  ((d.concepts&&d.concepts.length)?'<div class="sec">Red de significado <span class="mut" style="font-weight:400;text-transform:none">(colexificación · todas las fuentes)</span></div>'+colex:'')+
+  '<div class="sec">Etimología · toda la historia '+(d.reaches_pie?'<span class="pie">llega a PIE ✓</span>':(d.deepest?'<span class="mut" style="font-weight:400;text-transform:none">(hasta '+esc(d.deepest)+')</span>':''))+'</div>'+
     (d.etymology_text?'<div class="prose">'+esc(d.etymology_text)+'</div>':'')+
     (lin?'<div style="margin-top:6px">'+lin+'</div>':(d.etymology_text?'':'<span class="mut">—</span>'))+
   '<div class="sec">Cognados / coderivados</div>'+cogs+
@@ -166,10 +276,7 @@ async function show(id){const d=await (await fetch('/api/form?id='+encodeURIComp
     '<div class="meta">IPA: '+(d.ipa_raw?'<code>'+esc(d.ipa_raw)+'</code> <span class="mut">fuente</span>':'')+
       (d.ipa_elab?' <code>'+esc(d.ipa_elab)+'</code> <span class="mut">G2P elaborada</span>':'')+(!d.ipa_raw&&!d.ipa_elab?'<span class="mut">— sin IPA</span>':'')+'</div>'+
     '<div style="margin-top:6px">'+segs+'</div>'+
-  '<div class="sec">Análisis endolingüístico <span class="mut" style="font-weight:400;text-transform:none">(capa derivada)</span></div>'+
-    '<div class="anal"><span class="lbl">esqueleto</span> <code>'+esc(sk.cons||'—')+'</code>'+(sk.core?' · <span class="lbl">núcleo</span> <code>'+esc(sk.core)+'</code>':'')+
-     ' · <span class="lbl">código OAS</span> <code>'+esc(sk.code||'—')+'</code> · <span class="lbl">vocales</span> <code>'+esc(sk.vowels||'—')+'</code>'+
-     (d.self_info!=null?' · <span class="lbl">self-info</span> <code>'+d.self_info.toFixed(2)+'</code>':'')+'</div>';}
+  '<div class="sec">Análisis endolingüístico <span class="mut" style="font-weight:400;text-transform:none">(capa derivada · el código va sobre la RAÍZ)</span></div>'+endo;}
 loadLects();
 </script></body></html>"""
 

@@ -60,7 +60,7 @@ CHECKS = [
     ("FEAT · valor fuera de {-1,0,1}", "SELECT count(*) FROM feature WHERE value NOT IN (-1,0,1)", "fail", "rasgo debe ser ternario"),
     ("POLY · enlace a sentido inexistente", "SELECT count(*) FROM polyseme_link pl LEFT JOIN sense s ON s.id=pl.sense_a WHERE s.id IS NULL", "fail", ""),
     ("POLY · lect no declarado", f"SELECT count(*) FROM polyseme_link WHERE lect_id IS NOT NULL AND lect_id <> ALL({_ALL_MEMBERS_SQL})", "fail", "lect fuera de toda familia declarada en families.py"),
-    ("COLX · lect no declarado", f"SELECT count(*) FROM colex WHERE lect_id IS NOT NULL AND lect_id <> ALL({_ALL_MEMBERS_SQL})", "fail", "lect fuera de toda familia declarada"),
+    ("COLX · lect inexistente", "SELECT count(*) FROM colex x WHERE x.lect_id IS NOT NULL AND NOT EXISTS(SELECT 1 FROM lect l WHERE l.id=x.lect_id)", "fail", "colexificación es GLOBAL/cross-lingüística (todas las lenguas con concepto, no solo familias IE); basta que el lect exista"),
     ("PROTO · set inexistente", "SELECT count(*) FROM protoform_hypothesis ph LEFT JOIN cognate_set cs ON cs.id=ph.cognate_set_id WHERE cs.id IS NULL", "fail", "hipótesis sobre cognate_set fantasma"),
     ("SUBS · forma-hija de lect no declarado", f"SELECT count(*) FROM substrate_edge se JOIN form f ON f.id=se.form_id WHERE f.lect_id <> ALL({_ALL_MEMBERS_SQL})", "fail", "el préstamo debe ENTRAR a un lect declarado (la fuente sí puede ser externa)"),
     ("SUBS · substrate huérfano", "SELECT count(*) FROM substrate_edge se LEFT JOIN form f ON f.id=se.form_id WHERE f.id IS NULL", "fail", ""),

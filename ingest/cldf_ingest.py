@@ -52,7 +52,8 @@ def main():
             lat=col(r, "Latitude"), lon=col(r, "Longitude"))
     if not langs:
         print("!! ninguna lengua tras el filtro de glottocodes"); return
-    print(f"lenguas tras filtro: {len(langs)}  (glottocodes: {sorted(set(l['glottocode'] for l in langs.values()))})")
+    _gcs = sorted(g for g in set(l['glottocode'] for l in langs.values()) if g)
+    print(f"lenguas tras filtro: {len(langs)}  (glottocodes: {len(_gcs)}, ej: {_gcs[:8]})")
 
     conn = psycopg.connect(DSN, autocommit=False)
     cur = conn.cursor()

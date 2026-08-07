@@ -73,7 +73,7 @@ FAMILIES = {
                          "Assamese": "as", "Sinhalese": "si", "Kashmiri": "ks", "Konkani": "kok",
                          "Pali": "pi", "Prakrit": "pra", "Sylheti": "syl",
                          "Persian": "fa", "Pashto": "ps", "Tajik": "tg",
-                         "Ossetian": "os", "Zazaki": "zza", "Talysh": "tly"},
+                         "Ossetian": "os", "Zazaki": "zza", "Talysh": "tly", "Proto-Indo-Iranian": "iir-pro"},
         "all_load": [],
         "reconcile_pairs": {"hind1269": "hi", "urdu1245": "ur", "west2369": "fa",
                             "pash1269": "ps", "taji1245": "tg", "osse1243": "os"},
@@ -86,7 +86,8 @@ FAMILIES = {
             ("proto-celtic", ["cel-pro"], "reconstruido"),
             ("proto-ie", ["ine-pro"], "reconstruido"),
         ],
-        "kaikki_files": {"Irish": "ga", "Welsh": "cy", "Breton": "br", "Cornish": "kw", "Manx": "gv"},
+        "kaikki_files": {"Irish": "ga", "Welsh": "cy", "Breton": "br", "Cornish": "kw", "Manx": "gv",
+                         "Proto-Celtic": "cel-pro", "Proto-Brythonic": "cel-bry-pro"},
         "all_load": [],
         "reconcile_pairs": {"iris1253": "ga", "wels1247": "cy", "bret1244": "br", "corn1251": "kw", "manx1243": "gv"},
     },
@@ -99,7 +100,7 @@ FAMILIES = {
             ("proto-balto-slavic", ["bsw-pro"], "reconstruido"),
             ("proto-ie", ["ine-pro"], "reconstruido"),
         ],
-        "kaikki_files": {"Lithuanian": "lt", "Latvian": "lv", "Latgalian": "ltg"},
+        "kaikki_files": {"Lithuanian": "lt", "Latvian": "lv", "Latgalian": "ltg", "Proto-Balto-Slavic": "ine-bsl-pro"},
         "all_load": [],
         "reconcile_pairs": {"lith1251": "lt", "latv1249": "lv", "latg1234": "ltg"},
     },
@@ -118,7 +119,7 @@ FAMILIES = {
             "Norwegian_Nynorsk": "nn", "Icelandic": "is", "Afrikaans": "af", "West_Frisian": "fy",
             "Luxembourgish": "lb", "Yiddish": "yi", "Gothic": "got", "Old_English": "ang",
             "Old_High_German": "goh", "Old_Norse": "non", "Low_German": "nds", "Faroese": "fo",
-            "Scots": "sco", "Proto-Germanic": "gem-pro",
+            "Scots": "sco", "Proto-Germanic": "gem-pro", "Proto-West_Germanic": "gmw-pro",
         },
         "all_load": ["Proto-Germanic"],   # proto reconstruido, sin etimología
         "reconcile_pairs": {
@@ -144,6 +145,66 @@ FAMILIES = {
             "russ1263": "ru", "poli1260": "pl", "czec1258": "cs", "slov1269": "sk",
             "ukra1253": "uk", "bulg1262": "bg", "slov1268": "sl",
         },
+    },
+    # ───────────────────────── HELÉNICO (alfabeto griego → romanize; Ancient Greek enorme) ─────────────────────────
+    "hellenic": {
+        "members": ["grc", "el", "gmy", "grk-pro"],   # Antiguo, Moderno, Micénico; Proto-Helénico (ancestro)
+        "ancestors": [
+            ("proto-hellenic", ["grk-pro"], "reconstruido"),
+            ("proto-ie", ["ine-pro"], "reconstruido"),
+        ],
+        "kaikki_files": {"Ancient_Greek": "grc", "Greek": "el", "Mycenaean_Greek": "gmy",
+                         "Proto-Hellenic": "grk-pro"},
+        "all_load": ["Mycenaean_Greek"],              # micénico fragmentario → cargar toda entrada (grk-pro es -pro → --all auto)
+        "reconcile_pairs": {"anci1242": "grc", "mode1248": "el", "myce1241": "gmy"},
+    },
+    # ───────────────────────── ALBANÉS (rama propia; solo Albanian estándar tiene dump) ─────────────────────────
+    "albanian": {
+        "members": ["sq", "sqj-pro"],                 # Gheg/Tosk sin dump Kaikki; Proto-Albanés ancestro
+        "ancestors": [
+            ("proto-albanian", ["sqj-pro"], "reconstruido"),
+            ("proto-ie", ["ine-pro"], "reconstruido"),
+        ],
+        "kaikki_files": {"Albanian": "sq", "Proto-Albanian": "sqj-pro"},
+        "all_load": [],                               # sqj-pro es -pro → --all auto
+        "reconcile_pairs": {"alba1267": "sq"},
+    },
+    # ───────────────────────── ANATOLIO (extraído del dump crudo wiktextract; corpus pequeño, extinto) ─────────────────────────
+    # La rama IE más divergente/temprana (hipótesis Indo-Hitita). Hitita el mejor atestiguado; resto fragmentario.
+    "anatolian": {
+        "members": ["hit", "xlu", "xlc", "xld", "xcr", "plq", "imy", "xsd", "ine-ana-pro"],
+        "ancestors": [
+            ("proto-anatolian", ["ine-ana-pro"], "reconstruido"),
+            ("proto-ie", ["ine-pro"], "reconstruido"),
+        ],
+        "kaikki_files": {"Hittite": "hit", "Cuneiform_Luwian": "xlu", "Lycian": "xlc", "Lydian": "xld",
+                         "Carian": "xcr", "Palaic": "plq", "Milyan": "imy", "Sidetic": "xsd",
+                         "Proto-Anatolian": "ine-ana-pro"},
+        "all_load": ["Hittite", "Cuneiform_Luwian", "Lycian", "Lydian", "Carian", "Palaic", "Milyan", "Sidetic"],
+        "reconcile_pairs": {"hitt1242": "hit", "cune1239": "xlu", "lyci1241": "xlc", "lydi1241": "xld",
+                            "cari1274": "xcr", "pala1331": "plq"},
+    },
+    # ───────────────────────── ARMENIO (alfabeto armenio; Old Armenian atestiguado ancestro del moderno) ─────────────────────────
+    "armenian": {
+        "members": ["hy", "xcl", "axm"],              # Moderno, Antiguo(Clásico), Medio
+        "ancestors": [
+            ("old-armenian", ["xcl"], "atestiguado"), # ancestro atestiguado del armenio moderno
+            ("proto-ie", ["ine-pro"], "reconstruido"),
+        ],
+        "kaikki_files": {"Armenian": "hy", "Old_Armenian": "xcl", "Middle_Armenian": "axm"},
+        "all_load": [],
+        "reconcile_pairs": {"nucl1235": "hy", "clas1249": "xcl", "midd1366": "axm"},
+    },
+    # ───────────────────────── TOCARIO (rama extinta; A y B, corpus pequeño ya romanizado) ─────────────────────────
+    "tocharian": {
+        "members": ["xto", "txb", "toc-pro"],         # Tocario A, Tocario B; Proto-Tocario ancestro
+        "ancestors": [
+            ("proto-tocharian", ["toc-pro"], "reconstruido"),
+            ("proto-ie", ["ine-pro"], "reconstruido"),
+        ],
+        "kaikki_files": {"Tocharian_A": "xto", "Tocharian_B": "txb"},
+        "all_load": ["Tocharian_A", "Tocharian_B"],   # corpus pequeño/fragmentario → no perder formas
+        "reconcile_pairs": {"tokh1242": "xto", "tokh1243": "txb"},
     },
 }
 

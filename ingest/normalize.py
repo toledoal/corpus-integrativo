@@ -75,8 +75,14 @@ _DEV = {# consonantes
         "ओ":"o","औ":"o","ऑ":"o",
         # signos dependientes de vocal (matras)
         "ा":"a","ि":"i","ी":"i","ु":"u","ू":"u","ृ":"r","े":"e","ै":"e","ो":"o","ौ":"o","ऽ":""}
-_MAPS = {"Cyrillic": _CYR, "Greek": _GRK, "Devanagari": _DEV}
-_ALL = {**_CYR, **_GRK, **_DEV}                     # mapa combinado (para formas de script MEZCLADO)
+# Armenio (para Old/Middle Armenian sin IPA; el moderno hy va por IPA). APROX declarada: los africados
+# ts/dz/č/ǰ (ծ ց ձ ճ չ ջ) se colapsan a 's' (Σ, release sibilante) — cobertura, no decisión OAS fina.
+_ARM = {"ա":"a","բ":"b","գ":"g","դ":"d","ե":"e","զ":"z","է":"e","ը":"","թ":"t","ժ":"z","ի":"i",
+        "լ":"l","խ":"x","ծ":"s","կ":"k","հ":"h","ձ":"s","ղ":"r","ճ":"s","մ":"m","յ":"y","ն":"n",
+        "շ":"s","ո":"o","չ":"s","պ":"p","ջ":"s","ռ":"r","ս":"s","վ":"v","տ":"t","ր":"r","ց":"s",
+        "ւ":"w","փ":"p","ք":"k","օ":"o","ֆ":"f","և":"ev"," և":"ev"}
+_MAPS = {"Cyrillic": _CYR, "Greek": _GRK, "Devanagari": _DEV, "Armenian": _ARM}
+_ALL = {**_CYR, **_GRK, **_DEV, **_ARM}             # mapa combinado (para formas de script MEZCLADO)
 
 
 def romanize(text, script=None):
