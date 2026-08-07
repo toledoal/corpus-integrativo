@@ -79,7 +79,9 @@ def detail(fid):
                          SELECT fe.parent_lect, fe.parent_form, fe.parent_form_id, fe.kind, fe.source_id,
                                 up.depth+1, up.path||fe.child_form_id
                          FROM form_etymology fe JOIN up ON fe.child_form_id=up.parent_form_id
-                         WHERE up.depth<15 AND NOT fe.child_form_id = ANY(up.path))
+                         WHERE up.depth<15 AND NOT fe.child_form_id = ANY(up.path)
+                           AND up.kind IN ('herencia','reconstruido'))   -- NO trepar por préstamo/sustrato: la
+                       --   historia profunda de un préstamo es del DONANTE, no de quien lo toma (caso 'gato'→gâteau)
                        SELECT DISTINCT ON (up.parent_lect, up.parent_form)
                               up.parent_lect, up.parent_form, up.kind, up.source_id, up.depth, l.name, l.level
                        FROM up LEFT JOIN lect l ON l.id=up.parent_lect

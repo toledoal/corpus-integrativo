@@ -245,6 +245,19 @@ documentado, o su proto no lo tiene). Subir más requiere Pokorny (CLDF público
   vacías + 311.785 duplicadas → 1,26M→**923k aristas** limpias. Ejemplo: `padre → osp padre → la pater/patrem →
   itc-pro *patēr → ine-pro *ph₂tḗr` sin ruido. PIE-reach 151.353.
 
+## 4i. Capas pesadas sobre Lexibank + fix del walk por préstamo (caso "gato")
+
+- **Capas pesadas globales** (no family-scoped, para cubrir Lexibank): `build_segments_global.py` explota
+  `segments_raw` → tabla `segment` (**+9.462.111 filas**, total 19,8M); `build_crypto_global.py` computa
+  `self_info = −Σ log2 p(clase)` con unigrama global de clases → **+1.863.769 firmas crypto** (total 3,06M).
+  BD 6,48→**8,53 GB** (+2 GB, coincide con lo estimado). Morfología N/A a Lexibank (sin etimología/afijos).
+- **BUG del linaje por préstamo (caso "gato")**: el walk recursivo TREPABA a través de aristas `prestamo`/`sustrato`
+  hacia toda la ascendencia del DONANTE → `gato → fr gâteau [préstamo] → … → PIE *wes-` (falso; *gâteau*=pastel).
+  Un préstamo da el donante inmediato; su historia profunda es del donante, NO de quien toma prestado. **Fix**: el
+  walk recursivo (`viewer/serve.py`) recursa solo por `kind IN ('herencia','reconstruido')`. Ahora `gato → fr
+  gâteau` es hoja-préstamo y `gato → la-lat cattus` para en latín tardío (origen incierto ✓, llega_PIE=False).
+  Afectaba **65.155 formas** que cruzaban un préstamo hacia ancestros falsos. (Diagnóstico vía subagente.)
+
 ## 5. Familias cargadas
 
 Registro en `ingest/families.py`. Estado: **12 familias, ~2.05M formas, 551 lenguas, QA 27 OK/0.**
