@@ -54,6 +54,55 @@ def search(q, lect):
         return [{"id": r[0], "lect": r[1], "word": r[2]} for r in rows]
 
 
+def concepts(q):
+    """Busca CONCEPTOS Concepticon por glosa inglesa → lista con nº de formas (todas las fuentes)."""
+    with db() as c, c.cursor() as cur:
+        cur.execute("""SELECT c.id, COALESCE(c.gloss_en,c.concepticon_gloss), c.semantic_field, c.concepticon_id,
+                              (SELECT count(*) FROM form f WHERE f.concept_id=c.id)
+                       FROM concept c
+                       WHERE c.gloss_en ILIKE %s OR c.concepticon_gloss ILIKE %s
+                       ORDER BY 5 DESC LIMIT 80""", (q + "%", q + "%"))
+        out = [{"id": r[0], "gloss": r[1], "field": r[2], "ccid": r[3], "n": r[4]} for r in cur.fetchall()]
+        if not out:                                  # fallback: coincidencia en cualquier parte
+            cur.execute("""SELECT c.id, COALESCE(c.gloss_en,c.concepticon_gloss), c.semantic_field, c.concepticon_id,
+                                  (SELECT count(*) FROM form f WHERE f.concept_id=c.id)
+                           FROM concept c WHERE c.gloss_en ILIKE %s OR c.concepticon_gloss ILIKE %s
+                           ORDER BY 5 DESC LIMIT 80""", ("%" + q + "%", "%" + q + "%"))
+            out = [{"id": r[0], "gloss": r[1], "field": r[2], "ccid": r[3], "n": r[4]} for r in cur.fetchall()]
+        return out
+
+
+def concept_forms(cid, family):
+    """Todas las formas de un concepto a través de lenguas, ordenadas por familia→lengua (para navegar por sentido)."""
+    with db() as c, c.cursor() as cur:
+        cur.execute("SELECT COALESCE(gloss_en,concepticon_gloss), semantic_field, concepticon_id FROM concept WHERE id=%s", (cid,))
+        cr = cur.fetchone()
+        q = """SELECT f.id, f.lect_id, l.name, l.family, l.subgroup, f.orthography, f.source_id
+               FROM form f JOIN lect l ON l.id=f.lect_id WHERE f.concept_id=%s"""
+        args = [cid]
+        if family:
+            q += " AND l.family=%s"; args.append(family)
+        q += " ORDER BY l.family NULLS LAST, l.name, lower(normalize(f.orthography,NFC)) LIMIT 4000"
+        cur.execute(q, args)
+        seen, rows = {}, []                          # dedup por (lengua, forma normalizada); agrega fuentes
+        for r in cur.fetchall():
+            k = (r[1], (r[5] or "").lower())
+            if k in seen:
+                if r[6] not in seen[k]["source"]:
+                    seen[k]["source"] += "," + r[6]
+                continue
+            o = {"id": r[0], "lect": r[1], "lect_name": r[2] or r[1], "family": r[3] or "—",
+                 "branch": BRANCH.get(r[1], r[3] or "—"), "word": r[5], "source": r[6]}
+            seen[k] = o; rows.append(o)
+            if len(rows) >= 600:
+                break
+        # familias disponibles para el filtro
+        cur.execute("SELECT DISTINCT l.family FROM form f JOIN lect l ON l.id=f.lect_id WHERE f.concept_id=%s AND l.family IS NOT NULL ORDER BY 1", (cid,))
+        fams = [r[0] for r in cur.fetchall()]
+        return {"gloss": cr[0] if cr else "?", "field": cr[1] if cr else None, "ccid": cr[2] if cr else None,
+                "forms": rows, "families": fams, "truncated": len(rows) >= 600}
+
+
 def detail(fid):
     with db() as c, c.cursor() as cur:
         cur.execute("""SELECT f.lect_id, f.orthography, f.ipa_raw, f.ipa_elab, f.pos, f.etymology_text,
@@ -191,6 +240,10 @@ PAGE = r"""<!doctype html><html lang="es"><head><meta charset="utf-8">
  .colx{line-height:2}.cxlead{font-weight:700;color:var(--acc);text-transform:uppercase;font-size:13px;letter-spacing:.03em}
  .cxchip{display:inline-block;padding:2px 9px;margin:2px;border:1px solid var(--line);border-radius:20px;background:var(--card);font-size:13px}
  .cxn{color:var(--mut);font-size:11px}
+ .cfam{margin:12px 0 2px;font-weight:700;font-size:13px;color:var(--acc)}
+ .back{display:inline-block;margin-bottom:10px;padding:5px 12px;border:1px solid var(--line);border-radius:8px;background:var(--soft);cursor:pointer;font-size:13px;font-weight:600;color:var(--acc)}
+ .back:hover{background:var(--card)}
+ .cfam:first-of-type{margin-top:2px}
  .pie{display:inline-block;font-size:10px;font-weight:700;color:#fff;background:var(--acc);border-radius:4px;padding:0 6px;letter-spacing:.04em}
  .mbreak{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin:2px 0 4px}
  .mchip{display:inline-flex;gap:5px;align-items:center;padding:3px 9px;border:1px solid var(--line);border-radius:7px;background:var(--card);font-size:13px}
@@ -207,26 +260,54 @@ PAGE = r"""<!doctype html><html lang="es"><head><meta charset="utf-8">
 </style></head><body>
 <header><h1>Corpus <b>Integrativo</b></h1>
  <form onsubmit="return go(event)" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+  <select id="mode" title="modo de búsqueda"><option value="word">palabra</option><option value="concept">concepto (EN)</option></select>
   <input id="q" placeholder="palabra (cualquier alfabeto)…" autofocus>
   <select id="lc"><option value="">— todas las lenguas —</option></select>
   <button>Buscar</button></form>
  <span id="branchinfo" class="mut" style="font-size:13px"></span></header>
 <main><div id="results"></div><div id="detail"><div class="hint">Busca una palabra para ver toda su información.</div></div></main>
 <script>
-let LECTS={};
+let LECTS={};let CBACK=null;   // contexto del concepto actual, para el botón "volver"
 async function loadLects(){const ls=await (await fetch('/api/lects')).json();const sel=document.getElementById('lc');
  ls.forEach(l=>{LECTS[l.id]=l;const o=document.createElement('option');o.value=l.id;
   o.textContent=l.name+' — '+l.branch+(l.subgroup?' / '+l.subgroup:'')+' ('+l.n+')';sel.appendChild(o);});}
 document.getElementById('lc')?.addEventListener('change',e=>{const l=LECTS[e.target.value];
  document.getElementById('branchinfo').textContent=l?('rama: '+l.branch+(l.subgroup?' · '+l.subgroup:'')+' · '+l.n+' formas'):'';});
 function esc(s){return (s==null?'':''+s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
-async function go(e){e&&e.preventDefault();const q=document.getElementById('q').value.trim();const lc=document.getElementById('lc').value;
+document.getElementById('mode')?.addEventListener('change',e=>{
+ const cm=e.target.value==='concept';
+ document.getElementById('q').placeholder=cm?'concepto en inglés (water, dog, mother…)':'palabra (cualquier alfabeto)…';
+ document.getElementById('lc').style.display=cm?'none':'';});
+async function go(e){e&&e.preventDefault();
+ if(document.getElementById('mode').value==='concept')return goConcept();
+ const q=document.getElementById('q').value.trim();const lc=document.getElementById('lc').value;
  if(!q)return false;const rs=await (await fetch('/api/search?q='+encodeURIComponent(q)+'&lect='+encodeURIComponent(lc))).json();
  const R=document.getElementById('results');R.innerHTML=rs.length?'':'<div class="hint">sin resultados</div>';
  rs.forEach(r=>{const d=document.createElement('div');d.className='r';d.innerHTML='<b>'+esc(r.word)+'</b><span class="lc">'+r.lect+'</span>';
   d.onclick=()=>{[...R.children].forEach(x=>x.classList.remove('sel'));d.classList.add('sel');show(r.id);};R.appendChild(d);});
  if(rs.length)R.firstChild.click();return false;}
-async function show(id){const d=await (await fetch('/api/form?id='+encodeURIComponent(id))).json();const D=document.getElementById('detail');
+async function goConcept(){const q=document.getElementById('q').value.trim();if(!q)return false;
+ const cs=await (await fetch('/api/concepts?q='+encodeURIComponent(q))).json();
+ const R=document.getElementById('results');R.innerHTML=cs.length?'':'<div class="hint">sin conceptos</div>';
+ cs.forEach(c=>{const d=document.createElement('div');d.className='r';
+  d.innerHTML='<b>'+esc(c.gloss)+'</b><span class="lc">'+c.n+' formas</span>'+(c.field?'<div class="mut" style="font-size:11px">'+esc(c.field)+'</div>':'');
+  d.onclick=()=>{[...R.children].forEach(x=>x.classList.remove('sel'));d.classList.add('sel');showConcept(c.id,'');};R.appendChild(d);});
+ if(cs.length)R.firstChild.click();return false;}
+async function showConcept(cid,family){const d=await (await fetch('/api/concept?id='+encodeURIComponent(cid)+'&family='+encodeURIComponent(family||''))).json();
+ const D=document.getElementById('detail');CBACK={cid:cid,family:family||'',gloss:d.gloss};
+ const lname=(lc,nm)=>nm||(LECTS[lc]&&LECTS[lc].name)||lc;
+ let famsel='<select onchange="showConcept(\''+cid+'\',this.value)"><option value="">— todas las familias ('+d.forms.length+(d.truncated?'+':'')+') —</option>'+
+   (d.families||[]).map(f=>'<option value="'+esc(f)+'"'+(f===family?' selected':'')+'>'+esc(f)+'</option>').join('')+'</select>';
+ let rowsByFam={};(d.forms||[]).forEach(r=>{(rowsByFam[r.family]=rowsByFam[r.family]||[]).push(r);});
+ let body=Object.keys(rowsByFam).map(fam=>'<div class="cfam">'+esc(fam)+' <span class="mut">('+rowsByFam[fam].length+')</span></div>'+
+   '<table>'+rowsByFam[fam].map(r=>'<tr onclick="show(\''+r.id.replace(/'/g,"\\'")+'\',1)" style="cursor:pointer">'+
+     '<td class="lc">'+esc(r.lect_name)+' <span class="iso">'+esc(r.lect)+'</span></td><td><b>'+esc(r.word)+'</b></td>'+
+     '<td class="srccol"><span class="src2">'+esc(r.source)+'</span></td></tr>').join('')+'</table>').join('');
+ D.innerHTML='<div class="word">'+esc(d.gloss)+'</div>'+
+   '<div class="meta">concepto Concepticon'+(d.ccid?' #'+esc(d.ccid):'')+(d.field?' · <b>'+esc(d.field)+'</b>':'')+' · '+(d.forms||[]).length+(d.truncated?'+':'')+' formas'+
+   (d.truncated?' <span class="mut">(tope 600 — filtra por familia)</span>':'')+'</div>'+
+   '<div class="sec">Formas por lengua '+famsel+'</div>'+body;}
+async function show(id,back){const d=await (await fetch('/api/form?id='+encodeURIComponent(id))).json();const D=document.getElementById('detail');
  const sk=d.skeleton||{};
  let sens=(d.senses||[]).map((g,i)=>'<div class="sens"><span class="n">'+(i+1)+'.</span>'+esc(g)+'</div>').join('')||'<span class="mut">—</span>';
  const lname=(lc,nm)=>nm||(LECTS[lc]&&LECTS[lc].name)||lc;
@@ -265,7 +346,8 @@ async function show(id){const d=await (await fetch('/api/form?id='+encodeURIComp
      (d.self_info!=null?' · <span class="lbl">self-info</span> <code>'+d.self_info.toFixed(2)+'</code>':'')+'</div>';
  }
  let segs=(d.segments||[]).map(s=>'<span class="seg'+(s.stress?' st':'')+'">'+esc(s.ipa)+'</span>').join('')||'<span class="mut">—</span>';
- D.innerHTML='<div class="word">'+esc(d.word)+'</div>'+
+ D.innerHTML=(back&&CBACK?'<div class="back" onclick="showConcept(CBACK.cid,CBACK.family)">← volver a «'+esc(CBACK.gloss)+'»</div>':'')+
+  '<div class="word">'+esc(d.word)+'</div>'+
   '<div class="meta"><b>'+esc(d.lect_name||d.lect)+'</b> ('+d.lect+') · rama <b>'+esc(d.branch)+'</b>'+(d.subgroup?' / '+esc(d.subgroup):'')+' · '+esc(d.pos||'')+
     (d.is_loan?' · <span class="tag">préstamo</span>':'')+(d.is_proper?' · <span class="tag">propio</span>':'')+' · <span class="mut">fuente '+esc(d.source)+'</span></div>'+
   '<div class="sec">Sentidos'+(d.polyseme_links?' · '+d.polyseme_links+' enlaces de polisemia':'')+'</div>'+sens+
@@ -298,6 +380,10 @@ class H(BaseHTTPRequestHandler):
                 self._send(json.dumps(lects(), ensure_ascii=False))
             elif u.path == "/api/search":
                 self._send(json.dumps(search(qs.get("q", [""])[0], qs.get("lect", [""])[0]), ensure_ascii=False))
+            elif u.path == "/api/concepts":
+                self._send(json.dumps(concepts(qs.get("q", [""])[0]), ensure_ascii=False))
+            elif u.path == "/api/concept":
+                self._send(json.dumps(concept_forms(qs.get("id", [""])[0], qs.get("family", [""])[0]), ensure_ascii=False))
             elif u.path == "/api/form":
                 self._send(json.dumps(detail(qs.get("id", [""])[0]), ensure_ascii=False))
             else:
